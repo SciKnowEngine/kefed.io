@@ -915,6 +915,14 @@ Sidebar.prototype.addGeneralPalette = function(expand)
  		this.createVertexTemplateEntry('ellipse;shape=doubleEllipse;whiteSpace=wrap;html=1;', 120, 80, '', 'Double Ellipse', null, null, 'oval ellipse start end state double'),
 	 	this.createVertexTemplateEntry('rhombus;whiteSpace=wrap;html=1;', 80, 80, '', 'Diamond', null, null, 'diamond rhombus if condition decision conditional question test'),
 	 	this.createEdgeTemplateEntry('endArrow=classic;html=1;', 50, 50, '', 'Connection'),
+	 	this.createVertexTemplateEntry('process;whiteSpace=wrap;html=1;', 120, 80, '', 'Process', null, null, 'oval ellipse state'),
+	 	this.createVertexTemplateEntry('parameter;whiteSpace=wrap;html=1;', 120, 80, '', 'Parameter', null, null, 'oval ellipse state'),
+	 	this.createVertexTemplateEntry('measurement;whiteSpace=wrap;html=1;', 120, 80, '', 'Measurement', null, null, 'oval ellipse state'),
+	 	this.createVertexTemplateEntry('fork;whiteSpace=wrap;html=1;', 120, 80, '', 'Fork', null, null, 'oval ellipse state'),
+	 	this.createVertexTemplateEntry('entity;whiteSpace=wrap;html=1;', 120, 80, '', 'Entity', null, null, 'oval ellipse state'),
+	 	this.createVertexTemplateEntry('constant;whiteSpace=wrap;html=1;', 120, 80, '', 'Constant', null, null, 'oval ellipse state'),
+	 	this.createVertexTemplateEntry('branch;whiteSpace=wrap;html=1;', 120, 80, '', 'Branch', null, null, 'oval ellipse state'),
+	 	
 	 ];
 	
 	this.addPaletteFunctions('general', mxResources.get('general'), (expand != null) ? expand : true, fns);

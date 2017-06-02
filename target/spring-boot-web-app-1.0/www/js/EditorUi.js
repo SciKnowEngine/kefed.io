@@ -2560,7 +2560,7 @@ EditorUi.prototype.updateActionStates = function()
     this.actions.get('guides').setEnabled(graph.isEnabled());
     this.actions.get('grid').setEnabled(!this.editor.chromeless);
 
-    var unlocked = graph.isEnabled() && !graph.isCellLocked(graph.getDefaultParent());
+    /*var unlocked = graph.isEnabled() && !graph.isCellLocked(graph.getDefaultParent());
     this.menus.get('open').setEnabled(unlocked);
     this.menus.get('layout').setEnabled(unlocked);
     this.menus.get('insert').setEnabled(unlocked);
@@ -2570,7 +2570,7 @@ EditorUi.prototype.updateActionStates = function()
     this.actions.get('selectVertices').setEnabled(unlocked);
     this.actions.get('selectEdges').setEnabled(unlocked);
     this.actions.get('selectAll').setEnabled(unlocked);
-    this.actions.get('selectNone').setEnabled(unlocked);
+    this.actions.get('selectNone').setEnabled(unlocked);*/
     
     this.updatePasteActionStates();
 };

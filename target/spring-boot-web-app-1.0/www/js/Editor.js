@@ -873,7 +873,7 @@ OpenFile.prototype.cancel = function(cancel)
 		    '<defs><pattern id="grid" width="' + tmp2 + '" height="' + tmp2 + '" patternUnits="userSpaceOnUse">' +
 		    '<path d="' + d.join(' ') + '" fill="none" stroke="' + color + '" opacity="0.2" stroke-width="1"/>' +
 		    '<path d="M ' + tmp2 + ' 0 L 0 0 0 ' + tmp2 + '" fill="none" stroke="' + color + '" stroke-width="1"/>' +
-		    '</pattern></defs></svg>';
+		    '</pattern></defs><rect width="100%" height="100%" fill="url(#grid)"/></svg>';
 
 		return svg;
 	};

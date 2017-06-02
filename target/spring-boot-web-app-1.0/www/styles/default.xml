@@ -102,4 +102,60 @@
 		<add as="edgeStyle" value="none"/>
 		<add as="fillColor" value="#ffffff"/>
 	</add>
+	<add as="branch">
+	    <add as="shape" value="image"/>
+	    <add as="perimeter" value="rectanglePerimeter"/>
+	    <add as="fontSize" value="10"/>
+	    <add as="align" value="center"/>
+	    <add as="verticalAlign" value="middle"/>
+	    <add as="image" value="branch.gif"/>
+	</add>
+	<add as="constant">
+	    <add as="shape" value="image"/>
+	    <add as="perimeter" value="rectanglePerimeter"/>
+	    <add as="fontSize" value="10"/>
+	    <add as="align" value="center"/>
+	    <add as="verticalAlign" value="middle"/>
+	    <add as="image" value="constant.gif"/>
+	</add>
+	<add as="entity">
+	    <add as="shape" value="image"/>
+	    <add as="perimeter" value="rectanglePerimeter"/>
+	    <add as="fontSize" value="10"/>
+	    <add as="align" value="center"/>
+	    <add as="verticalAlign" value="middle"/>
+	    <add as="image" value="entity.gif"/>
+	</add>
+	<add as="fork">
+	    <add as="shape" value="image"/>
+	    <add as="perimeter" value="rectanglePerimeter"/>
+	    <add as="fontSize" value="10"/>
+	    <add as="align" value="center"/>
+	    <add as="verticalAlign" value="middle"/>
+	    <add as="image" value="fork.gif"/>
+	</add>
+	<add as="measurement">
+	    <add as="shape" value="image"/>
+	    <add as="perimeter" value="rectanglePerimeter"/>
+	    <add as="fontSize" value="10"/>
+	    <add as="align" value="center"/>
+	    <add as="verticalAlign" value="middle"/>
+	    <add as="image" value="measurement.gif"/>
+	</add>
+	<add as="parameter">
+	    <add as="shape" value="image"/>
+	    <add as="perimeter" value="rectanglePerimeter"/>
+	    <add as="fontSize" value="10"/>
+	    <add as="align" value="center"/>
+	    <add as="verticalAlign" value="middle"/>
+	    <add as="image" value="parameter.gif"/>
+	</add>
+	<add as="process">
+	    <add as="shape" value="image"/>
+	    <add as="perimeter" value="rectanglePerimeter"/>
+	    <add as="fontSize" value="10"/>
+	    <add as="align" value="center"/>
+	    <add as="verticalAlign" value="middle"/>
+	    <add as="image" value="process.gif"/>
+	</add>
 </mxStylesheet>
