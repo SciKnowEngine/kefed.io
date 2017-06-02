@@ -1,11 +1,13 @@
 # kefed-io
 Knowledge Engineering from Experimental Design Input / Output System
 
-Run - Import as Maven project in Eclipse
-Run - Maven Clean , Maven Install
-Run as Java Application - SpringBootWebApplication.java
+1.)Run - Import as Maven project in Eclipse
 
-Get Password from Console.
-Login into localhost:8080/www/index.html as :
+2.)Run - Maven Clean , Maven Install
+
+3. )Run as Java Application - SpringBootWebApplication.java
+
+4. ) Get Password from Console.
+5. )Login into localhost:8080/www/index.html as :
 UserName : user
 Password: one from console
