@@ -11,7 +11,6 @@ Preliminary instructions for the KEfED io system.
     * UserName : user
     * Password: Currently, when you run the server, the console prints the password as part of the output for the Spring Server:
 ```
-Using default security password: 871b4537-fc1c-4d75-9be5-ad16cecfe271
+   Using default security password: 871b4537-fc1c-4d75-9be5-ad16cecfe271
 ```
-
-    * Please use the password as shown to login to the system 
+Please use the password as shown to login to the system 
