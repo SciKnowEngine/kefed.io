@@ -1,0 +1,11 @@
+edu\isi\ske\kefed\io\Application.class
+edu\isi\ske\kefed\io\model\CurrentUser.class
+edu\isi\ske\kefed\io\security\UserRepository.class
+edu\isi\ske\kefed\io\security\ApplicationSecurity.class
+edu\isi\ske\kefed\io\model\Role.class
+edu\isi\ske\kefed\io\security\UserDetailsServiceImpl.class
+edu\isi\ske\kefed\io\MvcConfig.class
+edu\isi\ske\kefed\io\model\User.class
+edu\isi\ske\kefed\io\start\WelcomeController.class
+edu\isi\ske\kefed\io\beans\AppConfiguration.class
+edu\isi\ske\kefed\io\start\SpringBootWebApplication.class

@@ -1,16 +1,14 @@
 package edu.isi.ske.kefed.io.model;
 
-import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.security.core.GrantedAuthority;
-
 import java.util.List;
 
+import org.springframework.security.core.GrantedAuthority;
+
+import lombok.Data;
+
 @Data
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "user-index", type = "user", shards = 1, replicas = 0, refreshInterval = "-1")
 public class User {
 
-    @Id
     private String username;
 
     private String password;
@@ -36,4 +34,30 @@ public class User {
         this.enabled = enabled;
         this.role = role;
     }
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+    
+    
 }

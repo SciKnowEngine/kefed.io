@@ -22,7 +22,6 @@ import org.apache.log4j.Logger;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 

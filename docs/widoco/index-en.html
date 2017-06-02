@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+ <link rel="stylesheet" href="resources/primer.css" media="screen" />    <link rel="stylesheet" href="resources/rec.css" media="screen" />    <link rel="stylesheet" href="resources/extra.css" media="screen" />    <link rel="stylesheet" href="resources/owl.css" media="screen" />   
+
+<!-- SCHEMA.ORG METADATA -->
+<script type="application/ld+json">{"@context":"http://schema.org","@type":"TechArticle","url":"https://raw.githubusercontent.com/obi-ontology/obi-temp/master/obi.owl","image":"http://vowl.visualdataweb.org/webvowl/#iri=https://raw.githubusercontent.com/obi-ontology/obi-temp/master/obi.owl","name":"Ontology of Biomedical Investigations (OBI)", "headline":"The Ontology for Biomedical Investigations (OBI) helps you communicate clearly about scientific investigations by defining more than 2500 terms for assays, devices, objectives, and more. It’s easy to use with many other Open Biomedical Ontologies, including the Gene Ontology, Protein Ontology, Plant Ontology, ChEBI, and many more. An ontology is a system of carefully defined terminology, connected by logical relationships, and designed for both humans and computers to use. OBI is about scientific investigations, so OBI contains general terms such as ‘assay’ and specific terms such as ‘genotyping by high throughput sequencing assay’. Every term has a unique identifier, standard metadata, and logical definitions that connect it to other terms in OBI and the wider OBO community. By using OBI terms when you collect your data, you benefit from the careful definitions, and can use the logical network to enrich search and analysis. By using OBI terms when you share your data, you make it easy for others to understand your work, and integrate it with their own datasets that use OBI and OBO terminology.", "datePublished":"22 February 2017", "version":"2017.02.22", "license":"http://creativecommons.org/licenses/by/3.0/", "author":[{"@type":"Person","name":"Pierre Grenon"},{"@type":"Person","name":"Bjoern Peters"},{"@type":"Person","name":"Matthew Pocock"},{"@type":"Person","name":"Liju Fan"},{"@type":"Person","name":"Christian Bolling"},{"@type":"Person","name":"Chris Taylor"},{"@type":"Person","name":"Chris Stoeckert"},{"@type":"Person","name":"Tina Hernandez-Boussard"},{"@type":"Person","name":"Jessica Turner"},{"@type":"Person","name":"Allyson Lister"},{"@type":"Person","name":"Yongqun He"},{"@type":"Person","name":"Jie Zheng"},{"@type":"Person","name":"Tanya Gray"},{"@type":"Person","name":"Bill Bug"},{"@type":"Person","name":"Lawrence Hunter"},{"@type":"Person","name":"Chris Mungall"},{"@type":"Person","name":"Daniel Schober"},{"@type":"Person","name":"Helen C. Causton"},{"@type":"Person","name":"James Malone"},{"@type":"Person","name":"Kevin Clancy"},{"@type":"Person","name":"Susanna-Assunta Sansone"},{"@type":"Person","name":"Norman Morrison"},{"@type":"Person","name":"Daniel Rubin"},{"@type":"Person","name":"Cristian Cocos"},{"@type":"Person","name":"Stefan Wiemann"},{"@type":"Person","name":"Melanie Courtot"},{"@type":"Person","name":"Helen Parkinson"},{"@type":"Person","name":"Luisa Montecchi"},{"@type":"Person","name":"Jennifer Fostel"},{"@type":"Person","name":"Jeffrey Grethe"},{"@type":"Person","name":"Eric Deutsch"},{"@type":"Person","name":"Philip Lord"},{"@type":"Person","name":"Gilberto Fragoso"},{"@type":"Person","name":"Philippe Rocca-Serra"},{"@type":"Person","name":"Elisabetta Manduchi"},{"@type":"Person","name":"Mervi Heiskanen"},{"@type":"Person","name":"Richard Bruskiewich"},{"@type":"Person","name":"Robert Stevens"},{"@type":"Person","name":"Dirk Derom"},{"@type":"Person","name":"Larisa Soldatova"},{"@type":"Person","name":"James A. Overton"},{"@type":"Person","name":"Dawn Field"},{"@type":"Person","name":"Trish Whetzel"},{"@type":"Person","name":"Alan Ruttenberg"},{"@type":"Person","name":"Frank Gibson"},{"@type":"Person","name":"Matthew Brush"},{"@type":"Person","name":"Richard Scheuermann"},{"@type":"Person","name":"John Westbrook"},{"@type":"Person","name":"Barry Smith"},{"@type":"Person","name":"Carlo Torniai"},{"@type":"Person","name":"Jay Greenbaum"},{"@type":"Person","name":"Ryan R. Brinkman"},{"@type":"Person","name":"Monnie McGee"},{"@type":"Person","name":"Holger Stenzhorn"},{"@type":"Person","name":"Melissa Haendel"},{"@type":"Person","name":"Joe White"}]}</script>
+
+<script src="resources/jquery.js"></script> 
+<script src="resources/marked.min.js"></script> 
+    <script> 
+function loadHash() {
+  jQuery(".markdown").each(function(el){jQuery(this).after(marked(jQuery(this).text())).remove()});
+	var hash = location.hash;
+	if($(hash).offset()!=null){
+	  $('html, body').animate({scrollTop: $(hash).offset().top}, 0);
+}
+	loadTOC();
+}
+function loadTOC(){
+	//process toc dynamically
+	  var t='<h2>Table of contents</h2><ul>';i = 1;j=0;
+	  jQuery(".list").each(function(){
+		if(jQuery(this).is('h2')){
+			if(j>0){
+				t+='</ul>';
+				j=0;
+			}
+			t+= '<li>'+i+'. <a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).text()+'</a></li>';
+			i++;
+		}
+		if(jQuery(this).is('h3')){
+			if(j==0){
+				t+='<ul>';
+			}
+			j++;
+			t+= '<li>'+(i-1)+'.'+j+'. '+'<a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).text()+'</a></li>';
+		}
+		t = t.replace(' back to ToC','');
+	  });
+	  t+='</ul>';
+	  $("#toc").html(t); 
+}
+    $(function(){
+      $("#abstract").load("sections/abstract-en.html"); 
+      $("#introduction").load("sections/introduction-en.html"); 
+      $("#overview").load("sections/overview-en.html"); 
+      $("#description").load("sections/description-en.html"); 
+      $("#references").load("sections/references-en.html"); 
+      $("#changelog").load("sections/changelog-en.html"); 
+      $("#crossref").load("sections/crossref-en.html", null, loadHash); 
+    });
+    </script> 
+  </head> 
+
+<body>
+<div class="container"><div class="head">
+<div style="float:right">language <a href="index-en.html"><b>en</b></a> </div>
+<h1>Ontology of Biomedical Investigations (OBI)</h1>
+<h2>Release  22 February 2017</h2>
+<dl>
+<dt>This version:</dt>
+<dd><a href="https://raw.githubusercontent.com/obi-ontology/obi/v2017-02-22/obi.owl">https://raw.githubusercontent.com/obi-ontology/obi/v2017-02-22/obi.owl</a></dd>
+</dl><dl><dt>Latest version:</dt>
+<dd><a href="https://raw.githubusercontent.com/obi-ontology/obi/v2017-02-22/obi.owl">https://raw.githubusercontent.com/obi-ontology/obi/v2017-02-22/obi.owl</a></dd>
+</dl><dl>
+<dt>Previous version:</dt>
+<dd><a href="http://purl.obolibrary.org/obo/obi/2016-10-11/obi.owl">http://purl.obolibrary.org/obo/obi/2016-10-11/obi.owl</a></dd>
+</dl>
+<dt>Revision:</dt>
+<dd>2017.02.22</dd>
+<dl><dt>Authors:</dt>
+<dd>Pierre Grenon</dd><dd>Bjoern Peters</dd><dd>Matthew Pocock</dd><dd>Liju Fan</dd><dd>Christian Bolling</dd><dd>Chris Taylor</dd><dd>Chris Stoeckert</dd><dd>Tina Hernandez-Boussard</dd><dd>Jessica Turner</dd><dd>Allyson Lister</dd><dd>Yongqun He</dd><dd>Jie Zheng</dd><dd>Tanya Gray</dd><dd>Bill Bug</dd><dd>Lawrence Hunter</dd><dd>Chris Mungall</dd><dd>Daniel Schober</dd><dd>Helen C. Causton</dd><dd>James Malone</dd><dd>Kevin Clancy</dd><dd>Susanna-Assunta Sansone</dd><dd>Norman Morrison</dd><dd>Daniel Rubin</dd><dd>Cristian Cocos</dd><dd>Stefan Wiemann</dd><dd>Melanie Courtot</dd><dd>Helen Parkinson</dd><dd>Luisa Montecchi</dd><dd>Jennifer Fostel</dd><dd>Jeffrey Grethe</dd><dd>Eric Deutsch</dd><dd>Philip Lord</dd><dd>Gilberto Fragoso</dd><dd>Philippe Rocca-Serra</dd><dd>Elisabetta Manduchi</dd><dd>Mervi Heiskanen</dd><dd>Richard Bruskiewich</dd><dd>Robert Stevens</dd><dd>Dirk Derom</dd><dd>Larisa Soldatova</dd><dd>James A. Overton</dd><dd>Dawn Field</dd><dd>Trish Whetzel</dd><dd>Alan Ruttenberg</dd><dd>Frank Gibson</dd><dd>Matthew Brush</dd><dd>Richard Scheuermann</dd><dd>John Westbrook</dd><dd>Barry Smith</dd><dd>Carlo Torniai</dd><dd>Jay Greenbaum</dd><dd>Ryan R. Brinkman</dd><dd>Monnie McGee</dd><dd>Holger Stenzhorn</dd><dd>Melissa Haendel</dd><dd>Joe White</dd></dl>
+
+<dl><dt>Publisher:</dt>
+<dd><a href="http://obi-ontology.org/">OBI Consortium</a></dd></dl>
+<dl><dt>Imported Ontologies:</dt>
+<dd><a href="http://purl.obolibrary.org/obo/ro.owl">RO</a></dd><dd><a href="http://purl.obolibrary.org/obo/chebi.owl">CHEBI</a></dd><dd><a href="http://purl.obolibrary.org/obo/clo.owl">CLO</a></dd><dd><a href="http://purl.obolibrary.org/obo/cl.owl">CL</a></dd><dd><a href="http://purl.obolibrary.org/obo/envo.owl">ENVO</a></dd><dd><a href="http://purl.obolibrary.org/obo/go.owl">GO</a></dd><dd><a href="http://purl.obolibrary.org/obo/hp.owl">HP</a></dd><dd><a href="http://purl.obolibrary.org/obo/ido.owl">IDO</a></dd><dd><a href="http://purl.obolibrary.org/obo/ncbitaxon.owl">NCBITAXON</a></dd><dd><a href="http://purl.obolibrary.org/obo/ogms.owl">OGMS</a></dd><dd><a href="http://purl.obolibrary.org/obo/omiabis.owl">OMIABIS</a></dd><dd><a href="http://purl.obolibrary.org/obo/pato.owl">PATO</a></dd><dd><a href="http://purl.obolibrary.org/obo/pr.owl">PR</a></dd><dd><a href="http://purl.obolibrary.org/obo/reo.owl">REO</a></dd><dd><a href="http://purl.obolibrary.org/obo/so.owl">SO</a></dd><dd><a href="http://purl.obolibrary.org/obo/uberon.owl">UBERON</a></dd><dd><a href="http://purl.obolibrary.org/obo/uo.owl">UO</a></dd></dl>
+
+<dl><dt>Extended Ontologies:</dt>
+<dd><a href="http://purl.obolibrary.org/obo/bfo.owl">BFO</a></dd></dl>
+
+<dl><dt>Download serialization:</dt><dd><span><a href="https://raw.githubusercontent.com/obi-ontology/obi/v2017-02-22/obi.owl" target="_blank"><img src="https://img.shields.io/badge/Format-RDF/XML-blue.svg" alt="RDF/XML"></img></a> </span><span><a href="ontology.n3" target="_blank"><img src="https://img.shields.io/badge/Format-N_Triples-blue.svg" alt="N-Triples"></img></a> </span><span><a href="ontology.ttl" target="_blank"><img src="https://img.shields.io/badge/Format-TTL-blue.svg" alt="TTL"></img></a> </span></dd></dl><dl><dt>License: </dt><dd><a href="http://creativecommons.org/licenses/by/3.0/" target="_blank"><img src ="https://img.shields.io/badge/License-Creative Commons Attribution 3.0 Generic License-blue.svg" alt="http://creativecommons.org/licenses/by/3.0/"></img></a>
+<a href="http://creativecommons.org/licenses/by/3.0/" rel="license" target="_blank">
+<img src="http://i.creativecommons.org/l/by/3.0/88x31.png" style="border-width:0" alt="License"></img>
+</a>
+<br/></dd></dl><dl><dt>Visualization:</dt><dd><a href="webvowl/index.html#ontology" target="_blank"><img src="https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg" alt="Visualize with WebVowl"></img></a></dd></dl>
+<dl><dt>Cite as:</dt>
+<dd>The Ontology for Biomedical Investigations, PLoS One. 2016 Apr 29;11(4):e0154556. </dd>
+</dl>
+<dl><dt>DOI:</dt>
+<dd><a href="http://dx.doi.org/doi:10.1371/journal.pone.0154556"><img src ="https://img.shields.io/badge/DOI-doi:10.1371/journal.pone.0154556-blue.svg" alt="doi:10.1371/journal.pone.0154556"></img></a></dd>
+</dl>
+<dl><a href="provenance/provenance-en.html" target="_blank">Provenance of this page</a></dl><hr/>
+</div>
+<div class="status">
+<div>
+<span>Ontology</span>
+</div>
+</div>     <div id="abstract"></div>
+<div id="toc"></div>     <div id="introduction"></div>
+     <div id="overview"></div>
+     <div id="description"></div>
+     <div id="crossref"></div>
+     <div id="references"></div>
+     <div id="changelog"></div>
+<div id="acknowledgements">
+<h2 id="ack" class="list">Acknowledgements <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+<p>The authors would like to thank <a href="http://www.essepuntato.it/">Silvio Peroni</a> for developing <a href="http://www.essepuntato.it/lode">LODE</a>, a Live OWL Documentation Environment, which is used for representing the Cross Referencing Section of this document and <a href="https://w3id.org/people/dgarijo">Daniel Garijo</a> for developing <a href="https://github.com/dgarijo/Widoco">Widoco</a>, the program used to create the template used in this documentation.</p>
+</div>
+</body> 
+</html>

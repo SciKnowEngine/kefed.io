@@ -3,68 +3,86 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>edu.isi.sciknowengine</groupId>
-	<artifactId>kefed.io</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
-
-	<name>kefed.io</name>
-	<description>Editor for KEfED models build from Spring Boot, mxgraph</description>
+	<artifactId>spring-boot-web-app</artifactId>
+	<packaging>war</packaging>
+	<name>Spring Boot Web App</name>
+	<description>Spring Boot Web App</description>
+	<version>1.0</version>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.3.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<version>1.4.2.RELEASE</version>
 	</parent>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 	</properties>
 
-	<!-- ADDITIONAL MVN REPOSITORIES FOR ADDITIONAL RESOURCES -->
-	<repositories>
-		<repository>
-			<id>isi.nexus.server.thirdparty</id>
-			<name>ISI Third Party Nexus Repository</name>
-			<url>http://colo-pm2.isi.edu:8081/nexus/content/repositories/thirdparty/</url>
-		</repository>
-	</repositories>
-
 	<dependencies>
 
+		<!-- Web -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-tomcat</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
+		
+		<!-- Web with Tomcat + Embed -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- JSTL -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+
+		<!-- Need this to compile JSP -->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Need this to compile JSP -->
+		<dependency>
+			<groupId>org.eclipse.jdt.core.compiler</groupId>
+			<artifactId>ecj</artifactId>
+			<version>4.6.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Optional, for bootstrap -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>3.3.7</version>
+		</dependency>
+		
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jetty</artifactId>
 		</dependency>
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-		</dependency>
+		</dependency> -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.session</groupId>
 			<artifactId>spring-session</artifactId>
 		</dependency>
-
+ -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -74,12 +92,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.mxgraph</groupId>
-			<artifactId>mxPDF</artifactId>
-			<version>1.0.2</version>
 		</dependency>
 
 		<dependency>
@@ -122,26 +134,14 @@
 			<version>3.0.9</version>
 		</dependency>
 
-
 	</dependencies>
-
 	<build>
 		<plugins>
+			<!-- Package as an executable jar/war -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-				</configuration>
-			</plugin>
-
 		</plugins>
 	</build>
-
-
 </project>
