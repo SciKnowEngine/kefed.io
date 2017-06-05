@@ -139,7 +139,8 @@
 	    <add as="perimeter" value="rectanglePerimeter"/>
 	    <add as="fontSize" value="10"/>
 	    <add as="align" value="center"/>
-	    <add as="verticalAlign" value="middle"/>
+	    <add as="verticalLabelPosition" value="bottom"/>
+	    <add as="verticalAlign" value="top"/>
 	    <add as="image" value="measurement.gif"/>
 	</add>
 	<add as="parameter">
@@ -147,7 +148,8 @@
 	    <add as="perimeter" value="rectanglePerimeter"/>
 	    <add as="fontSize" value="10"/>
 	    <add as="align" value="center"/>
-	    <add as="verticalAlign" value="middle"/>
+	    <add as="verticalLabelPosition" value="bottom"/>
+	    <add as="verticalAlign" value="top"/>
 	    <add as="image" value="parameter.gif"/>
 	</add>
 	<add as="process">
