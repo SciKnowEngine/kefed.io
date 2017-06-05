@@ -910,8 +910,8 @@ Sidebar.prototype.addGeneralPalette = function(expand)
 	 	//this.createVertexTemplateEntry('rounded=1;whiteSpace=wrap;html=1;', 120, 60, '', 'Rounded Rectangle', null, null, 'rounded rect rectangle box'),
  		//this.createVertexTemplateEntry('ellipse;whiteSpace=wrap;html=1;', 120, 80, '', 'Ellipse', null, null, 'oval ellipse state'),
 	 	// Explicit strokecolor/fillcolor=none is a workaround to maintain transparent background regardless of current style
- 		this.createVertexTemplateEntry('text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;',
- 			40, 20, 'Text', 'Text', null, null, 'text textbox textarea label'),
+ 		//this.createVertexTemplateEntry('text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;',
+ 			//40, 20, 'Text', 'Text', null, null, 'text textbox textarea label'),
  		//this.createVertexTemplateEntry('ellipse;shape=doubleEllipse;whiteSpace=wrap;html=1;', 120, 80, '', 'Double Ellipse', null, null, 'oval ellipse start end state double'),
 	 	//this.createVertexTemplateEntry('rhombus;whiteSpace=wrap;html=1;', 80, 80, '', 'Diamond', null, null, 'diamond rhombus if condition decision conditional question test'),
 	 	this.createEdgeTemplateEntry('endArrow=classic;html=1;', 50, 50, '', 'Connection'),
