@@ -107,7 +107,8 @@
 	    <add as="perimeter" value="rectanglePerimeter"/>
 	    <add as="fontSize" value="10"/>
 	    <add as="align" value="center"/>
-	    <add as="verticalAlign" value="middle"/>
+	    <add as="verticalLabelPosition" value="bottom"/>
+	    <add as="verticalAlign" value="top"/>
 	    <add as="image" value="branch.gif"/>
 	</add>
 	<add as="constant">
@@ -132,7 +133,8 @@
 	    <add as="perimeter" value="rectanglePerimeter"/>
 	    <add as="fontSize" value="10"/>
 	    <add as="align" value="center"/>
-	    <add as="verticalAlign" value="middle"/>
+	    <add as="verticalLabelPosition" value="bottom"/>
+	    <add as="verticalAlign" value="top"/>
 	    <add as="image" value="fork.gif"/>
 	</add>
 	<add as="measurement">
@@ -140,7 +142,7 @@
 	    <add as="perimeter" value="rectanglePerimeter"/>
 	    <add as="fontSize" value="10"/>
 	    <add as="align" value="center"/>
-	    <add as="verticalLabelPosition" value="bottom"/>
+	   <add as="verticalLabelPosition" value="bottom"/>
 	    <add as="verticalAlign" value="top"/>
 	    <add as="image" value="measurement.gif"/>
 	</add>
@@ -149,8 +151,8 @@
 	    <add as="perimeter" value="rectanglePerimeter"/>
 	    <add as="fontSize" value="11"/>
 	    <add as="align" value="left"/>
-	    <add as="verticalLabelPosition" value="middle"/>
-	    <add as="verticalAlign" value="left"/>
+	    <add as="verticalLabelPosition" value="bottom"/>
+	    <add as="verticalAlign" value="top"/>
 	    <add as="width" value="10px"/>
 	    <add as="image" value="parameter.gif"/>
 	</add>
