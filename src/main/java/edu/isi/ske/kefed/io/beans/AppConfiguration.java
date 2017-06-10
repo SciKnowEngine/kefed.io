@@ -38,7 +38,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
  *
  */
 @Configuration
-@PropertySource({"${appConfig:application.properties}","${appConfig:application-production.properties}"})
+@PropertySource({"${appConfig:application.properties}"})
 @EnableAutoConfiguration
 @EnableWebSecurity
 public class AppConfiguration {

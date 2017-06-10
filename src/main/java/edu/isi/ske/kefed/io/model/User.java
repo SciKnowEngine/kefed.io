@@ -2,13 +2,15 @@ package edu.isi.ske.kefed.io.model;
 
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.security.core.GrantedAuthority;
 
-import lombok.Data;
-
-@Data
+@Document(indexName = "user", type = "user", shards = 1, replicas = 0, refreshInterval = "-1")
 public class User {
 
+	@Id
+	private String id;
     private String username;
 
     private String password;
