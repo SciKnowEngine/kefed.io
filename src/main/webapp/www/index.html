@@ -4,115 +4,42 @@
 	<head>
 		<title>StudyDesign</title>
 		
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<meta name="generator" content="Polymer Starter Kit">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+		<meta name="generator" content="Polymer Starter Kit"></meta>
 		<meta name="viewport"
-			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-		<link rel="stylesheet" type="text/css" href="styles/grapheditor.css">
-		<link rel="icon" href="/images/favicon.ico">
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></meta>
+		<link rel="stylesheet" type="text/css" href="styles/grapheditor.css"></link>
+		<link rel="icon" href="/images/favicon.ico"></link>
 		
 		<!-- See https://goo.gl/OOhYW5 -->
-		<link rel="manifest" href="/manifest.json">
+		<link rel="manifest" href="/manifest.json"></link>
 		
 		<!-- See https://goo.gl/qRE0vM -->
-		<meta name="theme-color" content="#3f51b5">
+		<meta name="theme-color" content="#3f51b5"></meta>
 		
 		<!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
-		<meta name="mobile-web-app-capable" content="yes">
-		<meta name="application-name" content="My App">
-		
+		<meta name="mobile-web-app-capable" content="yes"></meta>
+		<meta name="application-name" content="My App"></meta>
 		<!-- Add to homescreen for Safari on iOS -->
-		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes"></meta>
 		<meta name="apple-mobile-web-app-status-bar-style"
-			content="black-translucent">
-		<meta name="apple-mobile-web-app-title" content="My App">
+			content="black-translucent"></meta>
+		<meta name="apple-mobile-web-app-title" content="My App"></meta>
 		
 		<!-- Homescreen icons -->
-		<link rel="apple-touch-icon" href="/images/manifest/icon-48x48.png">
-		<link rel="apple-touch-icon" sizes="72x72"
-			href="/images/manifest/icon-72x72.png">
-		<link rel="apple-touch-icon" sizes="96x96"
-			href="/images/manifest/icon-96x96.png">
-		<link rel="apple-touch-icon" sizes="144x144"
-			href="/images/manifest/icon-144x144.png">
-		<link rel="apple-touch-icon" sizes="192x192"
-			href="/images/manifest/icon-192x192.png">
+		<link rel="apple-touch-icon" href="/images/manifest/icon-48x48.png"></link>
+		<link rel="apple-touch-icon" sizes="72x72" href="/images/manifest/icon-72x72.png"></link>
+		<link rel="apple-touch-icon" sizes="96x96" href="/images/manifest/icon-96x96.png"></link>
+		<link rel="apple-touch-icon" sizes="144x144" href="/images/manifest/icon-144x144.png"></link>
+		<link rel="apple-touch-icon" sizes="192x192" href="/images/manifest/icon-192x192.png"></link>
 		
 		<!-- Tile icon for Windows 8 (144x144 + tile color) -->
 		<meta name="msapplication-TileImage"
-			content="/images/manifest/icon-144x144.png">
-		<meta name="msapplication-TileColor" content="#3f51b5">
-		<meta name="msapplication-tap-highlight" content="no">
+			content="/images/manifest/icon-144x144.png"></meta>
+		<meta name="msapplication-TileColor" content="#3f51b5"></meta>
+		<meta name="msapplication-tap-highlight" content="no"></meta>
 		
 		<script type="text/javascript">
-			
-			/*
-			 * Polymer Installation
-			 */
-			window.Polymer = {
-				dom: 'shadow',
-				lazyRegister: true,
-			};
-		
-			// Load webcomponentsjs polyfill if browser does not support native
-			// Web Components
-			(function() {
-				'use strict';
-		
-				var onload = function() {
-			        // For native Imports, manually fire WebComponentsReady so user code
-			        // can use the same code path for native and polyfill'd imports.
-			        if (!window.HTMLImports) {
-				          document.dispatchEvent(
-					            new CustomEvent('WebComponentsReady', {bubbles: true})
-				          );
-			        }
-		    	};
-		
-		      	var webComponentsSupported = (
-		        	'registerElement' in document
-		        	&& 'import' in document.createElement('link')
-		        	&& 'content' in document.createElement('template')
-		      	);
-		
-		      	if (!webComponentsSupported) {
-		        	var script = document.createElement('script');
-			        script.async = true;
-			        script.src = '/js/webcomponents-lite.min.js';
-			        script.onload = onload;
-			        document.head.appendChild(script);
-		      	} else {
-		        	onload();
-		      	}
-				
-		      	// Parses URL parameters. Supported parameters are:
-				// - lang=xy: Specifies the language of the user interface.
-				// - touch=1: Enables a touch-style user interface.
-				// - storage=local: Enables HTML5 local storage.
-				// - chrome=0: Chromeless mode.
-				var urlParams = (function(url) {
-					var result = new Object();
-					var idx = url.lastIndexOf('?');
-			
-					if (idx > 0)
-					{
-						var params = url.substring(idx + 1).split('&');
-						
-						for (var i = 0; i < params.length; i++)
-						{
-							idx = params[i].indexOf('=');
-							
-							if (idx > 0)
-							{
-								result[params[i].substring(0, idx)] = params[i].substring(idx + 1);
-							}
-						}
-					}
-					
-					return result;
-				})
-				
-			})(window.location.href);
 			
 			// Default resources are included in grapheditor resources
 			mxLoadResources = false;
@@ -134,8 +61,6 @@
 	</head>
 
 	<body class="geEditor">
-		
-		<my-app></my-app>
 		
 		<script type="text/javascript">
 			// Extends EditorUi to update I/O action states based on availability of backend

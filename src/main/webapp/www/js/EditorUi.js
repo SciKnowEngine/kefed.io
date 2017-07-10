@@ -3222,7 +3222,7 @@ EditorUi.prototype.save = function(name)
 				{
 					return;
 				}
-
+					
 				localStorage.setItem(name, xml);
 				this.editor.setStatus(mxUtils.htmlEntities(mxResources.get('saved')) + ' ' + new Date());
 			}
