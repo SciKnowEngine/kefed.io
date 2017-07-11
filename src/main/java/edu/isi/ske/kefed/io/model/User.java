@@ -1,5 +1,6 @@
 package edu.isi.ske.kefed.io.model;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -9,20 +10,25 @@ import org.springframework.security.core.GrantedAuthority;
 @Document(indexName = "user", type = "user", shards = 1, replicas = 0, refreshInterval = "-1")
 public class User {
 
+	
+	
 	@Id
-	private String id;
     private String username;
 
     private String password;
-    private List<GrantedAuthority> authorities;
+   
+    @SuppressWarnings("unused")
+	private List<GrantedAuthority> authorities = Collections.emptyList();
 
-    private Boolean enabled;
+    @SuppressWarnings("unused")
+	private Boolean enabled;
 
     private Role role;
 
     public User() {
     }
-
+    
+    
     public User(String username, String password, List<GrantedAuthority> authorities) {
         this.username = username;
         this.password = password;
