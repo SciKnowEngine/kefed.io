@@ -43,6 +43,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @EnableWebSecurity
 public class AppConfiguration {
 
+	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(AppConfiguration.class);
 
 	@PreDestroy
@@ -53,32 +54,5 @@ public class AppConfiguration {
 	public void buildAllFilesAndIndices() throws Exception {
 	}
 
-	/*List<Topic> parseJournalXml(File f) 
-			 throws ParserConfigurationException, SAXException,
-			 FileNotFoundException, IOException {
-
-		ListOfSerialsHandler handler = new ListOfSerialsHandler();
-
-		SAXParserFactory saxFactory = SAXParserFactory.newInstance();
-		saxFactory.setValidating(false);
-		SAXParser parser = saxFactory.newSAXParser();
-		parser.parse(new FileInputStream(f), handler);
-
-		return handler.getJournals();
-	}
-
-	void urlToTextFile(URL url, File f) throws IOException {
-		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(f, true)));
-		BufferedReader in2 = new BufferedReader(new InputStreamReader(url.openStream()));
-		String inputLine2;
-		while ((inputLine2 = in2.readLine()) != null)
-			out.println(inputLine2);
-		in2.close();
-		out.close();
-	}*/
-
-	String afterLastSlash(String s) {
-		return s.substring(s.lastIndexOf("/") + 1, s.length());
-	}
 
 }
