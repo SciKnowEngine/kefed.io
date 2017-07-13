@@ -3212,7 +3212,7 @@ EditorUi.prototype.save = function(name)
 		}
 		
 		var xml = mxUtils.getXml(this.editor.getGraphXml());
-		
+		alert(xml);
 		try
 		{
 			if (Editor.useLocalStorage)
@@ -3231,7 +3231,7 @@ EditorUi.prototype.save = function(name)
 				if (xml.length < MAX_REQUEST_SIZE)
 				{
 					new mxXmlRequest(SAVE_URL, 'filename=' + encodeURIComponent(name) +
-						'&xml=' + encodeURIComponent(xml)).simulate(document, '_blank');
+						'&xml=' + encodeURIComponent(xml)).simulate(document);
 				}
 				else
 				{
