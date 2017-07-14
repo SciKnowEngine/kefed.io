@@ -17,7 +17,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().failureUrl("/login?error=failure").defaultSuccessUrl("/")
+                .formLogin().failureUrl("/register").defaultSuccessUrl("/")
                 .loginPage("/login").permitAll()
                 .and()
                 .logout().permitAll();

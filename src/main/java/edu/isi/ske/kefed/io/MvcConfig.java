@@ -18,6 +18,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/").setViewName("home");
         registry.addViewController("/hello").setViewName("hello");
         registry.addViewController("/login").setViewName("login");
+    
     }
     
     @Bean
@@ -27,8 +28,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         resolver.setSuffix(".html");
         return resolver;
     }
-    
-
+   
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**").addResourceLocations("kefed.ui/");

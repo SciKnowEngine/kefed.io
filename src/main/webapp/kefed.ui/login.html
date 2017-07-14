@@ -1,7 +1,6 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
+<!DOCTYPE html>
+<html>
 <head>
     <style>
     
@@ -26,6 +25,21 @@
 		  line-height: 1.5em;
 		  padding: 0;
 		  -webkit-appearance: none;
+		}
+		
+		button {
+		  background: #b5cd60;
+		  border: 0;
+		  width: 100%;
+		  height: 40px;
+		  border-radius: 3px;
+		  color: white;
+		  cursor: pointer;
+		  transition: background 0.3s ease-in-out;
+		}
+		
+		button:hover {
+		  background: #16aa56;
 		}
 		
 		p {
@@ -101,23 +115,56 @@
     <title>Kefed System Login</title>
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700"></link>
-
+		
+	<script type="text/javascript">
+	
+	  register = function() {
+			var userObject = {
+					"username":document.getElementById("username").value,
+					"password":document.getElementById("password").value
+			}
+			
+			var xhr = new XMLHttpRequest();
+	    	var url = "/register";
+	   		
+	   		xhr.open("POST", url, true);
+	   		xhr.setRequestHeader("Content-type", "application/json");
+	   		
+	   		var data = JSON.stringify(userObject);
+	   		
+	   		xhr.send(data);
+	   		
+	  }
+	  
+	  login = function() {
+			var userObject = {
+					"username":document.getElementById("username").value,
+					"password":document.getElementById("password").value
+			}
+			document.getElementById("registerForm").action= "/login";
+			document.getElementById("registerForm").submit();
+	  }
+	</script>
   
 </head>
 
 <body>
 
     <div id="login">
-      <form th:action="@{/login}" method="post">
+      <form id="registerForm" method="post">
         <span class="fontawesome-user"></span>
-          <input type="text" id="username"  name="username" placeholder="UserName"></input>
+          <input type="text" required="required" id="username"  name="username" placeholder="UserName"></input>
        
         <span class="fontawesome-lock"></span>
-          <input type="password" name="password" placeholder="Password"></input>
+          <input type="password" required="required" id="password" name="password" placeholder="Password"></input>
         
-        <input type="submit" value="Login"/>
-	
-		</form>
+         <button id="loginDisplay" onclick="login();">Login</button>
+         <br></br>nbsp;
+         <button id="registerDisplay" onclick="register();">Register</button>
+         
+         
+       </form>
+		
   	</div>
   
 </body>
