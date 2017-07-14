@@ -33,7 +33,7 @@ public class RestController implements UserDetailsService {
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public String register(@RequestBody RegisterUser user, HttpServletRequest request) {
 		userService.saveNewUser(user);
-		return "login";
+		return "index";
 	}
 	
 	@RequestMapping("/login")

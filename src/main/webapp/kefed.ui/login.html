@@ -127,7 +127,7 @@
 			var xhr = new XMLHttpRequest();
 	    	var url = "/register";
 	   		
-	   		xhr.open("POST", url, true);
+	   		xhr.open("POST", url, false);
 	   		xhr.setRequestHeader("Content-type", "application/json");
 	   		
 	   		var data = JSON.stringify(userObject);
