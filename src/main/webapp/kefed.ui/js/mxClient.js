@@ -52810,7 +52810,7 @@ mxGraphView.prototype.installListeners = function()
 		{
 			if (this.isContainerEvent(evt))
 			{
-				graph.dblClick(evt);
+				//graph.dblClick(evt);
 			}
 		}));
 

@@ -23,22 +23,16 @@ public class RestController implements UserDetailsService {
 
 	@Autowired private UserService userService;
 	@Autowired private UserRepository repositoryImpl;
-
-
+	
 	@RequestMapping(value="/register")
 	public String register(HttpServletRequest request) {
 		return "login";
 	}
-	
+
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public String register(@RequestBody RegisterUser user, HttpServletRequest request) {
 		userService.saveNewUser(user);
 		return "index";
-	}
-	
-	@RequestMapping("/login")
-	public String login() {
-		return "login";
 	}
 	
 	@RequestMapping("/")
@@ -52,12 +46,6 @@ public class RestController implements UserDetailsService {
 		return "index";
 	}
 	
-	@RequestMapping(value="/open",method=RequestMethod.GET)
-	public String open(){
-		return "open";
-	}
-
-
 	@Override
     public CurrentUser loadUserByUsername(String username) throws UsernameNotFoundException {
     	if (repositoryImpl.exists(username)) {
