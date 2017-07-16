@@ -32,18 +32,18 @@ public class RestController implements UserDetailsService {
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public String register(@RequestBody RegisterUser user, HttpServletRequest request) {
 		userService.saveNewUser(user);
-		return "index";
+		return "ui/grapheditor/www/index";
 	}
 	
 	@RequestMapping("/")
 	public String welcome(Map<String, Object> model, HttpServletRequest request) {
-		return "index";
+		return "ui/grapheditor/www/index";
 	}
 	
 	@RequestMapping(value="/save",method=RequestMethod.POST)
 	public String Save(@RequestParam("filename")String fileName, @RequestParam("xml")String xml) throws Exception {
 		System.out.println(xml);
-		return "index";
+		return "ui/grapheditor/www/index";
 	}
 	
 	@Override

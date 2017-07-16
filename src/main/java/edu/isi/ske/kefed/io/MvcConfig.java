@@ -24,14 +24,14 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     @Bean
     public SpringResourceTemplateResolver getViewResolver() {
     	SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
-        resolver.setPrefix("kefed.ui/");
+        resolver.setPrefix("kefed/");
         resolver.setSuffix(".html");
         return resolver;
     }
    
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**").addResourceLocations("kefed.ui/");
+        registry.addResourceHandler("/**").addResourceLocations("kefed/");
     }
 
 }
