@@ -3249,6 +3249,7 @@ EditorUi.prototype.save = function(name)
 		}
 		
 		var xml = mxUtils.getXml(this.editor.getGraphXml());
+		alert(xml);
 		
 		try
 		{
