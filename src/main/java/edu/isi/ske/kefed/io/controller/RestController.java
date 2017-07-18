@@ -32,19 +32,25 @@ public class RestController implements UserDetailsService {
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public String register(@RequestBody RegisterUser user, HttpServletRequest request) {
 		userService.saveNewUser(user);
-		return "ui/grapheditor/www/index";
+		return "dashboard/app/index";
 	}
 	
 	@RequestMapping("/")
 	public String welcome(Map<String, Object> model, HttpServletRequest request) {
-		return "ui/grapheditor/www/index";
+		return "dashboard/app/index";
 	}
 	
 	@RequestMapping(value="/save",method=RequestMethod.POST)
 	public String Save(@RequestParam("filename")String fileName, @RequestParam("xml")String xml) throws Exception {
 		System.out.println(xml);
+		return "dashboard/app/index";
+	}
+	
+	@RequestMapping(value="/load",method=RequestMethod.GET)
+	public String load(@RequestParam("id")int ontologyId) throws Exception {
 		return "ui/grapheditor/www/index";
 	}
+	
 	
 	@Override
     public CurrentUser loadUserByUsername(String username) throws UsernameNotFoundException {
