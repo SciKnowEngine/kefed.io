@@ -24,7 +24,7 @@ public class RestController implements UserDetailsService {
 	@Autowired private UserService userService;
 	@Autowired private UserRepository repositoryImpl;
 	
-	@RequestMapping(value="/register")
+	@RequestMapping(value="/login")
 	public String register(HttpServletRequest request) {
 		return "login";
 	}
@@ -35,7 +35,7 @@ public class RestController implements UserDetailsService {
 		return "dashboard/app/index";
 	}
 	
-	@RequestMapping("/")
+	@RequestMapping("/kefedAdmin")
 	public String welcome(Map<String, Object> model, HttpServletRequest request) {
 		return "dashboard/app/index";
 	}

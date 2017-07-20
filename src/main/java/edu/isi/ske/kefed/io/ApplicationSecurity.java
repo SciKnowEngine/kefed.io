@@ -15,9 +15,10 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
         http
         		.csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().failureUrl("/register").defaultSuccessUrl("/")
+                .formLogin().defaultSuccessUrl("/kefedAdmin").failureUrl("/login")
                 .loginPage("/login").permitAll()
                 .and()
                 .logout().permitAll();

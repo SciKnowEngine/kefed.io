@@ -3,18 +3,14 @@
 <html>
 <head>
     <title>Kefed Study Design</title>
+    
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></meta>
     <link rel="stylesheet" type="text/css" href="ui/grapheditor/www/styles/grapheditor.css"></link>
+	<link rel="icon" href="dashboard/ui/grapheditor/www/images/kefedLogo.jpg"/>
+  
 	<script type="text/javascript">
-		// Parses URL parameters. Supported parameters are:
-		// - lang=xy: Specifies the language of the user interface.
-		// - touch=1: Enables a touch-style user interface.
-		// - storage=local: Enables HTML5 local storage.
-		// - chrome=0: Chromeless mode.
-		
 	
-		// Default resources are included in grapheditor resources
 		mxLoadResources = false;
 	</script>
 	<script type="text/javascript" src="ui/grapheditor/www/js/Init.js"></script>
@@ -33,6 +29,7 @@
 	<script type="text/javascript" src="ui/grapheditor/www/js/Dialogs.js"></script>
 </head>
 <body class="geEditor">
+	<div style="width:80%;height:80%">
 	<script type="text/javascript">
 		// Extends EditorUi to update I/O action states based on availability of backend
 		(function()
@@ -80,5 +77,6 @@
 			});
 		})();
 	</script>
+	</div>
 </body>
 </html>

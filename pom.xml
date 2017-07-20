@@ -143,6 +143,27 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+		
+		<plugin>
+		   <groupId>org.codehaus.mojo</groupId>
+		   <artifactId>exec-maven-plugin</artifactId>
+		   <executions>
+	             <execution>
+		          <id>exec-bower-install</id>
+		          <phase>build</phase>
+		          <configuration>
+					     <executable>bower</executable>
+					     <arguments>
+					      <argument>install</argument>
+					     </arguments>
+					     <workingDirectory>${basedir}/src/main/webapp/kefed/dashboard/app</workingDirectory>
+		  		  </configuration>
+		          <goals>
+		            <goal>exec</goal>
+		          </goals>
+		        </execution>
+            </executions>
+		</plugin>
 		</plugins>
 	</build>
 </project>

@@ -2,7 +2,6 @@
 	font-family:Helvetica Neue,Helvetica,Arial Unicode MS,Arial;
 	font-size:10pt;
 	border:none;
-	margin:0px;
 }
 .geEditor input[type=text]::-ms-clear {
 	display: none;
@@ -519,7 +518,7 @@ div.mxWindow .geButton {
 @media print {
 	div.geNoPrint { display: none !important; }
 }
-.geSprite-actualsize { background-position: 0 0; }
+.geSprite-actualsize { background-position: 10 10; }
 .geSprite-bold { background-position: 0 -46px; }
 .geSprite-bottom { background-position: 0 -92px; }
 .geSprite-center { background-position: 0 -138px; }

@@ -3,80 +3,46 @@
 
 <head>
   <meta charset="utf-8"></meta>
-  <meta name="description" content=""></meta>
   <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
   <title>Kefed Admin</title>
 
-  <!-- Chrome for Android theme color -->
-  <meta name="theme-color" content="#2E3AA1"></meta>
-
-  <!-- Web Application Manifest -->
+ 
   <link rel="manifest" href="manifest.json"></link>
 
-  <!-- Tile color for Win8 -->
-  <meta name="msapplication-TileColor" content="#3372DF"></meta>
-
-  <!-- Add to homescreen for Chrome on Android -->
-  <meta name="mobile-web-app-capable" content="yes"></meta>
-  <meta name="application-name" content="PSK"></meta>
-  <link rel="icon" sizes="192x192" href="dashboard/app/images/touch/chrome-touch-icon-192x192.png"></link>
-
-  <!-- Add to homescreen for Safari on iOS -->
-  <meta name="apple-mobile-web-app-capable" content="yes"></meta>
-  <meta name="apple-mobile-web-app-status-bar-style" content="black"></meta>
-  <meta name="apple-mobile-web-app-title" content="Polymer Starter Kit"></meta>
-  <link rel="apple-touch-icon" href="dashboard/app/images/touch/apple-touch-icon.png"></link>
-
-  <!-- Tile icon for Win8 (144x144) -->
-  <meta name="msapplication-TileImage" content="dashboard/app/images/touch/ms-touch-icon-144x144-precomposed.png"></meta>
-
-  <link rel="stylesheet" href="dashboard/app/bower_components/leaflet/dist/leaflet.css"></link>
-
-  <!-- build:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
   <script src="dashboard/app/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-  <!-- endbuild -->
-
-  <!-- will be replaced with elements/elements.vulcanized.html -->
-  <link rel="import" href="dashboard/app/elements/elements.html"></link>
-  <!-- endreplace-->
-
-  <!-- For shared styles, shared-styles.html import in elements.html -->
-  <style is="custom-style" include="shared-styles"></style>
+   <link rel="import" href="dashboard/app/elements/elements.html"></link>
+   <style is="custom-style" include="shared-styles"></style>
+    <link rel="icon" href="dashboard/app/images/kefedLogo.jpg"/>
+  
 </head>
 
 <body class="fullbleed layout vertical">
 <span id="browser-sync-binding"></span>
 <template is="dom-bind" id="app">
 
-  <pa-auth-data id="data" location='{{location}}' user="{{user}}" todos="{{todos}}" profile="{{profile}}"></pa-auth-data>
-
   <paper-scroll-header-panel fixed="true">
 
     <paper-toolbar class="top-toolbar">
-      <h1><a data-route="dashboard" href="/" on-click="onDataRouteClick">Dash Board</a></h1>
       <paper-icon-button icon="menu" class="toggle-drawer" on-click="toggleDrawer"></paper-icon-button>
+      <h3>Kefed Admin</h3>
       <span class="flex"></span>
       <paper-icon-button icon="refresh" class="refresh-icon"></paper-icon-button>
-      <pa-search></pa-search>
-      <pa-auth-info location='{{location}}' user="{{user}}"  profile='{{profile}}' on-sign-out="signOut" on-sign-in="signIn"></pa-auth-info>
     </paper-toolbar>
 
     <paper-drawer-panel id="paperDrawerPanel">
 
       <paper-scroll-header-panel drawer="true">
-
-        <pa-menu route="{{route}}" user="{{user}}"></pa-menu>
-
+      	
       </paper-scroll-header-panel>
 
       <paper-scroll-header-panel main="true">
 
-          <iron-list id="list" items="[1,2,3,4]" as="item" scroll-target="html">
+      <iron-list id="list" items="[1,2,3,4]" as="item" scroll-target="html">
       <template>
         <div>
           <div class="personItem">
             <div class="pad">
-              <div class="primary"><a target="_self" href="/load?id={{item}}">{{item}}</a></div>
+              <div class="primary"><a target="_self" href="/load?id={{item}}"> Study Template : {{item}}</a></div>
               </div>
           </div>
         </div>

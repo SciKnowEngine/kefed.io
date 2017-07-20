@@ -898,7 +898,7 @@ EditorUi.prototype.splitSize = (mxClient.IS_TOUCH || mxClient.IS_POINTER) ? 12 :
 /**
  * Specifies the height of the menubar. Default is 34.
  */
-EditorUi.prototype.menubarHeight = 30;
+EditorUi.prototype.menubarHeight = 40;
 
 /**
  * Specifies the width of the format panel should be enabled. Default is true.
@@ -2614,14 +2614,14 @@ EditorUi.prototype.refresh = function(sizeDidChange)
 	sizeDidChange = (sizeDidChange != null) ? sizeDidChange : true;
 	
 	var quirks = mxClient.IS_IE && (document.documentMode == null || document.documentMode == 5);
-	var w = this.container.clientWidth;
-	var h = this.container.clientHeight;
+	var w = this.container.clientWidth*0.75;
+	var h = this.container.clientHeight*0.75;
 
-	if (this.container == document.body)
+	/*if (this.container == document.body)
 	{
 		w = document.body.clientWidth || document.documentElement.clientWidth;
 		h = (quirks) ? document.body.clientHeight || document.documentElement.clientHeight : document.documentElement.clientHeight;
-	}
+	}*/
 	
 	// Workaround for bug on iOS see
 	// http://stackoverflow.com/questions/19012135/ios-7-ipad-safari-landscape-innerheight-outerheight-layout-issue
