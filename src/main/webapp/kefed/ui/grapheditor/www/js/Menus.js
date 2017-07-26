@@ -459,7 +459,7 @@ Menus.prototype.init = function()
 	})));
 	this.put('file', new Menu(mxUtils.bind(this, function(menu, parent)
 	{
-		this.addMenuItems(menu, ['new','save', 'saveAs', '-','pageSetup', 'print'], parent);
+		this.addMenuItems(menu, ['save', 'saveAs', '-','pageSetup', 'print'], parent);
 	})));
 	this.put('edit', new Menu(mxUtils.bind(this, function(menu, parent)
 	{
@@ -1083,6 +1083,7 @@ Menus.prototype.createMenubar = function(container)
 	
 	for (var i = 0; i < menus.length; i++)
 	{
+		
 		(mxUtils.bind(this, function(menu)
 		{
 			var elt = menubar.addMenu(mxResources.get(menus[i]), mxUtils.bind(this, function()

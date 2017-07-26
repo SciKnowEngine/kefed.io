@@ -7,9 +7,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,11 +37,6 @@ public class RestController implements UserDetailsService {
 		return "login";
 	}
 	
-	@RequestMapping(value="/templates")
-	public String templates(HttpServletRequest request) {
-		return "dashboard/app/templates";
-	}
-
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public String register(@RequestBody RegisterUser user, HttpServletRequest request) {
 		userService.saveNewUser(user);
@@ -54,11 +51,11 @@ public class RestController implements UserDetailsService {
 	@RequestMapping(value="/save",method=RequestMethod.POST)
 	public String Save(@RequestBody String xml) throws Exception {
 		graphXMLService.saveXML(xml);
-		return "dashboard/app/index";
+		return "redirect:/kefedAdmin";
 	}
 	
 	@RequestMapping(value="/load",method=RequestMethod.GET)
-	public String load(@RequestParam("id")int ontologyId,HttpServletRequest request) throws Exception {
+	public String load(@RequestParam("id")String ontologyId,HttpServletRequest request) throws Exception {
 		String xml = graphXMLService.findXMLById(ontologyId);
 		String path = request.getServletContext().getRealPath("/");
 	    File file = new File (path +"/kefed/xmlFile.xml");
@@ -76,5 +73,15 @@ public class RestController implements UserDetailsService {
         throw new UsernameNotFoundException(username);
     }
 	
+	@PostMapping(value="/getAll")
+	public ResponseEntity<?> getAll() throws Exception {
+		return ResponseEntity.ok(graphXMLService.getAll());
+	}
+	
+	@PostMapping(value="/delete")
+	public String delete(@RequestParam("id")String ontologyId,HttpServletRequest request) {
+		graphXMLService.deleteTemplate(ontologyId);
+		return "dashboard/app/index";
+	}
 	
 }

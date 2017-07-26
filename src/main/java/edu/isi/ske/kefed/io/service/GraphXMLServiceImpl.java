@@ -28,14 +28,14 @@ public class GraphXMLServiceImpl implements GraphXMLService{
 
 	@Override
 	@Transactional
-	public String findXMLById(int ontologyId) {
-		
-		Iterable<GraphXML> graphXMLs = repositoryImpl.findAll();
-		if(graphXMLs.iterator().hasNext()) return graphXMLs.iterator().next().getXml();
+	public String findXMLById(String ontologyId) {
+		GraphXML graphXML = repositoryImpl.findOne(ontologyId);
+		if(null!=graphXML) return graphXML.getXml();
 		return "";
 	}
 
 	@Override
+	@Transactional
 	public ArrayList<String> getAll() {
 		Iterable<GraphXML> arrayList = new ArrayList<GraphXML>();
 		ArrayList<String> templates = new ArrayList<String>();
@@ -44,6 +44,13 @@ public class GraphXMLServiceImpl implements GraphXMLService{
 		for(GraphXML xml:arrayList) templates.add(xml.getFilename());
 		
 		return templates;
+	}
+
+	@Override
+	@Transactional
+	public void deleteTemplate(String ontologyId) {
+		GraphXML graphXML = repositoryImpl.findOne(ontologyId);
+		if(null!=graphXML) repositoryImpl.delete(graphXML);
 	}
 	
 }

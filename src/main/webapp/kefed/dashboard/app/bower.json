@@ -1,6 +1,5 @@
 {
   "name": "polymer-admin",
-  "private": true,
   "dependencies": {
     "polymer": "Polymer/polymer#^1.1.0",
     "iron-elements": "PolymerElements/iron-elements#^1.0.0",

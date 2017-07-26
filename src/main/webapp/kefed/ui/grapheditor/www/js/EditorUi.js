@@ -3276,6 +3276,12 @@ EditorUi.prototype.save = function(name)
 						var rx=new RegExp("<mxGraphModel[^>]*>");xml=xml.replace(rx,"");
 						var rx=new RegExp("</mxGraphModel>");xml=xml.replace(rx,"");
 						xhttp.send("fileName=#"+encodeURIComponent(name)+"#&xml=#"+xml+"#");
+						xhttp.onreadystatechange = function () {
+						    if (xhttp.readyState === 4 && xhttp.status === 200) {
+						        console.log("Success");
+						        location.href="/";
+						    }
+						};
 				}
 				else
 				{

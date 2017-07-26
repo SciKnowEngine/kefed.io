@@ -8,7 +8,9 @@ import org.springframework.stereotype.Repository;
 public interface GraphXMLService {
 	void saveXML(String xml);
 
-	String findXMLById(int ontologyId);
+	String findXMLById(String ontologyId);
 
 	ArrayList<String> getAll();
+
+	void deleteTemplate(String ontologyId);
 }

@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
   <title>Kefed Admin</title>
 
- 
   <link rel="manifest" href="manifest.json"></link>
 
   <script src="dashboard/app/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
@@ -39,15 +38,7 @@
 
       <paper-scroll-header-panel main="true">
       	
-	  <template is="dom-repeat" items="[1]">
-        <div>
-          <div class="personItem">
-            <div class="pad">
-              <div class="primary"><a target="_self" href="/load?id={{item}}"> Study Template : {{item}}</a></div>
-              </div>
-          </div>
-        </div>
-      </template>
+	    <user-demo></user-demo>
         <pa-footer></pa-footer>
       </paper-scroll-header-panel>
 
