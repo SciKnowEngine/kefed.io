@@ -3268,8 +3268,14 @@ EditorUi.prototype.save = function(name)
 			{
 				if (xml.length < MAX_REQUEST_SIZE)
 				{
-					new mxXmlRequest(SAVE_URL, 'filename=' + encodeURIComponent(name) +
-						'&xml=' + encodeURIComponent(xml)).simulate(document);
+					/*new mxXmlRequest(SAVE_URL, 'filename=' + encodeURIComponent(name) +
+						'&xml=' + encodeURIComponent(xml)).simulate(document);*/
+						
+						var xhttp = new XMLHttpRequest();
+						xhttp.open("POST", SAVE_URL, true);
+						var rx=new RegExp("<mxGraphModel[^>]*>");xml=xml.replace(rx,"");
+						var rx=new RegExp("</mxGraphModel>");xml=xml.replace(rx,"");
+						xhttp.send("fileName=#"+encodeURIComponent(name)+"#&xml=#"+xml+"#");
 				}
 				else
 				{

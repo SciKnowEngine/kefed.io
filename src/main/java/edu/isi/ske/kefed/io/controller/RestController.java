@@ -1,5 +1,7 @@
 package edu.isi.ske.kefed.io.controller;
 
+import java.io.File;
+import java.io.PrintWriter;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,17 +18,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import edu.isi.ske.kefed.io.model.CurrentUser;
 import edu.isi.ske.kefed.io.model.RegisterUser;
 import edu.isi.ske.kefed.io.repository.UserRepository;
+import edu.isi.ske.kefed.io.service.GraphXMLService;
 import edu.isi.ske.kefed.io.service.UserService;
 
 @Controller
 public class RestController implements UserDetailsService {
 
 	@Autowired private UserService userService;
+	@Autowired private GraphXMLService graphXMLService;
+	
 	@Autowired private UserRepository repositoryImpl;
 	
+		
 	@RequestMapping(value="/login")
 	public String register(HttpServletRequest request) {
 		return "login";
+	}
+	
+	@RequestMapping(value="/templates")
+	public String templates(HttpServletRequest request) {
+		return "dashboard/app/templates";
 	}
 
 	@RequestMapping(value="/register", method=RequestMethod.POST)
@@ -41,16 +52,21 @@ public class RestController implements UserDetailsService {
 	}
 	
 	@RequestMapping(value="/save",method=RequestMethod.POST)
-	public String Save(@RequestParam("filename")String fileName, @RequestParam("xml")String xml) throws Exception {
-		System.out.println(xml);
+	public String Save(@RequestBody String xml) throws Exception {
+		graphXMLService.saveXML(xml);
 		return "dashboard/app/index";
 	}
 	
 	@RequestMapping(value="/load",method=RequestMethod.GET)
-	public String load(@RequestParam("id")int ontologyId) throws Exception {
+	public String load(@RequestParam("id")int ontologyId,HttpServletRequest request) throws Exception {
+		String xml = graphXMLService.findXMLById(ontologyId);
+		String path = request.getServletContext().getRealPath("/");
+	    File file = new File (path +"/kefed/xmlFile.xml");
+		PrintWriter writer = new PrintWriter(file, "UTF-8");
+		writer.print(xml);
+		writer.close();
 		return "ui/grapheditor/www/index";
 	}
-	
 	
 	@Override
     public CurrentUser loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -60,5 +76,5 @@ public class RestController implements UserDetailsService {
         throw new UsernameNotFoundException(username);
     }
 	
-
+	
 }

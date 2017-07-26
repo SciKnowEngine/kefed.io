@@ -50,18 +50,40 @@
 						this.actions.get('export').setEnabled(enabled);
 					}
 				}
-				var xml ='<root><mxCell id="0"/><mxCell id="1" parent="0"/><mxCell id="2" parent="1"/><mxCell id="3" parent="1"/><mxCell id="4" value="" style="endArrow=classic;html=1;" parent="1" edge="1" source="5"><mxGeometry width="50" height="50" relative="1" as="geometry"><mxPoint x="330" y="100" as="sourcePoint"/><mxPoint x="330" y="170" as="targetPoint"/></mxGeometry></mxCell><mxCell id="5" value="Process1" style="process;whiteSpace=wrap;html=1;" parent="1" vertex="1"><mxGeometry x="270" y="50" width="120" height="70" as="geometry"/></mxCell><mxCell id="6" value="Assay1" style="measurement;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="295" y="170" width="70" height="60" as="geometry"/></mxCell><mxCell id="7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="5" target="5"><mxGeometry relative="1" as="geometry"/></mxCell></root>';
-                var doc = mxUtils.parseXml(xml);
-                var codec = new mxCodec(doc);
-                var elt = doc.documentElement.firstChild;
-                var cells = [];
-                while (elt != null){                
-                 cells.push(codec.decodeCell(elt));
-                 this.editor.graph.refresh();
-                 elt = elt.nextSibling;
-                }
+				
+				var xmlString="";
+				function readFile()
+				{
+				    var rawFile = new XMLHttpRequest();
+				    rawFile.open("GET", "../../xmlFile.xml", false);
+				    rawFile.onreadystatechange = function ()
+				    {
+				        if(rawFile.readyState === 4)
+				        {
+				            if(rawFile.status === 200 || rawFile.status == 0)
+				            {
+				                xmlString = rawFile.responseText;
+				    		}
+				        }
+				    }
+				    rawFile.send();
+				}
+				
+				readFile();
+				if(xmlString!="") {
+					var doc = mxUtils.parseXml(xmlString);
+	                var codec = new mxCodec(doc);
+	                var elt = doc.documentElement.firstChild;
+	                var cells = [];
+	                while (elt != null){                
+	                 cells.push(codec.decodeCell(elt));
+	                 this.editor.graph.refresh();
+	                 elt = elt.nextSibling;
+	                }
 
-                this.editor.graph.addCells(cells);
+	                this.editor.graph.addCells(cells);
+
+				}
 			};
 			
 			// Adds required resources (disables loading of fallback properties, this can only
@@ -80,9 +102,6 @@
 				
 				// Main
 				new EditorUi(new Editor(urlParams['chrome'] == '0', themes));
-				
-				
-				
 				
 			}, function()
 			{

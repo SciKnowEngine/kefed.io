@@ -13,7 +13,6 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 @EnableElasticsearchRepositories("edu.isi.ske.kefed")
 public class SpringBootWebApplication extends SpringBootServletInitializer implements CommandLineRunner{
 	
-	
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(SpringBootWebApplication.class);
@@ -23,7 +22,7 @@ public class SpringBootWebApplication extends SpringBootServletInitializer imple
 		SpringApplication.run(SpringBootWebApplication.class, args);
 	}
 	
-	@Override
+	@Override	
 	public void run(String... args) throws Exception {
 		
 	}
