@@ -1,18 +1,23 @@
 package edu.isi.ske.kefed.io.service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.isi.ske.kefed.io.model.GraphXML;
+import edu.isi.ske.kefed.io.model.TemplateObject;
+import edu.isi.ske.kefed.io.repository.GraphTemplateRepository;
 import edu.isi.ske.kefed.io.repository.GraphXMLRepository;
 
 @Component
 public class GraphXMLServiceImpl implements GraphXMLService{
 
 	@Autowired private GraphXMLRepository repositoryImpl;
+	@Autowired private GraphTemplateRepository graphTemplateRepository ;
+
 
 	@Override
 	@Transactional
@@ -29,7 +34,7 @@ public class GraphXMLServiceImpl implements GraphXMLService{
 	@Override
 	@Transactional
 	public String findXMLById(String ontologyId) {
-		GraphXML graphXML = repositoryImpl.findOne(ontologyId);
+		TemplateObject graphXML = graphTemplateRepository.findOne(ontologyId);
 		if(null!=graphXML) return graphXML.getXml();
 		return "";
 	}
@@ -37,11 +42,10 @@ public class GraphXMLServiceImpl implements GraphXMLService{
 	@Override
 	@Transactional
 	public ArrayList<String> getAll() {
-		Iterable<GraphXML> arrayList = new ArrayList<GraphXML>();
 		ArrayList<String> templates = new ArrayList<String>();
 		
-		arrayList = repositoryImpl.findAll();
-		for(GraphXML xml:arrayList) templates.add(xml.getFilename());
+		Iterator<TemplateObject> arrayList = graphTemplateRepository.findAll().iterator();
+		while(arrayList.hasNext()) templates.add(arrayList.next().getLabel());
 		
 		return templates;
 	}
@@ -51,6 +55,13 @@ public class GraphXMLServiceImpl implements GraphXMLService{
 	public void deleteTemplate(String ontologyId) {
 		GraphXML graphXML = repositoryImpl.findOne(ontologyId);
 		if(null!=graphXML) repositoryImpl.delete(graphXML);
+	}
+
+	@Override
+	@Transactional
+	public void saveTemplate(TemplateObject templateObject) {
+		graphTemplateRepository.save(templateObject);
+		
 	}
 	
 }

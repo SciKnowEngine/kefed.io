@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.isi.ske.kefed.io.model.CurrentUser;
 import edu.isi.ske.kefed.io.model.RegisterUser;
+import edu.isi.ske.kefed.io.model.TemplateObject;
 import edu.isi.ske.kefed.io.repository.UserRepository;
 import edu.isi.ske.kefed.io.service.GraphXMLService;
 import edu.isi.ske.kefed.io.service.UserService;
@@ -48,9 +50,16 @@ public class RestController implements UserDetailsService {
 		return "dashboard/app/index";
 	}
 	
-	@RequestMapping(value="/save",method=RequestMethod.POST)
+	//Old Save with JUST XML
+	/*@RequestMapping(value="/save",method=RequestMethod.POST)
 	public String Save(@RequestBody String xml) throws Exception {
 		graphXMLService.saveXML(xml);
+		return "redirect:/kefedAdmin";
+	}*/
+	
+	@RequestMapping(value="/save",method=RequestMethod.POST)
+	public @ResponseBody String Save(@RequestBody TemplateObject templateObject) throws Exception {
+		graphXMLService.saveTemplate(templateObject);
 		return "redirect:/kefedAdmin";
 	}
 	

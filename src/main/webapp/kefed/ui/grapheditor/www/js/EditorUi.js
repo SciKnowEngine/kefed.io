@@ -3249,8 +3249,20 @@ EditorUi.prototype.save = function(name)
 		}
 		
 		var xml = mxUtils.getXml(this.editor.getGraphXml());
-		console.log(xml);
 		
+		if (window.DOMParser) {
+		    parser=new DOMParser();
+		    xmlDoc=parser.parseFromString(xml,"text/xml");
+		} else { // Internet Explorer
+		    xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+		    xmlDoc.async=false;	
+		    xmlDoc.loadXML(xml); 
+		}
+		var rx=new RegExp("<mxGraphModel[^>]*>");xml=xml.replace(rx,"");
+		var rx=new RegExp("</mxGraphModel>");xml=xml.replace(rx,"");
+		
+		var templateObject = new TemplateObject(xmlDoc,name,xml);
+		console.log(templateObject);
 		try
 		{
 			if (Editor.useLocalStorage)
@@ -3268,14 +3280,12 @@ EditorUi.prototype.save = function(name)
 			{
 				if (xml.length < MAX_REQUEST_SIZE)
 				{
-					/*new mxXmlRequest(SAVE_URL, 'filename=' + encodeURIComponent(name) +
-						'&xml=' + encodeURIComponent(xml)).simulate(document);*/
 						
 						var xhttp = new XMLHttpRequest();
 						xhttp.open("POST", SAVE_URL, true);
-						var rx=new RegExp("<mxGraphModel[^>]*>");xml=xml.replace(rx,"");
-						var rx=new RegExp("</mxGraphModel>");xml=xml.replace(rx,"");
-						xhttp.send("fileName=#"+encodeURIComponent(name)+"#&xml=#"+xml+"#");
+						xhttp.setRequestHeader("Content-type", "application/json");
+				   		
+						xhttp.send(JSON.stringify(templateObject));
 						xhttp.onreadystatechange = function () {
 						    if (xhttp.readyState === 4 && xhttp.status === 200) {
 						        console.log("Success");
