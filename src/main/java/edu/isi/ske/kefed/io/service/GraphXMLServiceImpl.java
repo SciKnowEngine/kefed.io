@@ -53,8 +53,8 @@ public class GraphXMLServiceImpl implements GraphXMLService{
 	@Override
 	@Transactional
 	public void deleteTemplate(String ontologyId) {
-		GraphXML graphXML = repositoryImpl.findOne(ontologyId);
-		if(null!=graphXML) repositoryImpl.delete(graphXML);
+		TemplateObject graphXML = graphTemplateRepository.findOne(ontologyId);
+		if(null!=graphXML) graphTemplateRepository.delete(graphXML);
 	}
 
 	@Override
