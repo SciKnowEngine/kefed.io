@@ -918,10 +918,8 @@ Sidebar.prototype.addGeneralPalette = function(expand)
 	 	this.createVertexTemplateEntry('process;whiteSpace=wrap;html=1;', 120, 80, '', 'Process', null, null, 'oval ellipse state'),
 	 	this.createVertexTemplateEntry('parameter;whiteSpace=nowrap;', 70, 60, '', 'Parameter', null, null, 'oval ellipse state'),
 	 	this.createVertexTemplateEntry('measurement;whiteSpace=wrap;html=1;', 70, 60, '', 'Measurement', null, null, 'oval ellipse state'),
-	 	this.createVertexTemplateEntry('fork;whiteSpace=wrap;html=1;', 90, 70, '', 'Fork', null, null, 'oval ellipse state'),
 	 	this.createVertexTemplateEntry('entity;whiteSpace=wrap;html=1;', 120, 80, '', 'Entity', null, null, 'oval ellipse state'),
 	 	this.createVertexTemplateEntry('constant;whiteSpace=wrap;html=1;', 70, 60, '', 'Constant', null, null, 'oval ellipse state'),
-	 	this.createVertexTemplateEntry('branch;whiteSpace=wrap;html=1;', 120, 10, '', 'Branch', null, null, 'oval ellipse state'),
 	 	
 	 ];
 	
@@ -961,7 +959,7 @@ Sidebar.prototype.addVariables = function(expand)
 	 	
 	 ];
 	
-	this.addPaletteFunctions('variables', mxResources.get('variables'), (expand != null) ? expand : true, fns);
+	this.addPaletteFunctions('dataItems', mxResources.get('dataItems'), (expand != null) ? expand : true, fns);
 };
 /**
  * Adds the general palette to the sidebar.

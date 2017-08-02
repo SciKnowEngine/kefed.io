@@ -3261,7 +3261,7 @@ EditorUi.prototype.save = function(name)
 		var rx=new RegExp("<mxGraphModel[^>]*>");xml=xml.replace(rx,"");
 		var rx=new RegExp("</mxGraphModel>");xml=xml.replace(rx,"");
 		
-		var templateObject = new TemplateObject(xmlDoc,name,xml);
+		var templateObject = new Study_Design(xmlDoc,name,"",xml);
 		console.log(templateObject);
 		try
 		{

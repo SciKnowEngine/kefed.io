@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Repository;
 
-import edu.isi.ske.kefed.io.model.TemplateObject;
+import edu.isi.ske.kefed.io.model.Study_Design;
 
 @Repository
 public interface GraphXMLService {
@@ -16,5 +16,5 @@ public interface GraphXMLService {
 
 	void deleteTemplate(String ontologyId);
 
-	void saveTemplate(TemplateObject templateObject);
+	void saveTemplate(Study_Design templateObject);
 }

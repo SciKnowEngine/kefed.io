@@ -1,49 +1,24 @@
 package edu.isi.ske.kefed.io.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 @Document(indexName = "materialentity", type = "materialentity", shards = 1, replicas = 0, refreshInterval = "-1")
-public class MaterialEntity {
+public class MaterialEntity extends Continuant {
+	static final long serialVersionUID = 5130904214704817886L;
 
-	@Id
-	String id;
-	String label;
-	String processType;
-	String ontologyId;
-	ArrayList<DataObject> dataObjectParameters;
-	public String getId() {
-		return id;
+	private List<DataItem> is_parameterized_by = new ArrayList<DataItem>();
+
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	public List<DataItem> getIs_parameterized_by() {
+		return this.is_parameterized_by;
 	}
-	public void setId(String id) {
-		this.id = id;
+
+	public void setIs_parameterized_by(List<DataItem> is_parameterized_by) {
+		this.is_parameterized_by = is_parameterized_by;
 	}
-	public String getLabel() {
-		return label;
-	}
-	public void setLabel(String label) {
-		this.label = label;
-	}
-	public String getProcessType() {
-		return processType;
-	}
-	public void setProcessType(String processType) {
-		this.processType = processType;
-	}
-	public String getOntologyId() {
-		return ontologyId;
-	}
-	public void setOntologyId(String ontologyId) {
-		this.ontologyId = ontologyId;
-	}
-	public ArrayList<DataObject> getDataObjectParameters() {
-		return dataObjectParameters;
-	}
-	public void setDataObjectParameters(ArrayList<DataObject> dataObjectParameters) {
-		this.dataObjectParameters = dataObjectParameters;
-	}
-	
-	
+
 }

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.isi.ske.kefed.io.model.CurrentUser;
 import edu.isi.ske.kefed.io.model.RegisterUser;
-import edu.isi.ske.kefed.io.model.TemplateObject;
+import edu.isi.ske.kefed.io.model.Study_Design;
 import edu.isi.ske.kefed.io.repository.UserRepository;
 import edu.isi.ske.kefed.io.service.GraphXMLService;
 import edu.isi.ske.kefed.io.service.UserService;
@@ -58,7 +58,7 @@ public class RestController implements UserDetailsService {
 	}*/
 	
 	@RequestMapping(value="/save",method=RequestMethod.POST)
-	public @ResponseBody String Save(@RequestBody TemplateObject templateObject) throws Exception {
+	public @ResponseBody String Save(@RequestBody Study_Design templateObject) throws Exception {
 		graphXMLService.saveTemplate(templateObject);
 		return "redirect:/kefedAdmin";
 	}

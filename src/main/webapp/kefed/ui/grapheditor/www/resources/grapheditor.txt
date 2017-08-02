@@ -70,6 +70,7 @@ curved=Curved
 custom=Custom
 cut=Cut
 dashed=Dashed
+dataItems=Data Items
 decreaseIndent=Decrease Indent
 default=Default
 delete=Delete

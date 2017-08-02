@@ -7,19 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.isi.ske.kefed.io.model.GraphXML;
-import edu.isi.ske.kefed.io.model.TemplateObject;
+import edu.isi.ske.kefed.io.model.Study_Design;
 import edu.isi.ske.kefed.io.repository.GraphTemplateRepository;
-import edu.isi.ske.kefed.io.repository.GraphXMLRepository;
 
 @Component
 public class GraphXMLServiceImpl implements GraphXMLService{
 
-	@Autowired private GraphXMLRepository repositoryImpl;
+	//@Autowired private GraphXMLRepository repositoryImpl;
 	@Autowired private GraphTemplateRepository graphTemplateRepository ;
 
 
-	@Override
+	/*@Override
 	@Transactional
 	public void saveXML(String xml) {
 		
@@ -29,13 +27,13 @@ public class GraphXMLServiceImpl implements GraphXMLService{
 		while(i<=xmlString.length-1) { buffer = buffer.append(xmlString[i]);i++;};
 		repositoryImpl.save(new GraphXML(xmlString[1],buffer.toString()));
 		
-	}
+	}*/
 
 	@Override
 	@Transactional
 	public String findXMLById(String ontologyId) {
-		TemplateObject graphXML = graphTemplateRepository.findOne(ontologyId);
-		if(null!=graphXML) return graphXML.getXml();
+		Study_Design graphXML = graphTemplateRepository.findOne(ontologyId);
+		if(null!=graphXML) return graphXML.getDiagramXML();
 		return "";
 	}
 
@@ -44,7 +42,7 @@ public class GraphXMLServiceImpl implements GraphXMLService{
 	public ArrayList<String> getAll() {
 		ArrayList<String> templates = new ArrayList<String>();
 		
-		Iterator<TemplateObject> arrayList = graphTemplateRepository.findAll().iterator();
+		Iterator<Study_Design> arrayList = graphTemplateRepository.findAll().iterator();
 		while(arrayList.hasNext()) templates.add(arrayList.next().getLabel());
 		
 		return templates;
@@ -53,14 +51,20 @@ public class GraphXMLServiceImpl implements GraphXMLService{
 	@Override
 	@Transactional
 	public void deleteTemplate(String ontologyId) {
-		TemplateObject graphXML = graphTemplateRepository.findOne(ontologyId);
+		Study_Design graphXML = graphTemplateRepository.findOne(ontologyId);
 		if(null!=graphXML) graphTemplateRepository.delete(graphXML);
 	}
 
 	@Override
 	@Transactional
-	public void saveTemplate(TemplateObject templateObject) {
+	public void saveTemplate(Study_Design templateObject) {
 		graphTemplateRepository.save(templateObject);
+		
+	}
+
+	@Override
+	public void saveXML(String xml) {
+		// TODO Auto-generated method stub
 		
 	}
 	

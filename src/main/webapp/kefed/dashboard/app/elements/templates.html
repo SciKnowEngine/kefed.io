@@ -16,10 +16,10 @@
 <style is="custom-style" include="shared-styles"></style>
    
 
-<dom-module id="user-demo">
+<dom-module id="study-templates">
 <template>
  		  
-	<iron-ajax id="ajaxCall" url="/getAll" method="POST" handle-as="json" on-response="getTemplates" ></iron-ajax>
+	<iron-ajax id="getAllTemplates" url="/getAll" method="POST" handle-as="json" on-response="getTemplates" ></iron-ajax>
     <iron-ajax id="deleteTemplate" method="POST" handle-as="json" on-response="updatePage"></iron-ajax>
    
     <br>
@@ -47,13 +47,13 @@
     'use strict';
  
 	Polymer({
-    	is: 'user-demo',
+    	is: 'study-templates',
 	    properties: {
 	    	
 	    },
 	    ready:function(){
 	    	this.templates=[];
-	    	this.$.ajaxCall.generateRequest();
+	    	this.$.getAllTemplates.generateRequest();
 	    	
 	    },
 	    getTemplates:function(data){
@@ -78,7 +78,7 @@
 	   	},
 	   	updatePage:function(){
 	   		this.templates=[];
-	    	this.$.ajaxCall.generateRequest();
+	    	this.$.getAllTemplates.generateRequest();
 	   	}
 	    
 	});
