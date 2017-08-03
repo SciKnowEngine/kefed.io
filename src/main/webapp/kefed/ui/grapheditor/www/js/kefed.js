@@ -1,7 +1,7 @@
 
-function DataItem() {
-	Continuant.apply(this,arguments);
-	this.variable_type = ''
+function DataItem(id,label,variableType,ontologyId) {
+	Continuant.apply(this,[id,label,ontologyId]);
+	this.variable_type = variableType==undefined?"":variableType;
 	this.parameterizes_entity = null;
 	this.has_value_specification = []
 	this.parameterizes = null;
@@ -18,17 +18,17 @@ function StructuredObject_VS () {
 	this.has_part = []
 }
 
-function Continuant() {
-	this.id="";
-	this.label = arguments[0];
-	this.ontologyId = arguments[1];
+function Continuant(id,label,ontologyId) {
+	this.id=parseInt(id);
+	this.label = label;
+	this.ontologyId = ontologyId;
 	this.is_specifed_input_of = []
 	this.is_specified_output_of = [];
 	this.participates_in=[];
 }
 
-function MaterialEntity() {
-	Continuant.apply(this,arguments);
+function MaterialEntity(id,label,ontologyId) {
+	Continuant.apply(this,[id,label,ontologyId]);
 	this.is_parameterized_by = [];
 }
 
@@ -49,8 +49,7 @@ function URI() {
 }
 
 function Experiment() {
-	 return new (Function.prototype.bind.call(PlannedProcess,arguments));
-	
+	PlannedProcess.apply(this,arguments);
 }
 
 function Scalar_VS() {
@@ -65,10 +64,11 @@ function ProvenanceContext() {
 	this.is_provenance_context_for = new ValueSpecification()
 }
 
-function PlannedProcess() {
-	this.label = '';
-	this.process_type = '';
-	this.ontologyId = "";
+function PlannedProcess(label,id,processtype,ontologyId) {
+	this.id = id!=undefined?parseInt(id):0;
+	this.label = label;
+	this.process_type = processtype;
+	this.ontologyId = ontologyId;
 	this.has_first_part = null;
 	this.has_specified_output = [];
 	this.is_parameterized_by = [];
@@ -96,7 +96,7 @@ function Study_Design_Execution(label,ontologyId) {
 }
 
 function ValueSpecification() {
-	this.label = ''
+	this.label = '';
 	this.ontologyId = "";
 	this.unit_label = ''
 	this.units = "";
@@ -128,7 +128,7 @@ function parseXML(xmlDoc,experiment) {
 							  	   var parameter={
 							  			id:xmlDoc.getElementsByTagName('mxCell')[i].getAttribute("id"),
 							  			value:xmlDoc.getElementsByTagName('mxCell')[i].getAttribute("value"),
-							  			type:"I"
+							  			variableType:"I"
 							  	   };
 							  	   this.dataObjects.push(parameter);
 							       break;	  
@@ -137,7 +137,7 @@ function parseXML(xmlDoc,experiment) {
 							  	   var parameter={
 								  			id:xmlDoc.getElementsByTagName('mxCell')[i].getAttribute("id"),
 								  			value:xmlDoc.getElementsByTagName('mxCell')[i].getAttribute("value"),
-								  			type:"D"
+								  			variableType:"D"
 							  	   };
 								   this.dataObjects.push(parameter);
 								   break;
@@ -163,7 +163,7 @@ function parseXML(xmlDoc,experiment) {
 								   var parameter={
 								  			id:xmlDoc.getElementsByTagName('mxCell')[i].getAttribute("id"),
 								  			value:xmlDoc.getElementsByTagName('mxCell')[i].getAttribute("value"),
-								  			type:'C'
+								  			variableType:'C'
 								   };
 								   this.dataObjects.push(parameter);
 								   break;
@@ -183,16 +183,19 @@ function parseXML(xmlDoc,experiment) {
 	for (var k=0; k<this.plannedPocesses.length;k++) {
 		var processId=this.plannedPocesses[k].id;
 		var processValue=this.plannedPocesses[k].value;
-		var process= new (Function.prototype.bind.call(PlannedProcess,[processValue,""]));
+		var process= new (Function.prototype.bind.call(PlannedProcess,0,processValue,processId,"M",""));
 		experiment.has_part.push(process);
 		
 		var connectionTarget = this.connections.filter(function(o){if((o.target == processId))return o;} );
 		if(connectionTarget.length>0) {
 			for(var i=0;i<connectionTarget.length;i++) {
 					var connectionSourceId=connectionTarget[i].source;
+					var connectionTargetId=connectionTarget[i].target;
 					var materialEntity=this.materialEntities.filter(function(o){if(o.id == connectionSourceId)return o;})
 					if(materialEntity.length>0) {
-						var material= new (Function.prototype.bind.call(MaterialEntity,[materialEntity[0].value,""]));
+						var id=materialEntity[0].id;
+						var value=materialEntity[0].value;
+						var material= new (Function.prototype.bind.call(MaterialEntity,0,id,value,""));
 						experiment.has_participant.push(material);
 						process.has_specified_input.push(material);
 						experiment.has_first_part=process;
@@ -206,48 +209,99 @@ function parseXML(xmlDoc,experiment) {
 							process.receives_input_from.push(parent[0]);
 						}
 					}
+					var dataEntity=this.dataObjects.filter(function(o){if(o.id == connectionSourceId)return o;})
+					if(dataEntity.length>0) {
+						for(var y=0;y<dataEntity.length;y++) {
+							var id=dataEntity[y].id;
+							var value=dataEntity[y].value;
+							var variableType=dataEntity[y].variableType;
+							var dataObj= new (Function.prototype.bind.call(DataItem,0,id,value,variableType));
+							if(variableType=="C" || variableType=="I") {
+								process.is_parameterized_by.push(dataObj);
+							} else if(variableType=="D"){
+								process.has_specified_output.push(dataObj);
+								experiment.has_participant.push(dataObj);
+							}
+						}
+						
+					}
+					var dataEntity=this.dataObjects.filter(function(o){if(o.id == connectionTargetId)return o;})
+					if(dataEntity.length>0) {
+						for(var y=0;y<dataEntity.length;y++) {
+							var id=dataEntity[y].id;
+							var value=dataEntity[y].value;
+							var variableType=dataEntity[y].variableType;
+							var dataObj= new (Function.prototype.bind.call(DataItem,0,id,value,variableType));
+							if(variableType=="C" || variableType=="I") {
+								process.is_parameterized_by.push(dataObj);
+							} else if(variableType=="D"){
+								process.has_specified_output.push(dataObj);
+								experiment.has_participant.push(dataObj);
+							}
+						}
+						
+					}
 					
 			}
 		}
 	}
 	
 	for (var k=0; k<this.materialEntities.length;k++) {
-		var id=this.materialEntities[k].id;
-		var remaining = experiment.has_participant.filter((function(o){if(o.id != id)return o;}));
-		if(remaining.length>0) {
-			for(var i=0;i<remaining.length;i++) {
-				var valueMaterial=remaining[i].value;
-				var material= new (Function.prototype.bind.call(MaterialEntity,[valueMaterial,""]));
-				experiment.has_participant.push(material);
+		var materialId=materialEntities[k].id;
+		var parent = experiment.has_participant.filter((function(o){if(o.id == materialId)return o;}));
+		if(parent.length==0) {
+			var materialValue=this.materialEntities[k].value;
+			var material= new (Function.prototype.bind.call(MaterialEntity,0,materialId,materialValue,""));
+			experiment.has_participant.push(material);
+		}
+	}
+	for(var k=0;k<experiment.has_participant.length;k++) {
+		var material = experiment.has_participant[k];
+		var materialId=material.id;
+		var connectionTarget = this.connections.filter(function(o){if((o.target == materialId))return o;} );
+		if(connectionTarget.length>0){
+			for(var i=0;i<connectionTarget.length;i++){
+				var connection=connectionTarget[i];
+				var dataEntity=this.dataObjects.filter(function(o){if(o.id == connection.source)return o;})
+				if(dataEntity.length>0) {
+					for(var y=0;y<dataEntity.length;y++) {
+						var id=dataEntity[y].id;
+						var value=dataEntity[y].value;
+						var variableType=dataEntity[y].variableType;
+						var dataObj= new (Function.prototype.bind.call(DataItem,0,id,value,variableType));
+						if(variableType=="C" || variableType=="I") {
+							material.is_parameterized_by.push(dataObj);
+						}
+					}
+				}
 			}
 		}
-			
 	}
 	
-	for (var k=0; k<this.dataObjects.length;k++) {
-		var id=this.dataObjects[k].id;
-		var connectionTarget = this.connections.filter(function(o){if((o.target == id))return o;} );
-		var connectionSource = this.connections.filter(function(o){if((o.source == id))return o;} );
-		if(connectionSource.length>0) {
-			for(var i=0;i<connectionSource.length;i++) {
-				var valueMaterial=connectionSource[i].target;
-				var checkMaterialEntity = experiment.has_participant.filter((function(o){if(o.id == valueMaterial)return o;}));
-				if(checkMaterialEntity.length>0) {
-					for(var x=0;x<checkMaterialEntity.length;x++) {
-						var dataItem = new (Function.prototype.bind.call(DataItem,["",""]));
-						checkMaterialEntity[i].is_parameterized_by.push(dataItem);
-					}
-				}
-				var checkPlannedProcess = experiment.has_part.filter((function(o){if(o.id == valueMaterial)return o;}));
-				if(checkPlannedProcess.length>0) {
-					for(var x=0;x<checkPlannedProcess.length;x++) {
-						var dataItem = new (Function.prototype.bind.call(DataItem,["",""]));
-						checkPlannedProcess[i].is_parameterized_by.push(dataItem);
-					}
+	for (var k=0; k<this.connections.length;k++) {
+		var connection=connections[k];
+		var dataEntity=this.dataObjects.filter(function(o){if(o.id == connection.target)return o;})
+		var parent = experiment.has_part.filter((function(o){if(o.id == connection.source)return o;}));
+		var material=experiment.has_participant.filter((function(o){if(o.id == connection.source)return o;}));
+		if(dataEntity.length>0) {
+			for(var y=0;y<dataEntity.length;y++) {
+				var id=dataEntity[y].id;
+				var value=dataEntity[y].value;
+				var variableType=dataEntity[y].variableType;
+				if(variableType=="D") {
+				    var dataObj= new (Function.prototype.bind.call(DataItem,0,id,value,variableType));
+				    experiment.has_participant.push(dataObj);
+				    if(parent.length>0){
+				    	dataObj.is_specified_output_of.push(parent[0]);
+				    } 
+				    if(material.length>0){
+				    	dataObj.is_specified_output_of.push(material[0]);
+				    }
 				}
 			}
 		}
-	}
+		
+	}	
 		
 	
 }

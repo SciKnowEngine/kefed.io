@@ -58,5 +58,5 @@ public class Continuant implements Serializable {
 	public void setIs_specified_output_of(List<PlannedProcess> is_specified_output_of) {
 		this.is_specified_output_of = is_specified_output_of;
 	}
-
+	
 }
