@@ -8,6 +8,9 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+
 @Document(indexName = "plannedprocess", type = "plannedprocess", shards = 1, replicas = 0, refreshInterval = "-1")
 public class PlannedProcess implements Serializable {
 	static final long serialVersionUID = 5130904214704817886L;
@@ -22,7 +25,12 @@ public class PlannedProcess implements Serializable {
 	private PlannedProcess is_part_of;
 	private List<DataItem> is_parameterized_by = new ArrayList<DataItem>();
 	private List<PlannedProcess> has_part = new ArrayList<PlannedProcess>();
-	private List<? extends Object> has_participant = new ArrayList<>();
+	
+	@JsonSubTypes({ 
+	  @Type(value = MaterialEntity.class), 
+	  @Type(value = DataItem.class) 
+	})
+	private List<? extends Continuant> has_participant = new ArrayList<>();
 	
 	private List<PlannedProcess> receives_input_from = new ArrayList<PlannedProcess>();
 	private List<MaterialEntity> has_specified_input = new ArrayList<MaterialEntity>();
@@ -89,7 +97,7 @@ public class PlannedProcess implements Serializable {
 	public List<? extends Object> getHas_participant() {
 		return has_participant;
 	}
-	public void setHas_participant(List<? extends Object> has_participant) {
+	public void setHas_participant(List<? extends Continuant> has_participant) {
 		this.has_participant = has_participant;
 	}
 	public List<PlannedProcess> getReceives_input_from() {

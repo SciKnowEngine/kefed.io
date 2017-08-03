@@ -1,10 +1,10 @@
 
-function DataItem(id,label,variableType,ontologyId) {
+function DataItem(id,label,variableType,ontologyId,material,process) {
 	Continuant.apply(this,[id,label,ontologyId]);
 	this.variable_type = variableType==undefined?"":variableType;
-	this.parameterizes_entity = null;
+	this.parameterizes_entity = material;
 	this.has_value_specification = []
-	this.parameterizes = null;
+	this.parameterizes = process;
 }
 
 function NaturalLanguage_VS () {
@@ -69,7 +69,7 @@ function PlannedProcess(label,id,processtype,ontologyId) {
 	this.label = label;
 	this.process_type = processtype;
 	this.ontologyId = ontologyId;
-	this.has_first_part = null;
+	this.has_first_part = new Object();
 	this.has_specified_output = [];
 	this.is_parameterized_by = [];
 	this.has_part = [];
