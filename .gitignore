@@ -26,3 +26,4 @@ nbdist/
 #THIS APPLICATION
 .history
 data
+.DS_Store
