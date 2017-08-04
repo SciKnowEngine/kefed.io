@@ -200,7 +200,7 @@ function parseXML(xmlDoc,experiment) {
 						process.has_specified_input.push(material);
 						experiment.has_first_part=process;
 					}
-					var processEntity=this.plannedPocesses.filter(function(o){if(o.id == connectionSourceId)return o;})
+					var processEntity=this.plannedPocesses.filter(function(o){if(o.id == connectionSourceId)return o;});
 					if(processEntity.length>0) {
 						var id=processEntity[0].id;
 						var parent = experiment.has_part.filter((function(o){if(o.id == id)return o;}));
