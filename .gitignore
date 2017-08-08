@@ -27,3 +27,4 @@ nbdist/
 .history
 data
 .DS_Store
+/bin/

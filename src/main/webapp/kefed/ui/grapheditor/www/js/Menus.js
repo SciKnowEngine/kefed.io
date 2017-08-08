@@ -424,7 +424,7 @@ Menus.prototype.init = function()
 	})));
 	this.put('view', new Menu(mxUtils.bind(this, function(menu, parent)
 	{
-		this.addMenuItems(menu, ((this.editorUi.format != null) ? ['formatPanel'] : []).
+		this.addMenuItems(menu, ((this.editorUi.format == null) ? ['formatPanel'] : []).
 			concat(['pageView', 'pageScale', '-', 'scrollbars', 
 			        'grid', 'guides', '-', 'connectionArrows', 'connectionPoints', '-',
 			        'resetView', 'zoomIn', 'zoomOut'], parent));
