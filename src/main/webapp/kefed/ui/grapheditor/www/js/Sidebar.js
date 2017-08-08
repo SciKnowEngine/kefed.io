@@ -947,7 +947,7 @@ Sidebar.prototype.addProcess = function(expand)
 Sidebar.prototype.addEntity = function(expand)
 {
 	var fns = [
-	 	
+	 	"123"
 	 ];
 	
 	this.addPaletteFunctions('entities', mxResources.get('entities'), (expand != null) ? expand : true, fns);

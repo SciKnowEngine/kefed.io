@@ -10,7 +10,7 @@ EditorUi = function(editor, container, lightbox)
 	this.destroyFunctions = [];
 
 	this.editor = editor || new Editor();
-	this.container = container || document.body;
+	this.container = container || this.createContainer();
 	var graph = this.editor.graph;
 	graph.lightbox = lightbox;
 
@@ -900,7 +900,7 @@ EditorUi.prototype.splitSize = (mxClient.IS_TOUCH || mxClient.IS_POINTER) ? 12 :
 /**
  * Specifies the height of the menubar. Default is 34.
  */
-EditorUi.prototype.menubarHeight = 40;
+EditorUi.prototype.menubarHeight = 34;
 
 /**
  * Specifies the width of the format panel should be enabled. Default is true.
@@ -915,7 +915,7 @@ EditorUi.prototype.formatWidth = 240;
 /**
  * Specifies the height of the toolbar. Default is 36.
  */
-EditorUi.prototype.toolbarHeight = 34;
+EditorUi.prototype.toolbarHeight = 36;
 
 /**
  * Specifies the height of the footer. Default is 28.
@@ -2651,8 +2651,9 @@ EditorUi.prototype.refresh = function(sizeDidChange)
 	
 	if (this.toolbar != null)
 	{
-		this.toolbarContainer.style.top = this.menubarHeight + 'px';
+		//this.toolbarContainer.style.top = this.menubarHeight + 'px';
 		this.toolbarContainer.style.height = this.toolbarHeight + 'px';
+		this.toolbarContainer.style.zIndex = 1;
 		tmp += this.toolbarHeight;
 	}
 	
@@ -2679,11 +2680,24 @@ EditorUi.prototype.refresh = function(sizeDidChange)
 	this.formatContainer.style.width = fw + 'px';
 	this.formatContainer.style.display = 'none';
 	
-	this.propertyContainer.style.top = tmp + 'px';
-	this.propertyContainer.style.width = fw + 'px';
 	
 	this.diagramContainer.style.left = (this.hsplit.parentNode != null) ? (effHsplitPosition + this.splitSize) + 'px' : '0px';
 	this.diagramContainer.style.top = this.sidebarContainer.style.top;
+	
+	this.menubarContainer.style.left=this.diagramContainer.style.left;
+	
+	this.menubarContainer.style.top='65px';
+	this.menubarContainer.style.zIndex=1;
+	this.toolbarContainer.style.top='99px';
+	
+	this.toolbarContainer.style.left=this.diagramContainer.style.left;
+	
+	this.propertyContainer.style.top = this.menubarContainer.style.top;
+	this.propertyContainer.style.width = fw + 'px';
+	
+	this.sidebarContainer.style.top = this.menubarContainer.style.top;
+	
+	
 	this.footerContainer.style.height = this.footerHeight + 'px';
 	this.hsplit.style.top = this.sidebarContainer.style.top;
 	this.hsplit.style.bottom = (this.footerHeight + off) + 'px';
@@ -2726,6 +2740,9 @@ EditorUi.prototype.refresh = function(sizeDidChange)
 		}
 		
 		this.diagramContainer.style.right = fw + 'px';
+		this.menubarContainer.style.right=this.diagramContainer.style.right;
+		this.toolbarContainer.style.right=this.diagramContainer.style.right;
+		
 		var th = 0;
 		
 		if (this.tabContainer != null)
@@ -2763,6 +2780,7 @@ EditorUi.prototype.createTabContainer = function()
  */
 EditorUi.prototype.createDivs = function()
 {
+	
 	this.menubarContainer = this.createDiv('geMenubarContainer');
 	this.toolbarContainer = this.createDiv('geToolbarContainer');
 	this.sidebarContainer = this.createDiv('geSidebarContainer');
@@ -2775,11 +2793,15 @@ EditorUi.prototype.createDivs = function()
 	this.hsplit.setAttribute('title', mxResources.get('collapseExpand'));
 
 	// Sets static style for containers
-	this.menubarContainer.style.top = '0px';
+	//this.menubarContainer.style.top = '0px';
 	this.menubarContainer.style.left = '0px';
-	this.menubarContainer.style.right = '0px';
+	this.menubarContainer.style.margin = 'auto';
+	
+	//this.menubarContainer.style.right = '0px';
 	this.toolbarContainer.style.left = '0px';
-	this.toolbarContainer.style.right = '0px';
+	this.menubarContainer.style.margin = 'auto';
+	
+	//this.toolbarContainer.style.right = '0px';
 	this.sidebarContainer.style.left = '0px';
 	this.formatContainer.style.right = '0px';
 	this.formatContainer.style.zIndex = '1';
@@ -2994,6 +3016,7 @@ EditorUi.prototype.createDiv = function(classname)
 	
 	return elt;
 };
+
 
 /**
  * Updates the states of the given undo/redo items.
@@ -4008,3 +4031,16 @@ EditorUi.prototype.destroy = function()
 		}
 	}
 };
+
+/*
+ * Add All divs enclosed in one Application Div
+ * START
+ */
+EditorUi.prototype.createContainer = function()
+{
+	var elt = document.createElement('div');
+	elt.className = "geApplicationContainer";
+	document.body.appendChild(elt);
+	return elt;
+}
+//--------------END-------------------//

@@ -7,6 +7,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></meta>
     <link rel="stylesheet" type="text/css" href="ui/grapheditor/www/styles/grapheditor.css"></link>
 	<link rel="icon" href="dashboard/app/images/kefedLogo.ico"/>
+	<script src="dashboard/app/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+   <link rel="import" href="dashboard/app/elements/elements.html"></link>
+  
 	<script type="text/javascript">
 		mxLoadResources = false;
 	</script>
@@ -26,11 +29,10 @@
 	<script type="text/javascript" src="ui/grapheditor/www/js/Dialogs.js"></script>
 	<script type="text/javascript" src="ui/grapheditor/www/js/kefed.js"></script>
 	<script type="text/javascript" src="ui/grapheditor/www/js/PropertyBar.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	
 </head>
 <body class="geEditor">
-	<div style="width:80%;height:80%">
-	
 	<script type="text/javascript">
 		// Extends EditorUi to update I/O action states based on availability of backend
 		(function()
@@ -111,7 +113,10 @@
 			});
 		})();
 	</script>
-	</div>
+	<paper-toolbar class="studyEditorToolBarClass">
+      <h3>Kefed Study Editor</h3>
+	</paper-toolbar>
+	
 	
 </body>
 </html>
