@@ -34,6 +34,10 @@
 </head>
 <body class="geEditor">
 	<script type="text/javascript">
+		var x =screen.height;
+		function routeBack() {
+			window.location.href="/";
+		}
 		// Extends EditorUi to update I/O action states based on availability of backend
 		(function()
 		{
@@ -116,6 +120,8 @@
 	<paper-toolbar class="studyEditorToolBarClass">
       <h3>Kefed Study Editor</h3>
 	</paper-toolbar>
+	<paper-button id="saveTemplate" raised="true" style="float:right;text-transform:none"> <strong>Save</strong></paper-button>
+	<paper-button id="cancelTemplate" onclick="routeBack()" raised="true" style="float:right;text-transform:none"> <strong>Cancel</strong></paper-button>
 	
 	
 </body>

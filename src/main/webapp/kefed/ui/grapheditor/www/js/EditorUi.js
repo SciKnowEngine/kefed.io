@@ -882,6 +882,9 @@ EditorUi = function(editor, container, lightbox)
    	this.editor.resetGraph();
    	this.init();
    	this.open();
+   	
+   //	document.getElementById("saveTemplate").addEventListener("click", this.saveFile(false));
+	
 };
 
 // Extends mxEventSource
@@ -2754,11 +2757,13 @@ EditorUi.prototype.refresh = function(sizeDidChange)
 		
 		this.sidebarContainer.style.bottom = (this.footerHeight + sidebarFooterHeight + off) + 'px';
 		this.formatContainer.style.bottom = (this.footerHeight + off) + 'px';
-		
-		this.propertyContainer.style.bottom = (this.footerHeight + off) + 'px';
-		this.propertyContainer.style.position = 'absolute';
-		
 		this.diagramContainer.style.bottom = (this.footerHeight + off + th) + 'px';
+
+		this.propertyContainer.style.bottom = this.footerContainer.style.bottom;
+		this.propertyContainer.style.position = 'absolute';
+		document.getElementById("saveTemplate").style.bottom='45px';
+		document.getElementById("cancelTemplate").style.bottom='45px';
+
 	}
 	
 	if (sizeDidChange)
