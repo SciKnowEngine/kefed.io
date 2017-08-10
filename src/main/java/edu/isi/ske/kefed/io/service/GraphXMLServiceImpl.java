@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.isi.ske.kefed.io.model.MetaData;
 import edu.isi.ske.kefed.io.model.Study_Design;
+import edu.isi.ske.kefed.io.repository.GraphDataObjectPropertyRepository;
 import edu.isi.ske.kefed.io.repository.GraphTemplateRepository;
 
 @Component
@@ -15,7 +17,7 @@ public class GraphXMLServiceImpl implements GraphXMLService{
 
 	//@Autowired private GraphXMLRepository repositoryImpl;
 	@Autowired private GraphTemplateRepository graphTemplateRepository ;
-
+	@Autowired private GraphDataObjectPropertyRepository dataObjPropertyRepo;
 
 	/*@Override
 	@Transactional
@@ -66,6 +68,17 @@ public class GraphXMLServiceImpl implements GraphXMLService{
 	public void saveXML(String xml) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void saveDataObjectProperty(MetaData dataObjectProperty) {
+		dataObjPropertyRepo.save(dataObjectProperty);
+		
+	}
+
+	@Override
+	public MetaData loadDataObjectProperty(String id) {
+		return dataObjPropertyRepo.findOne(id);
 	}
 	
 }

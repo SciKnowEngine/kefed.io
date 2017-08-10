@@ -23,6 +23,7 @@ public class PlannedProcess implements Serializable {
 	private PlannedProcess has_first_part;
 	private List<DataItem> has_specified_output = new ArrayList<DataItem>();
 	private PlannedProcess is_part_of;
+	private MetaData metaData;
 	private List<DataItem> is_parameterized_by = new ArrayList<DataItem>();
 	private List<PlannedProcess> has_part = new ArrayList<PlannedProcess>();
 	
@@ -117,6 +118,12 @@ public class PlannedProcess implements Serializable {
 	}
 	public void setProvides_input_to(List<PlannedProcess> provides_input_to) {
 		this.provides_input_to = provides_input_to;
+	}
+	public MetaData getMetaData() {
+		return metaData;
+	}
+	public void setMetaData(MetaData metaData) {
+		this.metaData = metaData;
 	}
 	
 }

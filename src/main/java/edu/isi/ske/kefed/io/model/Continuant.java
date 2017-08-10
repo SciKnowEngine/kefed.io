@@ -13,6 +13,7 @@ public class Continuant implements Serializable {
 
 	private String label;
 	private URI ontologyId;
+	private MetaData metaData;
 	private List<PlannedProcess> participatesIn = new ArrayList<PlannedProcess>();
 	private List<PlannedProcess> is_specifed_input_of = new ArrayList<PlannedProcess>();
 	private List<PlannedProcess> is_specified_output_of = new ArrayList<PlannedProcess>();
@@ -57,6 +58,14 @@ public class Continuant implements Serializable {
 
 	public void setIs_specified_output_of(List<PlannedProcess> is_specified_output_of) {
 		this.is_specified_output_of = is_specified_output_of;
+	}
+
+	public MetaData getMetaData() {
+		return metaData;
+	}
+
+	public void setMetaData(MetaData metaData) {
+		this.metaData = metaData;
 	}
 	
 }

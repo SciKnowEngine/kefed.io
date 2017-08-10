@@ -10,7 +10,7 @@ EditorUi = function(editor, container, lightbox)
 	this.destroyFunctions = [];
 
 	this.editor = editor || new Editor();
-	this.container = container || this.createContainer();
+	this.container = container || document.body;
 	var graph = this.editor.graph;
 	graph.lightbox = lightbox;
 
@@ -72,8 +72,6 @@ EditorUi = function(editor, container, lightbox)
 		this.sidebarContainer.onmousedown = textEditing;
 		this.formatContainer.onselectstart = textEditing;
 		this.formatContainer.onmousedown = textEditing;
-		this.propertyContainer.onselectstart = textEditing;
-		this.propertyContainer.onmousedown = textEditing;
 		this.footerContainer.onselectstart = textEditing;
 		this.footerContainer.onmousedown = textEditing;
 		
@@ -882,7 +880,6 @@ EditorUi = function(editor, container, lightbox)
    	this.editor.resetGraph();
    	this.init();
    	this.open();
- 	
 };
 
 // Extends mxEventSource
@@ -901,7 +898,7 @@ EditorUi.prototype.splitSize = (mxClient.IS_TOUCH || mxClient.IS_POINTER) ? 12 :
 /**
  * Specifies the height of the menubar. Default is 34.
  */
-EditorUi.prototype.menubarHeight = 34;
+EditorUi.prototype.menubarHeight = 30;
 
 /**
  * Specifies the width of the format panel should be enabled. Default is true.
@@ -916,7 +913,7 @@ EditorUi.prototype.formatWidth = 240;
 /**
  * Specifies the height of the toolbar. Default is 36.
  */
-EditorUi.prototype.toolbarHeight = 36;
+EditorUi.prototype.toolbarHeight = 34;
 
 /**
  * Specifies the height of the footer. Default is 28.
@@ -2617,14 +2614,14 @@ EditorUi.prototype.refresh = function(sizeDidChange)
 	sizeDidChange = (sizeDidChange != null) ? sizeDidChange : true;
 	
 	var quirks = mxClient.IS_IE && (document.documentMode == null || document.documentMode == 5);
-	var w = this.container.clientWidth*0.75;
-	var h = this.container.clientHeight*0.75;
+	var w = this.container.clientWidth;
+	var h = this.container.clientHeight;
 
-	/*if (this.container == document.body)
+	if (this.container == document.body)
 	{
 		w = document.body.clientWidth || document.documentElement.clientWidth;
 		h = (quirks) ? document.body.clientHeight || document.documentElement.clientHeight : document.documentElement.clientHeight;
-	}*/
+	}
 	
 	// Workaround for bug on iOS see
 	// http://stackoverflow.com/questions/19012135/ios-7-ipad-safari-landscape-innerheight-outerheight-layout-issue
@@ -2652,9 +2649,8 @@ EditorUi.prototype.refresh = function(sizeDidChange)
 	
 	if (this.toolbar != null)
 	{
-		//this.toolbarContainer.style.top = this.menubarHeight + 'px';
+		this.toolbarContainer.style.top = this.menubarHeight + 'px';
 		this.toolbarContainer.style.height = this.toolbarHeight + 'px';
-		this.toolbarContainer.style.zIndex = 1;
 		tmp += this.toolbarHeight;
 	}
 	
@@ -2679,26 +2675,10 @@ EditorUi.prototype.refresh = function(sizeDidChange)
 	this.sidebarContainer.style.width = effHsplitPosition + 'px';
 	this.formatContainer.style.top = tmp + 'px';
 	this.formatContainer.style.width = fw + 'px';
-	this.formatContainer.style.display = 'none';
-	
+	this.formatContainer.style.display = (this.format != null) ? '' : 'none';
 	
 	this.diagramContainer.style.left = (this.hsplit.parentNode != null) ? (effHsplitPosition + this.splitSize) + 'px' : '0px';
 	this.diagramContainer.style.top = this.sidebarContainer.style.top;
-	
-	this.menubarContainer.style.left=this.diagramContainer.style.left;
-	
-	this.menubarContainer.style.top='65px';
-	this.menubarContainer.style.zIndex=1;
-	this.toolbarContainer.style.top='99px';
-	
-	this.toolbarContainer.style.left=this.diagramContainer.style.left;
-	
-	this.propertyContainer.style.top = this.menubarContainer.style.top;
-	this.propertyContainer.style.width = fw + 'px';
-	
-	this.sidebarContainer.style.top = this.menubarContainer.style.top;
-	
-	
 	this.footerContainer.style.height = this.footerHeight + 'px';
 	this.hsplit.style.top = this.sidebarContainer.style.top;
 	this.hsplit.style.bottom = (this.footerHeight + off) + 'px';
@@ -2716,9 +2696,6 @@ EditorUi.prototype.refresh = function(sizeDidChange)
 		var sidebarHeight = Math.max(0, h - this.footerHeight - this.menubarHeight - this.toolbarHeight);
 		this.sidebarContainer.style.height = (sidebarHeight - sidebarFooterHeight) + 'px';
 		this.formatContainer.style.height = sidebarHeight + 'px';
-		this.propertyContainer.style.height = sidebarHeight + 'px';
-		this.propertyContainer.style.right = '0px';
-		
 		this.diagramContainer.style.width = (this.hsplit.parentNode != null) ? Math.max(0, w - effHsplitPosition - this.splitSize - fw) + 'px' : w + 'px';
 		this.footerContainer.style.width = this.menubarContainer.style.width;
 		var diagramHeight = Math.max(0, h - this.footerHeight - this.menubarHeight - this.toolbarHeight);
@@ -2741,9 +2718,6 @@ EditorUi.prototype.refresh = function(sizeDidChange)
 		}
 		
 		this.diagramContainer.style.right = fw + 'px';
-		this.menubarContainer.style.right=this.diagramContainer.style.right;
-		this.toolbarContainer.style.right=this.diagramContainer.style.right;
-		
 		var th = 0;
 		
 		if (this.tabContainer != null)
@@ -2756,10 +2730,6 @@ EditorUi.prototype.refresh = function(sizeDidChange)
 		this.sidebarContainer.style.bottom = (this.footerHeight + sidebarFooterHeight + off) + 'px';
 		this.formatContainer.style.bottom = (this.footerHeight + off) + 'px';
 		this.diagramContainer.style.bottom = (this.footerHeight + off + th) + 'px';
-
-		this.propertyContainer.style.bottom = this.footerContainer.style.bottom;
-		this.propertyContainer.style.position = 'absolute';
-			
 	}
 	
 	if (sizeDidChange)
@@ -2781,36 +2751,24 @@ EditorUi.prototype.createTabContainer = function()
  */
 EditorUi.prototype.createDivs = function()
 {
-	
 	this.menubarContainer = this.createDiv('geMenubarContainer');
 	this.toolbarContainer = this.createDiv('geToolbarContainer');
 	this.sidebarContainer = this.createDiv('geSidebarContainer');
 	this.formatContainer = this.createDiv('geSidebarContainer');
-	this.propertyContainer = this.createDiv('gePropertyContainer');
 	this.diagramContainer = this.createDiv('geDiagramContainer');
 	this.footerContainer = this.createDiv('geFooterContainer');
-	this.saveCancelContainer= this.createDiv('geTemplateOperationsContainer');
-	
 	this.hsplit = this.createDiv('geHsplit');
 	this.hsplit.setAttribute('title', mxResources.get('collapseExpand'));
 
 	// Sets static style for containers
-	//this.menubarContainer.style.top = '0px';
+	this.menubarContainer.style.top = '0px';
 	this.menubarContainer.style.left = '0px';
-	this.menubarContainer.style.margin = 'auto';
-	
-	//this.menubarContainer.style.right = '0px';
+	this.menubarContainer.style.right = '0px';
 	this.toolbarContainer.style.left = '0px';
-	this.menubarContainer.style.margin = 'auto';
-	
-	//this.toolbarContainer.style.right = '0px';
+	this.toolbarContainer.style.right = '0px';
 	this.sidebarContainer.style.left = '0px';
 	this.formatContainer.style.right = '0px';
 	this.formatContainer.style.zIndex = '1';
-	this.formatContainer.style.display='none';
-	this.propertyContainer.style.right = '0px';
-	this.propertyContainer.style.zIndex = '1';
-	
 	this.diagramContainer.style.right = ((this.format != null) ? this.formatWidth : 0) + 'px';
 	this.footerContainer.style.left = '0px';
 	this.footerContainer.style.right = '0px';
@@ -2884,23 +2842,6 @@ EditorUi.prototype.createUi = function()
 		this.container.appendChild(this.sidebarContainer);
 	}
 	
-	//Creates Property Container
-	
-	this.propertyBar = (this.editor.chromeless) ? null : this.createPropbar(this.propertyContainer);
-	
-	if (this.propertyBar != null)
-	{
-		this.container.appendChild(this.propertyContainer);
-	}
-	
-	//creates save/cancel container
-	this.saveCancelBar = (this.editor.chromeless) ? null : this.createSaveCancelbar(this.saveCancelContainer);
-	
-	if (this.saveCancelBar != null)
-	{
-		this.container.appendChild(this.saveCancelContainer);
-	}
-	
 	// Creates the format sidebar
 	this.format = (this.editor.chromeless || !this.formatEnabled) ? null : this.createFormat(this.formatContainer);
 	
@@ -2917,8 +2858,6 @@ EditorUi.prototype.createUi = function()
 		this.footerContainer.appendChild(footer);
 		this.container.appendChild(this.footerContainer);
 	}
-	
-	
 
 	if (this.sidebar != null && this.sidebarFooterContainer)
 	{
@@ -2995,44 +2934,6 @@ EditorUi.prototype.createSidebar = function(container)
 	return new Sidebar(this, container);
 };
 
-EditorUi.prototype.createPropbar = function(container)
-{
-	return new PropertyBar(this, container);
-};
-
-EditorUi.prototype.createSaveCancelbar = function(container)
-{
-	container.style.zIndex=1;   
-	container.style.right='20px';
-	container.style.position='absolute';
-	container.style.bottom= '40px';
-	var ui=this;
-	
-	var btn = mxUtils.button("Save Graph", function()
-	{
-		ui.actions.get('save').funct();
-	});
-	btn.setAttribute('title', "Save Graph");
-	btn.style.marginRight = '30px';
-	btn.style.height = '30px';
-	btn.style.textAlign = 'center';
-	container.appendChild(btn);
-	
-	var btn = mxUtils.button("Cancel/Exit", function()
-	{
-				location.href="/";
-	});
-	btn.setAttribute('title', "Cancel/ Exit");
-	btn.style.width = '80px';
-	btn.style.height = '30px';
-	btn.style.float = 'right';
-	btn.style.marginRight = '2px';
-	btn.style.textAlign = 'center';
-	container.appendChild(btn);
-	
-	return container;
-};
-
 /**
  * Creates a new sidebar for the given container.
  */
@@ -3059,7 +2960,6 @@ EditorUi.prototype.createDiv = function(classname)
 	
 	return elt;
 };
-
 
 /**
  * Updates the states of the given undo/redo items.
@@ -3350,19 +3250,6 @@ EditorUi.prototype.save = function(name)
 		
 		var xml = mxUtils.getXml(this.editor.getGraphXml());
 		
-		if (window.DOMParser) {
-		    parser=new DOMParser();
-		    xmlDoc=parser.parseFromString(xml,"text/xml");
-		} else { // Internet Explorer
-		    xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
-		    xmlDoc.async=false;	
-		    xmlDoc.loadXML(xml); 
-		}
-		var rx=new RegExp("<mxGraphModel[^>]*>");xml=xml.replace(rx,"");
-		var rx=new RegExp("</mxGraphModel>");xml=xml.replace(rx,"");
-		
-		var templateObject = new Study_Design(xmlDoc,name,"",xml);
-		console.log(templateObject);
 		try
 		{
 			if (Editor.useLocalStorage)
@@ -3380,17 +3267,8 @@ EditorUi.prototype.save = function(name)
 			{
 				if (xml.length < MAX_REQUEST_SIZE)
 				{
-						
-						var xhttp = new XMLHttpRequest();
-						xhttp.open("POST", SAVE_URL, true);
-						xhttp.setRequestHeader("Content-type", "application/json");
-				   		
-						xhttp.send(JSON.stringify(templateObject));
-						xhttp.onreadystatechange = function () {
-						    if (xhttp.readyState === 4 && xhttp.status === 200) {
-						        console.log("Success");
-						    }
-						};
+					new mxXmlRequest(SAVE_URL, 'filename=' + encodeURIComponent(name) +
+						'&xml=' + encodeURIComponent(xml)).simulate(document, '_blank');
 				}
 				else
 				{
@@ -4073,46 +3951,3 @@ EditorUi.prototype.destroy = function()
 		}
 	}
 };
-
-/*
- * Add All divs enclosed in one Application Div
- * START
- */
-EditorUi.prototype.createContainer = function()
-{
-	var elt = document.createElement('div');
-	elt.className = "geApplicationContainer";
-	document.body.appendChild(elt);
-	return elt;
-}
-//--------------END-------------------//
-var btn = mxUtils.button("Save", function()
-		{
-			var propertyObject = new Object();
-			propertyObject.id=cell.id;
-			propertyObject.label=document.getElementById('label').value;
-			propertyObject.alternateTerm=document.getElementById('alternateTerm').value;
-			propertyObject.definition=document.getElementById('definition').value;
-			propertyObject.definitionSource=document.getElementById('definitionSource').value;
-			propertyObject.exampleUsage=document.getElementById('exampleUsage').value;
-			propertyObject.parentclass=document.getElementById('parentclass').value;
-			propertyObject.notes=document.getElementById('notes').value;
-			
-			var xhttp = new XMLHttpRequest();
-			xhttp.open("POST", "/saveDataObjectProperty", false);
-			xhttp.setRequestHeader("Content-type", "application/json");
-				
-			xhttp.send(JSON.stringify(propertyObject));
-			xhttp.onreadystatechange = function () {
-			    if (xhttp.readyState === 4 && xhttp.status === 200) {
-			    	console.log("success");
-			    }
-			};
-			
-		})
-				
-		btn.setAttribute('title', "Save");
-		btn.style.width = '100px';
-		btn.style.marginRight = '2px';
-		btn.style.textAlign = 'center';
-		div.appendChild(btn);

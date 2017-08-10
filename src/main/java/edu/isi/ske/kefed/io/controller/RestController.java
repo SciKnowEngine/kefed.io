@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.isi.ske.kefed.io.model.CurrentUser;
+import edu.isi.ske.kefed.io.model.MetaData;
 import edu.isi.ske.kefed.io.model.RegisterUser;
 import edu.isi.ske.kefed.io.model.Study_Design;
 import edu.isi.ske.kefed.io.repository.UserRepository;
@@ -92,5 +94,17 @@ public class RestController implements UserDetailsService {
 		graphXMLService.deleteTemplate(ontologyId);
 		return "dashboard/app/index";
 	}
+	
+	@GetMapping(value="/loadDataObjectProperty")
+	public ResponseEntity<?> loadDataObjProperty(@RequestParam("id")String id,HttpServletRequest request) {
+		return ResponseEntity.ok(graphXMLService.loadDataObjectProperty(id));
+	}
+	
+	@PostMapping(value="/saveDataObjectProperty")
+	public ResponseEntity<?> saveDataObjProperty(@RequestBody MetaData dataObjectProperty,HttpServletRequest request) {
+		graphXMLService.saveDataObjectProperty(dataObjectProperty);
+		return ResponseEntity.ok("Success");
+	}
+	
 	
 }
