@@ -96,7 +96,7 @@ public class RestController implements UserDetailsService {
 	}
 	
 	@GetMapping(value="/loadDataObjectProperty")
-	public ResponseEntity<?> loadDataObjProperty(@RequestParam("id")String id,HttpServletRequest request) {
+	public ResponseEntity<?> loadDataObjProperty(@RequestParam("id")int id,HttpServletRequest request) {
 		return ResponseEntity.ok(graphXMLService.loadDataObjectProperty(id));
 	}
 	

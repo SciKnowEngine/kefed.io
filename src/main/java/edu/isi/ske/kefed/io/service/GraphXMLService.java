@@ -21,5 +21,5 @@ public interface GraphXMLService {
 	
 	void saveDataObjectProperty(MetaData dataObjectProperty);
 	
-	MetaData loadDataObjectProperty(String id);
+	MetaData loadDataObjectProperty(int id);
 }

@@ -95,7 +95,7 @@ public class PlannedProcess implements Serializable {
 		this.has_part = has_part;
 	}
 	
-	public List<? extends Object> getHas_participant() {
+	public List<? extends Continuant> getHas_participant() {
 		return has_participant;
 	}
 	public void setHas_participant(List<? extends Continuant> has_participant) {

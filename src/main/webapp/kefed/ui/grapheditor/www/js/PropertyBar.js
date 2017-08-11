@@ -30,37 +30,38 @@ function PropertyBar(editorUi, container)
 					div.appendChild(title);
 					div.appendChild(value);
 					
-					div.appendChild(document.createElement('hr'));
-
+					div.appendChild(document.createElement("hr"));
+					
 					var label=this.createTitle("Label:",0);
-					label.style.fontWeight='normal';
-					
-					var input = document.createElement('input');
-					input.id='label';
-					input.value=cell.value==undefined?"":cell.value;
-					input.style.textAlign = 'right';
-					input.style.marginRight = '26px';
-					input.style.fontWeight='normal';
-					
-					label.appendChild(input);
+					label.style.fontWeight='bold';
+					label.style.float='left';
 					div.appendChild(label);
 					
+					var label2=this.createTitle(cell.value==undefined?"":cell.value,0);
+					label2.style.fontWeight='normal';
+					div.appendChild(label2);
+					
+					div.appendChild(document.createElement("hr"));
+					
 					var label=this.createTitle("Alternative Term:",0);
-					label.style.fontWeight='normal';
+					label.style.fontWeight='bold';
+					label.style.float='left';
+					div.appendChild(label);
 					
 					var input = document.createElement('input');
 					input.id='alternateTerm';
 					input.value=propertyObject.alternateTerm==undefined?"":propertyObject.alternateTerm;
 					input.style.fontWeight='normal';
 					input.style.textAlign = 'right';
+					input.style.float='left';
 					input.style.marginRight = '26px';
-					label.appendChild(input);
-					div.appendChild(label);
+					div.appendChild(input);
 					
-					div.appendChild(document.createElement('hr'));
 					
 					var label=this.createTitle("Definition:",0);
-					label.style.fontWeight='normal';
+					label.style.fontWeight='bold';
+					label.style.float='left';
+					div.appendChild(label);
 					
 					var input = document.createElement('input');
 					input.id='definition';
@@ -68,12 +69,14 @@ function PropertyBar(editorUi, container)
 					input.style.fontWeight='normal';
 					input.style.textAlign = 'right';
 					input.style.marginRight = '26px';
-					label.appendChild(input);
-					div.appendChild(label);
+					input.style.float='left';
+					div.appendChild(input);
 					
 					
 					var label=this.createTitle("Definition Source:",0);
-					label.style.fontWeight='normal';
+					label.style.fontWeight='bold';
+					label.style.float='left';
+					div.appendChild(label);
 					
 					var input = document.createElement('input');
 					input.id='definitionSource';
@@ -81,13 +84,14 @@ function PropertyBar(editorUi, container)
 					input.style.fontWeight='normal';
 					input.style.textAlign = 'right';
 					input.style.marginRight = '26px';
-					label.appendChild(input);
-					div.appendChild(label);
+					input.style.float='left';
+					div.appendChild(input);
 					
-					div.appendChild(document.createElement('hr'));
 					
 					var label=this.createTitle("Example Usage:",0);
-					label.style.fontWeight='normal';
+					label.style.fontWeight='bold';
+					label.style.float='left';
+					div.appendChild(label);
 					
 					var input = document.createElement('input');
 					input.id='exampleUsage';
@@ -95,12 +99,14 @@ function PropertyBar(editorUi, container)
 					input.style.fontWeight='normal';
 					input.style.textAlign = 'right';
 					input.style.marginRight = '26px';
-					label.appendChild(input);
-					div.appendChild(label);
+					input.style.float='left';
+					div.appendChild(input);
 					
 					
 					var label=this.createTitle("Parent Class:",0);
-					label.style.fontWeight='normal';
+					label.style.fontWeight='bold';
+					label.style.float='left';
+					div.appendChild(label);
 					
 					var input = document.createElement('input');
 					input.id='parentclass';
@@ -108,11 +114,13 @@ function PropertyBar(editorUi, container)
 					input.style.fontWeight='normal';
 					input.style.textAlign = 'right';
 					input.style.marginRight = '26px';
-					label.appendChild(input);
-					div.appendChild(label);
+					input.style.float='left';
+					div.appendChild(input);
 					
 					var label=this.createTitle("Notes:",0);
-					label.style.fontWeight='normal';
+					label.style.fontWeight='bold';
+					label.style.float='left';
+					div.appendChild(label);
 					
 					var input = document.createElement('textarea');
 					input.id='notes';
@@ -122,14 +130,14 @@ function PropertyBar(editorUi, container)
 					input.style.textAlign = 'right';
 					input.style.marginRight = '26px';
 					input.style.height = '80px';
-					label.appendChild(input);
-					div.appendChild(label);
+					input.style.float='left';
+					div.appendChild(input);
 					
 					var btn = mxUtils.button("Save", function()
 					{
 						var propertyObject = new Object();
-						propertyObject.id=cell.id;
-						propertyObject.label=document.getElementById('label').value;
+						propertyObject.id=parseInt(cell.id);
+						propertyObject.label=cell.value;
 						propertyObject.alternateTerm=document.getElementById('alternateTerm').value;
 						propertyObject.definition=document.getElementById('definition').value;
 						propertyObject.definitionSource=document.getElementById('definitionSource').value;
@@ -153,9 +161,9 @@ function PropertyBar(editorUi, container)
 					btn.setAttribute('title', "Save");
 					btn.style.marginRight = '2px';
 					btn.style.textAlign = 'center';
+					btn.style.float='left';
 					div.appendChild(btn);
 					
-					div.appendChild(document.createElement('hr'));
 					this.container.append(div);
 			} else {
 				while (this.container.hasChildNodes()) {
@@ -202,7 +210,7 @@ PropertyBar.prototype.fetchSavedObject = function(id,propertyObject,callback)
 	    	return propertyObject;
 	    }
 	};
-	xhttp.open("GET", "/loadDataObjectProperty?id="+id, false);
+	xhttp.open("GET", "/loadDataObjectProperty?id="+parseInt(id), false);
 	xhttp.setRequestHeader("Content-type", "application/json");
 	xhttp.send();
 	return propertyObject;
