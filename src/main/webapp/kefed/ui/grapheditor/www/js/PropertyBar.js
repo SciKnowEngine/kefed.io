@@ -184,7 +184,6 @@ PropertyBar.prototype.createPanel = function(id)
 	var div = document.createElement('div');
 	div.id = id;
 	div.style.padding = '12px 0px 12px 18px';
-	div.style.borderBottom = '1px solid #c0c0c0';
 	return div;
 };
 
