@@ -4085,34 +4085,3 @@ EditorUi.prototype.createContainer = function()
 	document.body.appendChild(elt);
 	return elt;
 }
-//--------------END-------------------//
-var btn = mxUtils.button("Save", function()
-		{
-			var propertyObject = new Object();
-			propertyObject.id=cell.id;
-			propertyObject.label=document.getElementById('label').value;
-			propertyObject.alternateTerm=document.getElementById('alternateTerm').value;
-			propertyObject.definition=document.getElementById('definition').value;
-			propertyObject.definitionSource=document.getElementById('definitionSource').value;
-			propertyObject.exampleUsage=document.getElementById('exampleUsage').value;
-			propertyObject.parentclass=document.getElementById('parentclass').value;
-			propertyObject.notes=document.getElementById('notes').value;
-			
-			var xhttp = new XMLHttpRequest();
-			xhttp.open("POST", "/saveDataObjectProperty", false);
-			xhttp.setRequestHeader("Content-type", "application/json");
-				
-			xhttp.send(JSON.stringify(propertyObject));
-			xhttp.onreadystatechange = function () {
-			    if (xhttp.readyState === 4 && xhttp.status === 200) {
-			    	console.log("success");
-			    }
-			};
-			
-		})
-				
-		btn.setAttribute('title', "Save");
-		btn.style.width = '100px';
-		btn.style.marginRight = '2px';
-		btn.style.textAlign = 'center';
-		div.appendChild(btn);
