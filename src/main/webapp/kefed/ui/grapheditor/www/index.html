@@ -9,8 +9,7 @@
 	<link rel="icon" href="dashboard/app/images/kefedLogo.ico"/>
 	<script src="dashboard/app/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
    <link rel="import" href="dashboard/app/elements/elements.html"></link>
-  
-	<script type="text/javascript">
+   	<script type="text/javascript">
 		mxLoadResources = false;
 	</script>
 	<script type="text/javascript" src="ui/grapheditor/www/js/Init.js"></script>
@@ -33,26 +32,40 @@
 	
 </head>
 <body class="geEditor">
+	<dom-module id="study-design">
 	<script type="text/javascript">
-		var x =screen.height;
-		function routeBack() {
-			window.location.href="/";
-		}
-		
-		
+		function updateTemplateObject(mxCell){
+			//alert(mxCell.id);
+		} 
+	    
+		Polymer({
+	    	is: 'study-design',
+		    properties: {
+		    	
+		    },
+		    ready:function(){
+		    	
+		    	
+		    },
+		    
+		    
+		});
 		// Extends EditorUi to update I/O action states based on availability of backend
 		(function()
 		{
 			var editorUiInit = EditorUi.prototype.init;
-			function saveTemplate() {
-				this.actions.get('save').funct();
-				
-			}	
+			
+			
 			EditorUi.prototype.init = function()
 			{
 				editorUiInit.apply(this, arguments);
 				this.actions.get('export').setEnabled(false);
-
+				
+				this.editor.graph.getSelectionModel().addListener(mxEvent.CHANGE, mxUtils.bind(this, function(){		
+					var mxCell=this.editor.graph.getSelectionModel();
+					updateTemplateObject(mxCell);
+				}));	
+				
 				// Updates action states which require a backend
 				if (!Editor.useLocalStorage)
 				{
@@ -120,12 +133,14 @@
 			{
 				document.body.innerHTML = '<center style="margin-top:10%;">Error loading resource files. Please check browser console.</center>';
 			});
+			
+			
 		})();
 	</script>
 	<paper-toolbar class="studyEditorToolBarClass">
       <h3>Kefed Study Editor</h3>
 	</paper-toolbar>
 	
-	
+	</dom-module>
 </body>
 </html>
