@@ -34,8 +34,9 @@
 <body class="geEditor">
 	<dom-module id="study-design">
 	<script type="text/javascript">
+		var template_object = new Study_Design();
 		function updateTemplateObject(mxCell){
-			//alert(mxCell.id);
+			template_object.parseCell(mxCell);
 		} 
 	    
 		Polymer({

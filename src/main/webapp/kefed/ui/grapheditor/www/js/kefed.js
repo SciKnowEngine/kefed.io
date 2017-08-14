@@ -315,3 +315,15 @@ function Study_Design(xmlDoc,label,ontologyId,diagramXML) {
 	this.has_part = new Experiment();
 	parseXML(xmlDoc,this.has_part);
 }
+
+Study_Design.prototype.parseCell = function(mxCell) {
+	
+};
+
+function Study_Design() {
+	this.ontologyId="";
+	this.process_type="E";
+	this.has_part = new Experiment();
+	return this;
+}
+
