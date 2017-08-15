@@ -306,20 +306,28 @@ function parseXML(xmlDoc,experiment) {
 	
 }
 
-function Study_Design(xmlDoc,label,ontologyId,diagramXML) {
-	
-	this.label=label;
-	this.ontologyId="";
-	this.process_type="E";
-	this.diagramXML=diagramXML;
-	this.has_part = new Experiment();
-	parseXML(xmlDoc,this.has_part);
-}
-
-Study_Design.prototype.parseCell = function(mxCell) {
-	
+Study_Design.prototype.parseCell = function(mxCell,xmlObject) {
+	var xmlDoc = null;
+	if (window.DOMParser) {
+	    parser=new DOMParser();
+	    xmlDoc=parser.parseFromString(xmlObject,"text/xml");
+	} else { // Internet Explorer
+	    xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+	    xmlDoc.async=false;	
+	    xmlDoc.loadXML(xmlObject); 
+	}
+	if(xmlDoc!=null) {
+		this.diagramXML=xmlDoc;
+		parseXML(xmlDoc,this.has_part);
+	}
 };
 
+Study_Design.prototype.get = function(name,xml){
+	this.label=name;
+	this.diagramXML=xml;
+	parseXML(xmlDoc,this.has_part)
+	return this;
+}
 function Study_Design() {
 	this.ontologyId="";
 	this.process_type="E";

@@ -34,9 +34,10 @@
 <body class="geEditor">
 	<dom-module id="study-design">
 	<script type="text/javascript">
-		var template_object = new Study_Design();
-		function updateTemplateObject(mxCell){
-			template_object.parseCell(mxCell);
+		var Study_Design = new Study_Design();
+		function updateTemplateObject(mxCell,xmlObject){
+			if(mxCell.cells.length>0)
+				Study_Design.parseCell(mxCell,xmlObject);
 		} 
 	    
 		Polymer({
@@ -45,8 +46,7 @@
 		    	
 		    },
 		    ready:function(){
-		    	
-		    	
+		  		this.template_object= Study_Design; 	
 		    },
 		    
 		    
@@ -64,7 +64,7 @@
 				
 				this.editor.graph.getSelectionModel().addListener(mxEvent.CHANGE, mxUtils.bind(this, function(){		
 					var mxCell=this.editor.graph.getSelectionModel();
-					updateTemplateObject(mxCell);
+					updateTemplateObject(mxCell,this.editor.getGraphXml());
 				}));	
 				
 				// Updates action states which require a backend
@@ -109,6 +109,7 @@
 	                }
 
 	                this.editor.graph.addCells(cells);
+	                this.editor.graph.template_object=Study_Design;
 
 				}
 			};
