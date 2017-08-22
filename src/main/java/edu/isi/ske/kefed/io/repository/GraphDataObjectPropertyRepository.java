@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import edu.isi.ske.kefed.io.model.MetaData;
 
 @Repository
-public interface GraphDataObjectPropertyRepository extends ElasticsearchRepository<MetaData, String>{
+public interface GraphDataObjectPropertyRepository extends ElasticsearchRepository<MetaData, Integer>{
 
 }

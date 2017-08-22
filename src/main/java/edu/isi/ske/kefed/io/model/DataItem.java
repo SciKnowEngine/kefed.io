@@ -9,6 +9,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 @Document(indexName = "dataitem", type = "dataitem", shards = 1, replicas = 0, refreshInterval = "-1")
 public class DataItem extends Continuant {
 	static final long serialVersionUID = 5130904214704817886L;
+	
 	@Id
 	private int id;
 	

@@ -77,7 +77,7 @@ public class GraphXMLServiceImpl implements GraphXMLService{
 	}
 
 	@Override
-	public MetaData loadDataObjectProperty(String id) {
+	public MetaData loadDataObjectProperty(int id) {
 		return dataObjPropertyRepo.findOne(id);
 	}
 	

@@ -7,8 +7,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 public class MetaData {
 
 	@Id
-	String id;
-	
+	private int id;
 	private String label;
 	private String alternateTerm;
 	private String definition;
@@ -17,12 +16,6 @@ public class MetaData {
 	private String parentclass;
 	private String notes;
 	
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
 	public String getLabel() {
 		return label;
 	}
@@ -65,6 +58,11 @@ public class MetaData {
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
-	
-	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+		
 }
