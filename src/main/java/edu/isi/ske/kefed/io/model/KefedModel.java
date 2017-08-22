@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 @Document(indexName = "graphxml", type = "graphxml", shards = 1, replicas = 0, refreshInterval = "-1")
-public class GraphXML {
+public class KefedModel {
 
 	
 	
@@ -13,11 +13,11 @@ public class GraphXML {
 
     private String xml;
    
-    public GraphXML() {
+    public KefedModel() {
     }
 
     
-	public GraphXML(String filename, String xml) {
+	public KefedModel(String filename, String xml) {
 		super();
 		this.filename = filename;
 		this.xml = xml;

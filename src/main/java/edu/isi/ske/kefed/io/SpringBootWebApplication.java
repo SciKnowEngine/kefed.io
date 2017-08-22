@@ -8,7 +8,9 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
-@SpringBootApplication
+// NOTE - SECURITY IS DISABLED HERE 
+@SpringBootApplication(exclude = org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration.class)
+//@SpringBootApplication
 @ComponentScan(basePackages = {"edu.isi.ske.kefed"})
 @EnableElasticsearchRepositories("edu.isi.ske.kefed")
 public class SpringBootWebApplication extends SpringBootServletInitializer implements CommandLineRunner{

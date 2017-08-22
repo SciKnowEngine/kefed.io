@@ -4,10 +4,10 @@
      $Revision$  xmlns="http://www.isi.edu/bmkeg/"-->
 <configuration>
   <modelStoreType>elasticSearch</modelStoreType>
-  <modelStoreUrl>http://localhost:9200/kefed/model</modelStoreUrl>
+  <modelStoreUrl>http://localhost:8080/</modelStoreUrl>
 
   <dataStoreType>elasticSearch</dataStoreType>
-  <dataStoreUrl>http://localhost:9200/kefed/data</dataStoreUrl>
+  <dataStoreUrl>http://localhost:8080/</dataStoreUrl>
 
   <!--
   <schemaStoreType>persevere</schemaStoreType>

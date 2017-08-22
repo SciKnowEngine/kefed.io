@@ -6,8 +6,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+//NOTE - SECURITY IS DISABLED HERE 
+//@EnableWebSecurity
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
-@EnableWebSecurity
 public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
     @Override

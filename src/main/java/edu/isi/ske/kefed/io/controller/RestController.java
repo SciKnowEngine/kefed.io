@@ -34,7 +34,6 @@ public class RestController implements UserDetailsService {
 	@Autowired private GraphXMLService graphXMLService;
 	
 	@Autowired private UserRepository repositoryImpl;
-	
 		
 	@RequestMapping(value="/login")
 	public String register(HttpServletRequest request) {
