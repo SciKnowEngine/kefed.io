@@ -12,7 +12,7 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 @SpringBootApplication(exclude = org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration.class)
 //@SpringBootApplication
 @ComponentScan(basePackages = {"edu.isi.ske.kefed"})
-@EnableElasticsearchRepositories("edu.isi.ske.kefed")
+@EnableElasticsearchRepositories("edu.isi.ske.kefed")	
 public class SpringBootWebApplication extends SpringBootServletInitializer implements CommandLineRunner{
 	
 	@Override
@@ -23,7 +23,7 @@ public class SpringBootWebApplication extends SpringBootServletInitializer imple
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(SpringBootWebApplication.class, args);
 	}
-	
+//	
 	@Override	
 	public void run(String... args) throws Exception {
 		

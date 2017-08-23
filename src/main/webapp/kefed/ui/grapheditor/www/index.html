@@ -32,12 +32,18 @@
 	
 </head>
 <body class="geEditor">
-	<dom-module id="study-design">
+	<template is="dom-bind" id="app">
 	<script type="text/javascript">
 		var Study_Design = new Study_Design();
+		
+		var app=document.querySelector("#app");
+		app.template_object=Study_Design;
+		
 		function updateTemplateObject(mxCell,xmlObject){
 			if(mxCell.cells.length>0)
 				Study_Design.parseCell(mxCell,xmlObject);
+			    app.template_object=Study_Design;
+			
 		} 
 	    
 		Polymer({
@@ -51,6 +57,8 @@
 		    
 		    
 		});
+		
+		
 		// Extends EditorUi to update I/O action states based on availability of backend
 		(function()
 		{
@@ -64,7 +72,10 @@
 				
 				this.editor.graph.getSelectionModel().addListener(mxEvent.CHANGE, mxUtils.bind(this, function(){		
 					var mxCell=this.editor.graph.getSelectionModel();
-					updateTemplateObject(mxCell,this.editor.getGraphXml());
+					if(mxCell.cells.length>0) {
+						updateTemplateObject(mxCell,this.editor.getGraphXml());
+						propertyDialog.toggle();
+					}
 				}));	
 				
 				// Updates action states which require a backend
@@ -143,7 +154,19 @@
 	<paper-toolbar class="studyEditorToolBarClass">
       <h3>Kefed Study Editor</h3>
 	</paper-toolbar>
-	
-	</dom-module>
+	<paper-dialog id="propertyDialog" style="position: fixed; top: 0px; z-index: 103;position: absolute;top: 65px;right: 0px;margin-right: 10px;margin:0px;width:240px">
+			  <paper-dialog-scrollable>	
+				<paper-input pattern="[A-Za-z0-9_]*" maxlength="255" label="Label" id="propertyLabel" value="{{propertyLabel}}"></paper-input> 
+				<paper-input label="Alternate Term:" id="alternateTerm" value="{{propertyAlternateTerm}}"></paper-input> 
+				<paper-input label="Definition" id="propertyDefinition" value="{{propertyDefinition}}"></paper-input> 
+				<paper-input label="Definition Source:" value="{{propertyDefinitionSource}}" id="propertyDefinitionSource"></paper-input> 
+				<paper-input label="Example Usage:" value="{{propertyExampleUsage}}" id="propertyExampleUsage"></paper-input> 
+				<paper-input label="Parent Class:" value="{{propertyParentClass}}" id="propertyParentClass"></paper-input> 
+				<paper-input label="Notes" value="{{propertyNotes}}" id="propertyNotes"></paper-input> 
+				
+				</paper-dialog-scrollable>
+				
+	</paper-dialog>
+	</template>
 </body>
 </html>

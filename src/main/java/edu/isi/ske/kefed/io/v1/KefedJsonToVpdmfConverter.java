@@ -495,7 +495,7 @@ public class KefedJsonToVpdmfConverter {
 		
 	}
 		
-	public static void main(String[] args) throws Exception {
+	public static void main1(String[] args) throws Exception {
 		
 		KefedJsonToVpdmfConverter jsonToVpdmf = new KefedJsonToVpdmfConverter();	
 		

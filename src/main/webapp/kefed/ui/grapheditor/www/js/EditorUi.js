@@ -72,8 +72,8 @@ EditorUi = function(editor, container, lightbox)
 		this.sidebarContainer.onmousedown = textEditing;
 		this.formatContainer.onselectstart = textEditing;
 		this.formatContainer.onmousedown = textEditing;
-		this.propertyContainer.onselectstart = textEditing;
-		this.propertyContainer.onmousedown = textEditing;
+		//this.propertyContainer.onselectstart = textEditing;
+		//this.propertyContainer.onmousedown = textEditing;
 		this.footerContainer.onselectstart = textEditing;
 		this.footerContainer.onmousedown = textEditing;
 		
@@ -2693,8 +2693,8 @@ EditorUi.prototype.refresh = function(sizeDidChange)
 	
 	this.toolbarContainer.style.left=this.diagramContainer.style.left;
 	
-	this.propertyContainer.style.top = this.menubarContainer.style.top;
-	this.propertyContainer.style.width = fw + 'px';
+	//this.propertyContainer.style.top = this.menubarContainer.style.top;
+	//this.propertyContainer.style.width = fw + 'px';
 	
 	this.sidebarContainer.style.top = this.menubarContainer.style.top;
 	
@@ -2716,8 +2716,8 @@ EditorUi.prototype.refresh = function(sizeDidChange)
 		var sidebarHeight = Math.max(0, h - this.footerHeight - this.menubarHeight - this.toolbarHeight);
 		this.sidebarContainer.style.height = (sidebarHeight - sidebarFooterHeight) + 'px';
 		this.formatContainer.style.height = sidebarHeight + 'px';
-		this.propertyContainer.style.height = sidebarHeight + 'px';
-		this.propertyContainer.style.right = '0px';
+		//this.propertyContainer.style.height = sidebarHeight + 'px';
+		//this.propertyContainer.style.right = '0px';
 		
 		this.diagramContainer.style.width = (this.hsplit.parentNode != null) ? Math.max(0, w - effHsplitPosition - this.splitSize - fw) + 'px' : w + 'px';
 		this.footerContainer.style.width = this.menubarContainer.style.width;
@@ -2757,8 +2757,8 @@ EditorUi.prototype.refresh = function(sizeDidChange)
 		this.formatContainer.style.bottom = (this.footerHeight + off) + 'px';
 		this.diagramContainer.style.bottom = (this.footerHeight + off + th) + 'px';
 
-		this.propertyContainer.style.bottom = this.footerContainer.style.bottom;
-		this.propertyContainer.style.position = 'absolute';
+		//this.propertyContainer.style.bottom = this.footerContainer.style.bottom;
+		//this.propertyContainer.style.position = 'absolute';
 			
 	}
 	
@@ -2786,7 +2786,7 @@ EditorUi.prototype.createDivs = function()
 	this.toolbarContainer = this.createDiv('geToolbarContainer');
 	this.sidebarContainer = this.createDiv('geSidebarContainer');
 	this.formatContainer = this.createDiv('geSidebarContainer');
-	this.propertyContainer = this.createDiv('gePropertyContainer');
+	//this.propertyContainer = this.createDiv('gePropertyContainer');
 	this.diagramContainer = this.createDiv('geDiagramContainer');
 	this.footerContainer = this.createDiv('geFooterContainer');
 	this.saveCancelContainer= this.createDiv('geTemplateOperationsContainer');
@@ -2808,8 +2808,8 @@ EditorUi.prototype.createDivs = function()
 	this.formatContainer.style.right = '0px';
 	this.formatContainer.style.zIndex = '1';
 	this.formatContainer.style.display='none';
-	this.propertyContainer.style.right = '0px';
-	this.propertyContainer.style.zIndex = '1';
+	//this.propertyContainer.style.right = '0px';
+	//this.propertyContainer.style.zIndex = '1';
 	
 	this.diagramContainer.style.right = ((this.format != null) ? this.formatWidth : 0) + 'px';
 	this.footerContainer.style.left = '0px';
@@ -2890,7 +2890,7 @@ EditorUi.prototype.createUi = function()
 	
 	if (this.propertyBar != null)
 	{
-		this.container.appendChild(this.propertyContainer);
+		//this.container.appendChild(this.propertyContainer);
 	}
 	
 	//creates save/cancel container
@@ -2997,7 +2997,7 @@ EditorUi.prototype.createSidebar = function(container)
 
 EditorUi.prototype.createPropbar = function(container)
 {
-	return new PropertyBar(this, container);
+	//return new PropertyBar(this, container);
 };
 
 EditorUi.prototype.createSaveCancelbar = function(container)
