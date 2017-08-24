@@ -27,7 +27,6 @@
 	<script type="text/javascript" src="ui/grapheditor/www/js/Toolbar.js"></script>
 	<script type="text/javascript" src="ui/grapheditor/www/js/Dialogs.js"></script>
 	<script type="text/javascript" src="ui/grapheditor/www/js/kefed.js"></script>
-	<script type="text/javascript" src="ui/grapheditor/www/js/PropertyBar.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	
 </head>
@@ -43,7 +42,6 @@
 			if(mxCell.cells.length>0)
 				Study_Design.parseCell(mxCell,xmlObject);
 			    app.template_object=Study_Design;
-			
 		} 
 	    
 		Polymer({
@@ -54,8 +52,6 @@
 		    ready:function(){
 		  		this.template_object= Study_Design; 	
 		    },
-		    
-		    
 		});
 		
 		
@@ -70,14 +66,18 @@
 				editorUiInit.apply(this, arguments);
 				this.actions.get('export').setEnabled(false);
 				
+				
 				this.editor.graph.getSelectionModel().addListener(mxEvent.CHANGE, mxUtils.bind(this, function(){		
 					var mxCell=this.editor.graph.getSelectionModel();
 					if(mxCell.cells.length>0) {
-						updateTemplateObject(mxCell,this.editor.getGraphXml());
-						propertyDialog.toggle();
+						var cell=mxCell.cells[0];
+						if(cell.edge==false) {
+							updateTemplateObject(mxCell,this.editor.getGraphXml());
+						}
+						
 					}
-				}));	
-				
+				}));
+				 
 				// Updates action states which require a backend
 				if (!Editor.useLocalStorage)
 				{

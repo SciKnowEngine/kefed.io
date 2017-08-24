@@ -19,8 +19,10 @@
 <dom-module id="study-templates">
 <template>
  		  
-	<iron-ajax id="getAllTemplates" url="/getAll" method="POST" handle-as="json" on-response="getTemplates" ></iron-ajax>
+	<iron-ajax id="loadEditor" method="POST" handle-as="json"></iron-ajax>
+    <iron-ajax id="getAllTemplates" url="/getAll" method="POST" handle-as="json" on-response="getTemplates" ></iron-ajax>
     <iron-ajax id="deleteTemplate" method="POST" handle-as="json" on-response="updatePage"></iron-ajax>
+    
    
     <br>
     <paper-button on-tap="openStudyEditor" raised="true" style="float:right;text-transform:none"> <strong>Create New</strong></paper-button>
