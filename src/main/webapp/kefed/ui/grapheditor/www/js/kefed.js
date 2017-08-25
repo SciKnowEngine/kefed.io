@@ -348,6 +348,22 @@ function Study_Design() {
 	return this;
 }
 
+Study_Design.prototype.getPropertyObject=function(studyDesign,id) {
+	var parent = studyDesign.has_part.has_part.filter((function(o){if(o.id == id)return o;}));
+	if(parent.length==0) {
+		var material=this.has_part.has_participant.filter((function(o){if(o.id == id)return o;}));
+		if(material.length>0) {
+			var metaData = material[0].metaData;
+			if(metaData==null) metaData=new MetaData(id);
+			return metaData;
+		} else return;
+	} else {
+		var metaData = parent[0].metaData;
+		if(metaData==null) metaData=new MetaData(id);
+		return metaData;
+	}
+}
+
 Study_Design.prototype.fetchPropertyObject=function(id,label) {
 	var parent = this.has_part.has_part.filter((function(o){if(o.id == id)return o;}));
 	if(parent.length==0) {

@@ -38,16 +38,14 @@
 		var Study_Design = new Study_Design();
 		
 		var app=document.querySelector("#app");
-		app.ready=function() {
 			var id=window.location.href.split("?");
-			app.$.getStudyDesign.url="/getStudyDesign"+"?"+id[1];
-			app.$.getStudyDesign.generateRequest();
-		}
+			app.$.getTemplateObject.url="/getStudyDesign"+"?"+id[1];
+			app.$.getTemplateObject.generateRequest();
 		
 		app.updateTemplateObject=function(data){
-			if(data.detail.response.length!=0) {
+			if(data.detail.response!=null) {
 				app.template_object=data.detail.response;
-			} else app.template_object=Study_Design;
+			} 
 		}
 		
 		app.changePropertyObjectValue=function(e){
@@ -60,10 +58,12 @@
 	    	} 
 		
 		function updatePropertyDialog(mxCell) {
+			console.log(app.propertyObject);
 			if(app.propertyObject==undefined) app.propertyObject=new Object();
 			app.propertyObject.id=mxCell.id;
 			app.propertyObject.label=mxCell.value;
-			app.propertyObject=Study_Design.fetchPropertyObject(mxCell.id,mxCell.value);
+			console.log(app.template_object);
+			app.propertyObject=Study_Design.getPropertyObject(app.template_object,mxCell.id);
 			app.$.propertyDialog.open();
 		}
 		
@@ -129,8 +129,10 @@
 				        {
 				            if(rawFile.status === 200 || rawFile.status == 0)
 				            {
-				                xmlString = rawFile.responseText;
-				    		}
+				            				xmlString = rawFile.responseText;
+				            				console.log(xmlString);
+				            		
+				    			}
 				        }
 				    }
 				    rawFile.send();
@@ -141,6 +143,9 @@
 					var doc = mxUtils.parseXml(xmlString);
 	                var codec = new mxCodec(doc);
 	                var elt = doc.documentElement.firstChild;
+	                elt = elt.nextSibling;
+	                elt = elt.nextSibling;
+	                console.log(elt);
 	                var cells = [];
 	                while (elt != null){                
 	                 cells.push(codec.decodeCell(elt));
