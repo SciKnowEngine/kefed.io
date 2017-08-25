@@ -32,18 +32,38 @@
 </head>
 <body class="geEditor">
 	<template is="dom-bind" id="app">
+	<iron-ajax id="getTemplateObject" method="GET" handle-as="json" on-response="updateTemplateObject"></iron-ajax>
+    
 	<script type="text/javascript">
 		var Study_Design = new Study_Design();
 		
 		var app=document.querySelector("#app");
 		app.template_object=Study_Design;
 		
-		function updateTemplateObject(mxCell,xmlObject){
-			if(mxCell.cells.length>0)
-				Study_Design.parseCell(mxCell,xmlObject);
-			    app.template_object=Study_Design;
-		} 
-	    
+		app.updateTemplateObject=function(data){
+			if(data.detail.response) {
+				app.template_object=data.detail.response;
+			} 
+		}
+		
+		app.changePropertyObjectValue=function(e){
+			console.log(app.propertyObject.id);
+			Study_Design.storePropertyObject(app.propertyObject.id,app.propertyObject.label,app.propertyObject);
+			
+		}
+		
+		function updateTemplateObject(xmlObject){
+	    		app.template_object=Study_Design.parseCell(xmlObject.innerHTML);
+	    	} 
+		
+		function updatePropertyDialog(mxCell) {
+			if(app.propertyObject==undefined) app.propertyObject=new Object();
+			app.propertyObject.id=mxCell.id;
+			app.propertyObject.label=mxCell.value;
+			app.propertyObject=Study_Design.fetchPropertyObject(mxCell.id,mxCell.value);
+			app.$.propertyDialog.open();
+		}
+		
 		Polymer({
 	    	is: 'study-design',
 		    properties: {
@@ -72,10 +92,16 @@
 					if(mxCell.cells.length>0) {
 						var cell=mxCell.cells[0];
 						if(cell.edge==false) {
-							updateTemplateObject(mxCell,this.editor.getGraphXml());
+							updateTemplateObject(this.editor.getGraphXml());
+							updatePropertyDialog(cell);
+						} else {
+							app.propertyObject=new Object();
+							while (this.container.hasChildNodes()) {
+								this.container.removeChild(this.container.lastChild);
+							}
 						}
 						
-					}
+					}else app.propertyObject=new Object();
 				}));
 				 
 				// Updates action states which require a backend
@@ -155,14 +181,14 @@
       <h3>Kefed Study Editor</h3>
 	</paper-toolbar>
 	<paper-dialog id="propertyDialog" style="position: fixed; top: 0px; z-index: 103;position: absolute;top: 65px;right: 0px;margin-right: 10px;margin:0px;width:240px">
-			  <paper-dialog-scrollable>	
-				<paper-input pattern="[A-Za-z0-9_]*" maxlength="255" label="Label" id="propertyLabel" value="{{propertyLabel}}"></paper-input> 
-				<paper-input label="Alternate Term:" id="alternateTerm" value="{{propertyAlternateTerm}}"></paper-input> 
-				<paper-input label="Definition" id="propertyDefinition" value="{{propertyDefinition}}"></paper-input> 
-				<paper-input label="Definition Source:" value="{{propertyDefinitionSource}}" id="propertyDefinitionSource"></paper-input> 
-				<paper-input label="Example Usage:" value="{{propertyExampleUsage}}" id="propertyExampleUsage"></paper-input> 
-				<paper-input label="Parent Class:" value="{{propertyParentClass}}" id="propertyParentClass"></paper-input> 
-				<paper-input label="Notes" value="{{propertyNotes}}" id="propertyNotes"></paper-input> 
+			  <paper-dialog-scrollable>
+			    <paper-input label="Id:" readonly="true" value="{{propertyObject.id}}"></paper-input> 
+				<paper-input label="Alternate Term:" id="alternateTerm" value="{{propertyObject.alternateTerm}}" on-tap="changePropertyObjectValue"></paper-input> 
+				<paper-input label="Definition" id="propertyDefinition" value="{{propertyObject.definition}}" on-tap="changePropertyObjectValue"></paper-input> 
+				<paper-input label="Definition Source:" value="{{propertyObject.definitionSource}}" id="propertyDefinitionSource" on-tap="changePropertyObjectValue"></paper-input> 
+				<paper-input label="Example Usage:" value="{{propertyObject.exampleUsage}}" id="propertyExampleUsage" on-tap="changePropertyObjectValue"></paper-input> 
+				<paper-input label="Parent Class:" value="{{propertyObject.parentclass}}" id="propertyParentClass" on-tap="changePropertyObjectValue"></paper-input> 
+				<paper-input label="Notes" value="{{propertyObject.notes}}" id="propertyNotes" on-tap="changePropertyObjectValue"></paper-input> 
 				
 				</paper-dialog-scrollable>
 				

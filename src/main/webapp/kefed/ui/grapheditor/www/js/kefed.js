@@ -21,6 +21,7 @@ function StructuredObject_VS () {
 function Continuant(id,label,ontologyId) {
 	this.id=parseInt(id);
 	this.label = label;
+	this.metaData=null;
 	this.ontologyId = ontologyId;
 	this.is_specifed_input_of = []
 	this.is_specified_output_of = [];
@@ -67,6 +68,7 @@ function ProvenanceContext() {
 function PlannedProcess(label,id,processtype,ontologyId) {
 	this.id = id!=undefined?parseInt(id):0;
 	this.label = label;
+	this.metaData=null;
 	this.process_type = processtype;
 	this.ontologyId = ontologyId;
 	this.has_first_part = new Object();
@@ -78,6 +80,7 @@ function PlannedProcess(label,id,processtype,ontologyId) {
 	this.has_specified_input = [];
 	this.provides_input_to = [];
 }
+
 
 function Nominal_VS() {
 	ValueSpecification.apply(this,arguments);
@@ -184,7 +187,11 @@ function parseXML(xmlDoc,experiment) {
 		var processId=this.plannedPocesses[k].id;
 		var processValue=this.plannedPocesses[k].value;
 		var process= new (Function.prototype.bind.call(PlannedProcess,0,processValue,processId,"M",""));
-		experiment.has_part.push(process);
+		var parent = experiment.has_part.filter((function(o){if(o.id == processId)return o;}));
+		if(parent.length==0) {
+			experiment.has_part.push(process);
+		} else parent[0].label=processValue;
+		
 		
 		var connectionTarget = this.connections.filter(function(o){if((o.target == processId))return o;} );
 		if(connectionTarget.length>0) {
@@ -196,9 +203,12 @@ function parseXML(xmlDoc,experiment) {
 						var id=materialEntity[0].id;
 						var value=materialEntity[0].value;
 						var material= new (Function.prototype.bind.call(MaterialEntity,0,id,value,""));
-						experiment.has_participant.push(material);
-						process.has_specified_input.push(material);
-						experiment.has_first_part=process;
+						var parent = experiment.has_participant.filter((function(o){if(o.id == id)return o;}));
+						if(parent.length==0) {
+							experiment.has_participant.push(material);
+							process.has_specified_input.push(material);
+							experiment.has_first_part=process;
+						} else parent[0].label=value;
 					}
 					var processEntity=this.plannedPocesses.filter(function(o){if(o.id == connectionSourceId)return o;});
 					if(processEntity.length>0) {
@@ -252,7 +262,9 @@ function parseXML(xmlDoc,experiment) {
 		if(parent.length==0) {
 			var materialValue=this.materialEntities[k].value;
 			var material= new (Function.prototype.bind.call(MaterialEntity,0,materialId,materialValue,""));
-			experiment.has_participant.push(material);
+			var parent = experiment.has_participant.filter((function(o){if(o.id == materialId)return o;}));
+			if(parent.length==0) 
+				experiment.has_participant.push(material);
 		}
 	}
 	for(var k=0;k<experiment.has_participant.length;k++) {
@@ -306,7 +318,7 @@ function parseXML(xmlDoc,experiment) {
 	
 }
 
-Study_Design.prototype.parseCell = function(mxCell,xmlObject) {
+Study_Design.prototype.parseCell = function(xmlObject) {
 	var xmlDoc = null;
 	if (window.DOMParser) {
 	    parser=new DOMParser();
@@ -320,6 +332,7 @@ Study_Design.prototype.parseCell = function(mxCell,xmlObject) {
 		this.diagramXML=xmlDoc;
 		parseXML(xmlDoc,this.has_part);
 	}
+	return this;
 };
 
 Study_Design.prototype.get = function(name,xml){
@@ -335,3 +348,56 @@ function Study_Design() {
 	return this;
 }
 
+Study_Design.prototype.fetchPropertyObject=function(id,label) {
+	var parent = this.has_part.has_part.filter((function(o){if(o.id == id)return o;}));
+	if(parent.length==0) {
+		var material=this.has_part.has_participant.filter((function(o){if(o.id == id)return o;}));
+		if(material.length>0) {
+			var metaData = material[0].metaData;
+			if(metaData==null) metaData=new MetaData(id,label);
+			return metaData;
+		} else return;
+	} else {
+		var metaData = parent[0].metaData;
+		if(metaData==null) metaData=new MetaData(id,label);
+		return metaData;
+	}
+}
+
+Study_Design.prototype.storePropertyObject=function(id,label,propertyObject) {
+	if(id==NaN || id==undefined) return;
+	var parent = this.has_part.has_part.filter((function(o){if(o.id == id)return o;}));
+	if(parent.length==0) {
+		var material=this.has_part.has_participant.filter((function(o){if(o.id == id)return o;}));
+		if(material.length>0) {
+			material[0].metaData= propertyObject;
+			material[0].label=propertyObject.label;
+		} else return;
+	} else {
+		parent[0].metaData= propertyObject;
+		parent[0].label=propertyObject.label;
+	}
+		
+}
+
+function MetaData(id,label,alternateTerm,definition,definitionSource,exampleUsage,parentclass,notes) {
+	this.id=parseInt(id);
+	this.label=label;
+	this.alternateTerm=alternateTerm;
+	this.definition=definition;
+	this.definitionSource=definitionSource;
+	this.exampleUsage=exampleUsage;
+	this.parentclass=parentclass;
+	this.notes=notes;
+}
+
+function MetaData(id,label) {
+	this.id=parseInt(id);
+	this.label=label;
+	this.alternateTerm="";
+	this.definition="";
+	this.definitionSource="";
+	this.exampleUsage="";
+	this.parentclass="";
+	this.notes="";
+}
