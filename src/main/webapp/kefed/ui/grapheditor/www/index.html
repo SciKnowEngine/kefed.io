@@ -183,6 +183,8 @@
 	<paper-dialog id="propertyDialog" style="position: fixed; top: 0px; z-index: 103;position: absolute;top: 65px;right: 0px;margin-right: 10px;margin:0px;width:240px">
 			  <paper-dialog-scrollable>
 			    <paper-input label="Id:" readonly="true" value="{{propertyObject.id}}"></paper-input> 
+				<paper-input label="Label:" readonly="true" value="{{propertyObject.label}}"></paper-input> 
+				
 				<paper-input label="Alternate Term:" id="alternateTerm" value="{{propertyObject.alternateTerm}}" on-tap="changePropertyObjectValue"></paper-input> 
 				<paper-input label="Definition" id="propertyDefinition" value="{{propertyObject.definition}}" on-tap="changePropertyObjectValue"></paper-input> 
 				<paper-input label="Definition Source:" value="{{propertyObject.definitionSource}}" id="propertyDefinitionSource" on-tap="changePropertyObjectValue"></paper-input> 

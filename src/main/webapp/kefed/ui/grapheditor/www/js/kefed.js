@@ -355,11 +355,13 @@ Study_Design.prototype.fetchPropertyObject=function(id,label) {
 		if(material.length>0) {
 			var metaData = material[0].metaData;
 			if(metaData==null) metaData=new MetaData(id,label);
+			metaData.label=label;
 			return metaData;
 		} else return;
 	} else {
 		var metaData = parent[0].metaData;
 		if(metaData==null) metaData=new MetaData(id,label);
+		metaData.label=label;
 		return metaData;
 	}
 }
