@@ -60,5 +60,12 @@ public class GraphXMLServiceImpl implements GraphXMLService{
 		graphTemplateRepository.save(templateObject);
 		
 	}
+
+	@Override
+	public Study_Design getStudyDesign(String id) {
+		Study_Design graphXML = graphTemplateRepository.findOne(id);
+		if(null!=graphXML) return graphXML;
+		return null;
+	}
 	
 }

@@ -38,16 +38,19 @@
 		var Study_Design = new Study_Design();
 		
 		var app=document.querySelector("#app");
-		app.template_object=Study_Design;
+		app.ready=function() {
+			var id=window.location.href.split("?");
+			app.$.getStudyDesign.url="/getStudyDesign"+"?"+id[1];
+			app.$.getStudyDesign.generateRequest();
+		}
 		
 		app.updateTemplateObject=function(data){
-			if(data.detail.response) {
+			if(data.detail.response.length!=0) {
 				app.template_object=data.detail.response;
-			} 
+			} else app.template_object=Study_Design;
 		}
 		
 		app.changePropertyObjectValue=function(e){
-			console.log(app.propertyObject.id);
 			Study_Design.storePropertyObject(app.propertyObject.id,app.propertyObject.label,app.propertyObject);
 			
 		}
@@ -180,17 +183,17 @@
 	<paper-toolbar class="studyEditorToolBarClass">
       <h3>Kefed Study Editor</h3>
 	</paper-toolbar>
-	<paper-dialog id="propertyDialog" style="position: fixed; top: 0px; z-index: 103;position: absolute;top: 65px;right: 0px;margin-right: 10px;margin:0px;width:240px">
-			  <paper-dialog-scrollable>
+	<paper-dialog id="propertyDialog">
+			  <paper-dialog-scrollable style="overflow: scroll;position: fixed; top: 0px; z-index: 103;top: 135px;right: 0px;margin-right: 10px;margin:0px;width:240px;height:540px">
 			    <paper-input label="Id:" readonly="true" value="{{propertyObject.id}}"></paper-input> 
 				<paper-input label="Label:" readonly="true" value="{{propertyObject.label}}"></paper-input> 
 				
 				<paper-input label="Alternate Term:" id="alternateTerm" value="{{propertyObject.alternateTerm}}" on-tap="changePropertyObjectValue"></paper-input> 
-				<paper-input label="Definition" id="propertyDefinition" value="{{propertyObject.definition}}" on-tap="changePropertyObjectValue"></paper-input> 
-				<paper-input label="Definition Source:" value="{{propertyObject.definitionSource}}" id="propertyDefinitionSource" on-tap="changePropertyObjectValue"></paper-input> 
-				<paper-input label="Example Usage:" value="{{propertyObject.exampleUsage}}" id="propertyExampleUsage" on-tap="changePropertyObjectValue"></paper-input> 
-				<paper-input label="Parent Class:" value="{{propertyObject.parentclass}}" id="propertyParentClass" on-tap="changePropertyObjectValue"></paper-input> 
-				<paper-input label="Notes" value="{{propertyObject.notes}}" id="propertyNotes" on-tap="changePropertyObjectValue"></paper-input> 
+				<paper-textarea label="Definition" id="propertyDefinition" value="{{propertyObject.definition}}" on-tap="changePropertyObjectValue"></paper-textarea> 
+				<paper-textarea label="Definition Source:" value="{{propertyObject.definitionSource}}" id="propertyDefinitionSource" on-tap="changePropertyObjectValue"></paper-textarea> 
+				<paper-textarea label="Example Usage:" value="{{propertyObject.exampleUsage}}" id="propertyExampleUsage" on-tap="changePropertyObjectValue"></paper-textarea> 
+				<paper-textarea label="Parent Class:" value="{{propertyObject.parentclass}}" id="propertyParentClass" on-tap="changePropertyObjectValue"></paper-textarea> 
+				<paper-textarea label="Notes" value="{{propertyObject.notes}}" id="propertyNotes" on-tap="changePropertyObjectValue"></paper-textarea> 
 				
 				</paper-dialog-scrollable>
 				

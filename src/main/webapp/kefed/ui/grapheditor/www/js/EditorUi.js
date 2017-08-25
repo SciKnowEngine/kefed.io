@@ -2703,6 +2703,8 @@ EditorUi.prototype.refresh = function(sizeDidChange)
 	this.hsplit.style.top = this.sidebarContainer.style.top;
 	this.hsplit.style.bottom = (this.footerHeight + off) + 'px';
 	this.hsplit.style.left = effHsplitPosition + 'px';
+	this.menubarContainer.style.width = "100%";
+	this.toolbarContainer.style.width = "100%";
 	
 	if (this.tabContainer != null)
 	{
@@ -2711,8 +2713,8 @@ EditorUi.prototype.refresh = function(sizeDidChange)
 	
 	if (quirks)
 	{
-		this.menubarContainer.style.width = w + 'px';
-		this.toolbarContainer.style.width = this.menubarContainer.style.width;
+		this.menubarContainer.style.width = "100%";
+		this.toolbarContainer.style.width = "100%";
 		var sidebarHeight = Math.max(0, h - this.footerHeight - this.menubarHeight - this.toolbarHeight);
 		this.sidebarContainer.style.height = (sidebarHeight - sidebarFooterHeight) + 'px';
 		this.formatContainer.style.height = sidebarHeight + 'px';
@@ -2741,8 +2743,6 @@ EditorUi.prototype.refresh = function(sizeDidChange)
 		}
 		
 		this.diagramContainer.style.right = fw + 'px';
-		this.menubarContainer.style.right=this.diagramContainer.style.right;
-		this.toolbarContainer.style.right=this.diagramContainer.style.right;
 		
 		var th = 0;
 		

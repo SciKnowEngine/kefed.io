@@ -92,4 +92,9 @@ public class RestController implements UserDetailsService {
 		return "dashboard/app/index";
 	}
 	
+	@RequestMapping(value="/getStudyDesign",method=RequestMethod.GET)
+	public ResponseEntity<?> getStudyDesign(@RequestParam("id")String id,HttpServletRequest request) throws Exception {
+		return ResponseEntity.ok(graphXMLService.getStudyDesign(id));
+	}
+	
 }

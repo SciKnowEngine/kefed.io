@@ -16,5 +16,7 @@ public interface GraphXMLService {
 	void deleteTemplate(String ontologyId);
 
 	void saveTemplate(Study_Design templateObject);
+
+	Study_Design getStudyDesign(String id);
 	
 }
