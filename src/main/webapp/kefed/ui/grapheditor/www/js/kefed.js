@@ -372,7 +372,6 @@ Study_Design.prototype.fetchPropertyObject=function(id,label) {
 		if(material.length>0) {
 			var metaData = material[0].metaData;
 			if(metaData==null) metaData=new MetaData(id,label);
-			metaData.label=label;
 			return metaData;
 		} else return new MetaData(id);
 	} else {
@@ -391,7 +390,7 @@ Study_Design.prototype.storePropertyObject=function(id,label,propertyObject) {
 		if(material.length>0) {
 			material[0].metaData= propertyObject;
 			material[0].label=propertyObject.label;
-		} else return;
+		} else return new MetaData(id,label);
 	} else {
 		parent[0].metaData= propertyObject;
 		parent[0].label=propertyObject.label;

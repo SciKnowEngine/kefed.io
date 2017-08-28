@@ -49,6 +49,7 @@
 		}
 		
 		app.changePropertyObjectValue=function(e){
+			    console.log(app.template_object);
 				Study_Design.storePropertyObject(app.propertyObject.id,app.propertyObject.label,app.propertyObject);
 		}
 		
@@ -99,9 +100,6 @@
 							updatePropertyDialog(cell);
 						} else {
 							app.propertyObject=new Object();
-							while (this.container.hasChildNodes()) {
-								this.container.removeChild(this.container.lastChild);
-							}
 						}
 						
 					}else app.propertyObject=new Object();
