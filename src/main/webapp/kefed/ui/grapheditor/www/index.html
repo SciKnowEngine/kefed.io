@@ -49,16 +49,14 @@
 		}
 		
 		app.changePropertyObjectValue=function(e){
-			if(app.propertyObject!=undefined)
 				Study_Design.storePropertyObject(app.propertyObject.id,app.propertyObject.label,app.propertyObject);
-			
 		}
 		
 		function updateTemplateObject(xmlObject){
 			if(app.template_object!=undefined) {
 				console.log(app.template_object);
 	    			app.template_object=Study_Design.parseCell(xmlObject.innerHTML,app.template_object.has_part);
-			}
+			} else Study_Design.parseCell(xmlObject.innerHTML,undefined);
 	    	} 
 		
 		function updatePropertyDialog(mxCell) {

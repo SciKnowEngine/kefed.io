@@ -330,7 +330,7 @@ Study_Design.prototype.parseCell = function(xmlObject,has_part) {
 	}
 	if(xmlDoc!=null) {
 		this.diagramXML=xmlDoc;
-		this.has_part=has_part;
+		if(has_part!=undefined)this.has_part=has_part;
 		parseXML(xmlDoc,this.has_part);
 	}
 	return this;
