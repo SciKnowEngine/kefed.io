@@ -235,6 +235,7 @@ function parseXML(xmlDoc,experiment) {
 						}
 						
 					}
+			
 					var dataEntity=this.dataObjects.filter(function(o){if(o.id == connectionTargetId)return o;})
 					if(dataEntity.length>0) {
 						for(var y=0;y<dataEntity.length;y++) {
@@ -342,6 +343,13 @@ Study_Design.prototype.get = function(name,xml){
 	parseXML(xmlDoc,this.has_part)
 	return this;
 }
+
+Study_Design.prototype.correctTemplateObject=function() {
+	var parent = this.has_part.has_part.filter((function(o){if(o.metaData == null)this.has_part.has_part.splice(i);}));
+	var material=this.has_part.has_participant.filter((function(o){if(o.metaData == null)this.has_part.has_participant.splice(i);}));
+	return this;
+}
+
 function Study_Design() {
 	this.ontologyId="";
 	this.process_type="E";

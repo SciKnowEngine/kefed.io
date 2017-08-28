@@ -3362,6 +3362,7 @@ EditorUi.prototype.save = function(name)
 		var rx=new RegExp("</mxGraphModel>");xml=xml.replace(rx,"");
 		
 		var templateObject =  this.editor.graph.template_object.get(name,xml);
+		templateObject=this.editor.graph.template_object.correctTemplateObject();
 		console.log(templateObject);
 		try
 		{

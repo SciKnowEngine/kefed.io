@@ -9,6 +9,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 public class MaterialEntity extends Continuant {
 	static final long serialVersionUID = 5130904214704817886L;
 
+	
 	private List<DataItem> is_parameterized_by = new ArrayList<DataItem>();
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -20,5 +21,7 @@ public class MaterialEntity extends Continuant {
 	public void setIs_parameterized_by(List<DataItem> is_parameterized_by) {
 		this.is_parameterized_by = is_parameterized_by;
 	}
+
+	
 
 }

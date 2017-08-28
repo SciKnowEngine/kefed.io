@@ -5,12 +5,15 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 @Document(indexName = "continuant", type = "continuant", shards = 1, replicas = 0, refreshInterval = "-1")
 public class Continuant implements Serializable {
 	static final long serialVersionUID = 5130904214704817886L;
 
+	@Id
+	private int id;
 	private String label;
 	private URI ontologyId;
 	private MetaData metaData;
@@ -66,6 +69,14 @@ public class Continuant implements Serializable {
 
 	public void setMetaData(MetaData metaData) {
 		this.metaData = metaData;
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 }
