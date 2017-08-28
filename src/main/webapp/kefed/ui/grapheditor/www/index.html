@@ -49,21 +49,23 @@
 		}
 		
 		app.changePropertyObjectValue=function(e){
-			Study_Design.storePropertyObject(app.propertyObject.id,app.propertyObject.label,app.propertyObject);
+			if(app.propertyObject!=undefined)
+				Study_Design.storePropertyObject(app.propertyObject.id,app.propertyObject.label,app.propertyObject);
 			
 		}
 		
 		function updateTemplateObject(xmlObject){
-	    		app.template_object=Study_Design.parseCell(xmlObject.innerHTML);
+			if(app.template_object!=undefined) {
+				console.log(app.template_object);
+	    			app.template_object=Study_Design.parseCell(xmlObject.innerHTML,app.template_object.has_part);
+			}
 	    	} 
 		
 		function updatePropertyDialog(mxCell) {
-			console.log(app.propertyObject);
 			if(app.propertyObject==undefined) app.propertyObject=new Object();
 			app.propertyObject.id=mxCell.id;
 			app.propertyObject.label=mxCell.value;
-			console.log(app.template_object);
-			app.propertyObject=Study_Design.getPropertyObject(app.template_object,mxCell.id);
+			app.propertyObject=Study_Design.fetchPropertyObject(mxCell.id,mxCell.value);
 			app.$.propertyDialog.open();
 		}
 		

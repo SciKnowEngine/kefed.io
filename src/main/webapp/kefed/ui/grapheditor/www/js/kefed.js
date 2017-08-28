@@ -318,7 +318,7 @@ function parseXML(xmlDoc,experiment) {
 	
 }
 
-Study_Design.prototype.parseCell = function(xmlObject) {
+Study_Design.prototype.parseCell = function(xmlObject,has_part) {
 	var xmlDoc = null;
 	if (window.DOMParser) {
 	    parser=new DOMParser();
@@ -330,6 +330,7 @@ Study_Design.prototype.parseCell = function(xmlObject) {
 	}
 	if(xmlDoc!=null) {
 		this.diagramXML=xmlDoc;
+		this.has_part=has_part;
 		parseXML(xmlDoc,this.has_part);
 	}
 	return this;
@@ -356,7 +357,7 @@ Study_Design.prototype.getPropertyObject=function(studyDesign,id) {
 			var metaData = material[0].metaData;
 			if(metaData==null) metaData=new MetaData(id);
 			return metaData;
-		} else return;
+		} else return new MetaData(id);
 	} else {
 		var metaData = parent[0].metaData;
 		if(metaData==null) metaData=new MetaData(id);
@@ -373,7 +374,7 @@ Study_Design.prototype.fetchPropertyObject=function(id,label) {
 			if(metaData==null) metaData=new MetaData(id,label);
 			metaData.label=label;
 			return metaData;
-		} else return;
+		} else return new MetaData(id);
 	} else {
 		var metaData = parent[0].metaData;
 		if(metaData==null) metaData=new MetaData(id,label);
