@@ -2,6 +2,7 @@
 function DataItem(id,label,variableType,ontologyId,material,process) {
 	Continuant.apply(this,[id,label,ontologyId]);
 	this.variable_type = variableType==undefined?"":variableType;
+	this.metaData=null;
 	this.parameterizes_entity = material;
 	this.has_value_specification = []
 	this.parameterizes = process;
@@ -268,6 +269,18 @@ function parseXML(xmlDoc,experiment) {
 				experiment.has_participant.push(material);
 		}
 	}
+	
+	for (var k=0; k<this.dataObjects.length;k++) {
+		var materialId=dataObjects[k].id;
+		var parent = experiment.has_participant.filter((function(o){if(o.id == materialId)return o;}));
+		if(parent.length==0) {
+			var materialValue=this.dataObjects[k].value;
+			var material= new (Function.prototype.bind.call(DataItem,0,materialId,materialValue,""));
+			var parent = experiment.has_participant.filter((function(o){if(o.id == materialId)return o;}));
+			if(parent.length==0) 
+				experiment.has_participant.push(material);
+		}
+	}
 	for(var k=0;k<experiment.has_participant.length;k++) {
 		var material = experiment.has_participant[k];
 		var materialId=material.id;
@@ -283,7 +296,7 @@ function parseXML(xmlDoc,experiment) {
 						var variableType=dataEntity[y].variableType;
 						var dataObj= new (Function.prototype.bind.call(DataItem,0,id,value,variableType));
 						if(variableType=="C" || variableType=="I") {
-							material.is_parameterized_by.push(dataObj);
+							//material.is_specified_input_of.push(dataObj);
 						}
 					}
 				}
@@ -296,19 +309,21 @@ function parseXML(xmlDoc,experiment) {
 		var dataEntity=this.dataObjects.filter(function(o){if(o.id == connection.target)return o;})
 		var parent = experiment.has_part.filter((function(o){if(o.id == connection.source)return o;}));
 		var material=experiment.has_participant.filter((function(o){if(o.id == connection.source)return o;}));
+		var dataObj=experiment.has_participant.filter((function(o){if(o.id == connection.target)return o;}));
+		
 		if(dataEntity.length>0) {
 			for(var y=0;y<dataEntity.length;y++) {
 				var id=dataEntity[y].id;
 				var value=dataEntity[y].value;
 				var variableType=dataEntity[y].variableType;
 				if(variableType=="D") {
-				    var dataObj= new (Function.prototype.bind.call(DataItem,0,id,value,variableType));
-				    experiment.has_participant.push(dataObj);
 				    if(parent.length>0){
-				    	dataObj.is_specified_output_of.push(parent[0]);
+				    	if(dataObj.length>0)
+				    	dataObj[0].is_specified_output_of.push(parent[0]);
 				    } 
 				    if(material.length>0){
-				    	dataObj.is_specified_output_of.push(material[0]);
+				    	if(dataObj.length>0)
+				    	dataObj[0].is_specified_output_of.push(material[0]);
 				    }
 				}
 			}
