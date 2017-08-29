@@ -345,8 +345,8 @@ Study_Design.prototype.get = function(name,xml){
 }
 
 Study_Design.prototype.correctTemplateObject=function() {
-	var parent = this.has_part.has_part.filter((function(o){if(o.metaData == null)this.has_part.has_part.splice(i);}));
-	var material=this.has_part.has_participant.filter((function(o){if(o.metaData == null)this.has_part.has_participant.splice(i);}));
+	//var parent = this.has_part.has_part.filter((function(o,index){if(o.metaData == null)this.has_part.has_part.splice(index);}));
+	//var material=this.has_part.has_participant.filter((function(o,index){if(o.metaData == null)this.has_part.has_participant.splice(index);}));
 	return this;
 }
 
@@ -381,7 +381,7 @@ Study_Design.prototype.fetchPropertyObject=function(id,label) {
 			var metaData = material[0].metaData;
 			if(metaData==null) metaData=new MetaData(id,label);
 			return metaData;
-		} else return new MetaData(id);
+		} else return new MetaData(id,label);
 	} else {
 		var metaData = parent[0].metaData;
 		if(metaData==null) metaData=new MetaData(id,label);
