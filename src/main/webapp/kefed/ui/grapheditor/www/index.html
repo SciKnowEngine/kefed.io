@@ -49,14 +49,12 @@
 		}
 		
 		app.changePropertyObjectValue=function(e){
-			    console.log(app.template_object);
-				Study_Design.storePropertyObject(app.propertyObject.id,app.propertyObject.label,app.propertyObject);
+			    Study_Design.storePropertyObject(app.propertyObject.id,app.propertyObject.label,app.propertyObject);
 		}
 		
 		function updateTemplateObject(xmlObject){
 			if(app.template_object!=undefined) {
-				console.log(app.template_object);
-	    			app.template_object=Study_Design.parseCell(xmlObject.innerHTML,app.template_object.has_part);
+					app.template_object=Study_Design.parseCell(xmlObject.innerHTML,app.template_object.has_part);
 			} else Study_Design.parseCell(xmlObject.innerHTML,undefined);
 	    	} 
 		
@@ -65,7 +63,6 @@
 			app.propertyObject.id=mxCell.id;
 			app.propertyObject.label=mxCell.value;
 			app.propertyObject=Study_Design.fetchPropertyObject(mxCell.id,mxCell.value);
-			app.$.propertyDialog.open();
 		}
 		
 		Polymer({
@@ -78,6 +75,9 @@
 		    },
 		});
 		
+		function myFunction(len) {
+			console.log(len);
+		}
 		
 		// Extends EditorUi to update I/O action states based on availability of backend
 		(function()
@@ -89,22 +89,30 @@
 			{
 				editorUiInit.apply(this, arguments);
 				this.actions.get('export').setEnabled(false);
-				
-				
-				this.editor.graph.getSelectionModel().addListener(mxEvent.CHANGE, mxUtils.bind(this, function(){		
-					var mxCell=this.editor.graph.getSelectionModel();
+				 
+				this.editor.graph.addListener(mxEvent.FIRE_MOUSE_EVENT,mxUtils.bind(this, function(evt){
+				    var mxCell=this.editor.graph.getSelectionModel();
+				   
+					mxCell=this.editor.graph.getSelectionModel();
+			      	console.log(mxCell.cells.length);
 					if(mxCell.cells.length>0) {
 						var cell=mxCell.cells[0];
 						if(cell.edge==false) {
 							updateTemplateObject(this.editor.getGraphXml());
 							updatePropertyDialog(cell);
-						} else {
+							app.$.propertyDialog.open();
+						    document.getElementById("propertyDialog").setAttribute("aria-hidden", "false");
+						  } 
+						 else {
+							document.getElementById("propertyDialog").setAttribute("aria-hidden", "true");
 							app.propertyObject=new Object();
 						}
-						
-					}else app.propertyObject=new Object();
+					}else {
+						document.getElementById("propertyDialog").setAttribute("aria-hidden", "true");
+						app.propertyObject=new Object();
+					}
 				}));
-				 
+				
 				// Updates action states which require a backend
 				if (!Editor.useLocalStorage)
 				{
@@ -127,9 +135,7 @@
 				        {
 				            if(rawFile.status === 200 || rawFile.status == 0)
 				            {
-				            				xmlString = rawFile.responseText;
-				            				console.log(xmlString);
-				            		
+				            			xmlString = rawFile.responseText;
 				    			}
 				        }
 				    }
@@ -143,7 +149,6 @@
 	                var elt = doc.documentElement.firstChild;
 	                elt = elt.nextSibling;
 	                elt = elt.nextSibling;
-	                console.log(elt);
 	                var cells = [];
 	                while (elt != null){                
 	                 cells.push(codec.decodeCell(elt));

@@ -5,7 +5,7 @@ function DataItem(id,label,variableType,ontologyId,material,process) {
 	this.metaData=null;
 	this.parameterizes_entity = material;
 	this.has_value_specification = []
-	this.parameterizes = process;
+	
 }
 
 function NaturalLanguage_VS () {
