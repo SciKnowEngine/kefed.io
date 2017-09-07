@@ -91,7 +91,30 @@
 				this.actions.get('export').setEnabled(false);
 				 
 				this.editor.graph.addListener(mxEvent.FIRE_MOUSE_EVENT,mxUtils.bind(this, function(evt){
-				    var mxCell=this.editor.graph.getSelectionModel();
+					 var mxCell=this.editor.graph.getSelectionModel();
+					 if (this.editor.graph.isEditing()) return;
+					mxCell=this.editor.graph.getSelectionModel();
+			      	console.log(mxCell.cells.length);
+					if(mxCell.cells.length>0) {
+						var cell=mxCell.cells[0];
+						if(cell.edge==false) {
+							updateTemplateObject(this.editor.getGraphXml());
+							updatePropertyDialog(cell);
+							app.$.propertyDialog.open();
+						    document.getElementById("propertyDialog").setAttribute("aria-hidden", "false");
+						  } 
+						 else {
+							document.getElementById("propertyDialog").setAttribute("aria-hidden", "true");
+							app.propertyObject=new Object();
+						}
+					}else {
+						document.getElementById("propertyDialog").setAttribute("aria-hidden", "true");
+						app.propertyObject=new Object();
+					}
+				}));
+				
+				this.editor.graph.addListener(mxEvent.MOUSE_UP,mxUtils.bind(this, function(evt){
+					 var mxCell=this.editor.graph.getSelectionModel();
 				   
 					mxCell=this.editor.graph.getSelectionModel();
 			      	console.log(mxCell.cells.length);
@@ -112,6 +135,7 @@
 						app.propertyObject=new Object();
 					}
 				}));
+				
 				
 				// Updates action states which require a backend
 				if (!Editor.useLocalStorage)
