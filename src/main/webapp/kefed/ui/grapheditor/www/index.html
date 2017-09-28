@@ -12,6 +12,12 @@
    	<script type="text/javascript">
 		mxLoadResources = false;
 	</script>
+	<style is="custom-style">
+	iron-overlay-backdrop {
+	  width: 0px;
+	  --iron-overlay-backdrop-opacity: 0;
+	}
+	</style>
 	<script type="text/javascript" src="ui/grapheditor/www/js/Init.js"></script>
 	<script type="text/javascript" src="ui/grapheditor/www/jscolor/jscolor.js"></script>
 	<script type="text/javascript" src="ui/grapheditor/www/sanitizer/sanitizer.min.js"></script>
@@ -35,12 +41,24 @@
 	<iron-ajax id="getTemplateObject" method="GET" handle-as="json" on-response="updateTemplateObject"></iron-ajax>
     
 	<script type="text/javascript">
+	
+		document.getElementById('propertyDialog').addEventListener('click', function() {
+		  console.log('anchor');
+		});
+	
 		var Study_Design = new Study_Design();
 		
 		var app=document.querySelector("#app");
 			var id=window.location.href.split("?");
 			app.$.getTemplateObject.url="/getStudyDesign"+"?"+id[1];
 			app.$.getTemplateObject.generateRequest();
+			
+			app._disableDocumentScrolling= function () {
+		        document.body.style.overflow = 'hidden';
+		    }
+		    app._restoreDocumentScrolling= function () {
+		        document.body.style.overflow = '';
+		    }
 		
 		app.updateTemplateObject=function(data){
 			if(data.detail.response!=null) {
@@ -89,53 +107,36 @@
 			{
 				editorUiInit.apply(this, arguments);
 				this.actions.get('export').setEnabled(false);
-				 
-				this.editor.graph.addListener(mxEvent.FIRE_MOUSE_EVENT,mxUtils.bind(this, function(evt){
-					 var mxCell=this.editor.graph.getSelectionModel();
-					 if (this.editor.graph.isEditing()) return;
+				
+				this.editor.graph.addListener(mxEvent.CLICK,mxUtils.bind(this, function(evt){
+					this.editor.graph.refresh();
+					var mxCell=this.editor.graph.getSelectionModel();
+							
+					if(!this.editor.graph.lastEvent.defaultPrevented) {
+						
+					  	 document.getElementById("propertyDialog").style.display = "none";
+						return;
+					}
 					mxCell=this.editor.graph.getSelectionModel();
-			      	console.log(mxCell.cells.length);
+					console.log(mxCell.cells.length);
 					if(mxCell.cells.length>0) {
+						
 						var cell=mxCell.cells[0];
 						if(cell.edge==false) {
 							updateTemplateObject(this.editor.getGraphXml());
-							updatePropertyDialog(cell);
-							app.$.propertyDialog.open();
-						    document.getElementById("propertyDialog").setAttribute("aria-hidden", "false");
-						  } 
-						 else {
-							document.getElementById("propertyDialog").setAttribute("aria-hidden", "true");
+								updatePropertyDialog(cell);
+								document.getElementById("propertyDialog").style.display = "initial";
+							return;
+							}	
+						    else {
+						    	document.getElementById("propertyDialog").style.display = "none";
+								app.propertyObject=new Object();
+							}
+						}else {
+							document.getElementById("propertyDialog").style.display = "none";
 							app.propertyObject=new Object();
 						}
-					}else {
-						document.getElementById("propertyDialog").setAttribute("aria-hidden", "true");
-						app.propertyObject=new Object();
-					}
 				}));
-				
-				this.editor.graph.addListener(mxEvent.MOUSE_UP,mxUtils.bind(this, function(evt){
-					 var mxCell=this.editor.graph.getSelectionModel();
-				   
-					mxCell=this.editor.graph.getSelectionModel();
-			      	console.log(mxCell.cells.length);
-					if(mxCell.cells.length>0) {
-						var cell=mxCell.cells[0];
-						if(cell.edge==false) {
-							updateTemplateObject(this.editor.getGraphXml());
-							updatePropertyDialog(cell);
-							app.$.propertyDialog.open();
-						    document.getElementById("propertyDialog").setAttribute("aria-hidden", "false");
-						  } 
-						 else {
-							document.getElementById("propertyDialog").setAttribute("aria-hidden", "true");
-							app.propertyObject=new Object();
-						}
-					}else {
-						document.getElementById("propertyDialog").setAttribute("aria-hidden", "true");
-						app.propertyObject=new Object();
-					}
-				}));
-				
 				
 				// Updates action states which require a backend
 				if (!Editor.useLocalStorage)
@@ -215,9 +216,9 @@
 	<paper-toolbar class="studyEditorToolBarClass">
       <h3>Kefed Study Editor</h3>
 	</paper-toolbar>
-	<paper-dialog id="propertyDialog">
+	<paper-dialog id="propertyDialog" modal="modal">
 			  <paper-dialog-scrollable style="overflow: scroll;position: fixed; top: 0px; z-index: 103;top: 135px;right: 0px;margin-right: 10px;margin:0px;width:240px;height:540px">
-			    <paper-input label="Id:" readonly="true" value="{{propertyObject.id}}"></paper-input> 
+			 	 <paper-input label="Id:" readonly="true" value="{{propertyObject.id}}"></paper-input> 
 				<paper-input label="Label:" readonly="true" value="{{propertyObject.label}}"></paper-input> 
 				
 				<paper-input label="Alternate Term:" id="alternateTerm" value="{{propertyObject.alternateTerm}}" on-tap="changePropertyObjectValue"></paper-input> 
