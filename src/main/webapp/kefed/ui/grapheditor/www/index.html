@@ -60,10 +60,15 @@
 		        document.body.style.overflow = '';
 		    }
 		
+		
 		app.updateTemplateObject=function(data){
 			if(data.detail.response!=null) {
 				app.template_object=data.detail.response;
 			} 
+		}
+		
+		app.labelChange = function() {
+			
 		}
 		
 		app.changePropertyObjectValue=function(e){
@@ -80,7 +85,9 @@
 			if(app.propertyObject==undefined) app.propertyObject=new Object();
 			app.propertyObject.id=mxCell.id;
 			app.propertyObject.label=mxCell.value;
+			app.propertyObject=new Object();
 			app.propertyObject=Study_Design.fetchPropertyObject(mxCell.id,mxCell.value);
+			return app.propertyObject;
 		}
 		
 		Polymer({
@@ -90,7 +97,9 @@
 		    },
 		    ready:function(){
 		  		this.template_object= Study_Design; 	
+		  		this.propertyObject = app.propertyObject;
 		    },
+		    
 		});
 		
 		function myFunction(len) {
@@ -109,7 +118,6 @@
 				this.actions.get('export').setEnabled(false);
 				
 				this.editor.graph.addListener(mxEvent.CLICK,mxUtils.bind(this, function(evt){
-					this.editor.graph.refresh();
 					var mxCell=this.editor.graph.getSelectionModel();
 							
 					if(!this.editor.graph.lastEvent.defaultPrevented) {
@@ -124,13 +132,13 @@
 						var cell=mxCell.cells[0];
 						if(cell.edge==false) {
 							updateTemplateObject(this.editor.getGraphXml());
-								updatePropertyDialog(cell);
-								document.getElementById("propertyDialog").style.display = "initial";
-							return;
+							 updatePropertyDialog(cell);
+							 	document.getElementById("propertyDialog").style.display = "block";
+							
 							}	
 						    else {
-						    	document.getElementById("propertyDialog").style.display = "none";
-								app.propertyObject=new Object();
+						    	app.propertyObject.label="";
+						   	 	document.getElementById("propertyDialog").style.display = "none";
 							}
 						}else {
 							document.getElementById("propertyDialog").style.display = "none";
@@ -216,10 +224,10 @@
 	<paper-toolbar class="studyEditorToolBarClass">
       <h3>Kefed Study Editor</h3>
 	</paper-toolbar>
-	<paper-dialog id="propertyDialog" modal="modal">
+	<paper-dialog id="propertyDialog">
 			  <paper-dialog-scrollable style="overflow: scroll;position: fixed; top: 0px; z-index: 103;top: 135px;right: 0px;margin-right: 10px;margin:0px;width:240px;height:540px">
 			 	 <paper-input label="Id:" readonly="true" value="{{propertyObject.id}}"></paper-input> 
-				<paper-input label="Label:" readonly="true" value="{{propertyObject.label}}"></paper-input> 
+				<paper-input label="Label:" readonly="true"  value="{{propertyObject.label}}" ></paper-input> 
 				
 				<paper-input label="Alternate Term:" id="alternateTerm" value="{{propertyObject.alternateTerm}}" on-tap="changePropertyObjectValue"></paper-input> 
 				<paper-textarea label="Definition" id="propertyDefinition" value="{{propertyObject.definition}}" on-tap="changePropertyObjectValue"></paper-textarea> 
