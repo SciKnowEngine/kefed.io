@@ -1,6 +1,15 @@
 /**
  * Copyright (c) 2006-2012, JGraph Ltd
  */
+
+/***
+ * 
+ * Format Panel is currently disabled in system because of requirement of adding new property panel 
+ * holding up ontological database properties. The functions are internally linked with mxClient.js
+ * but has no effect on current system.
+ * 
+ * 
+ */
 Format = function(editorUi, container)
 {
 	this.editorUi = editorUi;

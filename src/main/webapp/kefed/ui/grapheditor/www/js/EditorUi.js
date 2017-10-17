@@ -2,7 +2,8 @@
  * Copyright (c) 2006-2012, JGraph Ltd
  */
 /**
- * Constructs a new graph editor
+ * Constructs a new graph editor. This function is linked with creating new Polymer object to provide two way binding. The box is initialized by 
+ * this.createContainer()
  */
 EditorUi = function(editor, container, lightbox)
 {
@@ -44,6 +45,14 @@ EditorUi = function(editor, container, lightbox)
     // Creates the user interface
 	this.actions = new Actions(this);
 	this.menus = this.createMenus();
+	/***
+	 * Create Divs have an extra parameter of new div - aplication div which will enclose all other divs provided by mxGraph,
+	 * with an aim of keeping all divs together and include save/cancel panel.
+	 * The functions are customized in the dimensions displayed on UI. The major dimensions are calculated by using mxGraph,
+	 * Heights and widths of all panels displayed in index.html are set in below functions.
+	 * 
+	 * 
+	 */
 	this.createDivs();
 	this.createUi();
 	this.refresh();

@@ -21,9 +21,7 @@
   };
 
   // Scroll page to top and expand header
-  app.scrollPageToTop = function() {
-    document.getElementById('mainContainer').scrollTop = 0;
-  };
+ 
 
   // Initial widgets cols number
   app.cols = '2';

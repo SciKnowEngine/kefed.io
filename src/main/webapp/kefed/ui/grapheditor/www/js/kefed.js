@@ -1,4 +1,15 @@
-
+/***
+ * 
+ * 
+ * This js file is structured as per data model on wiki. The explanation is provided in documentation
+ * @param id
+ * @param label
+ * @param variableType
+ * @param ontologyId
+ * @param material
+ * @param process
+ * @returns
+ */
 function DataItem(id,label,variableType,ontologyId,material,process) {
 	Continuant.apply(this,[id,label,ontologyId]);
 	this.variable_type = variableType==undefined?"":variableType;

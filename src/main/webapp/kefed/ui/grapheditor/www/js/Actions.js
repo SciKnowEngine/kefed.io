@@ -4,6 +4,16 @@
 /**
  * Constructs the actions object for the given UI.
  */
+
+/***
+ * Some of actions in this file are removed from original mxGraph Actions.js demo module.
+ * This updates are made as per requirement of system. 
+ * List  :File - Export, Save, Save as
+ * Format Panel
+ * Property Panel to set fonts, text, height, width etc.
+ * @param editorUi
+ * @returns
+ */
 function Actions(editorUi)
 {
 	this.editorUi = editorUi;

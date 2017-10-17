@@ -3,6 +3,8 @@
  */
 /**
  * Construcs a new toolbar for the given editor.
+ * Toolbar functionality is not changed in kefeD system module. Toolbar functionality in mxGraph is to provide functionality of Zooming in/out, change style,
+ * Delete. These functions are part of kefeD system.
  */
 function Toolbar(editorUi, container)
 {

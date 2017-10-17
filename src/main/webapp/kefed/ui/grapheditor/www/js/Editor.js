@@ -3,7 +3,19 @@
  */
 /**
  * Editor constructor executed on page load.
- */
+ * Editor is one of the most important file in kefed system.
+ * 
+ *  Editor file will be updated with any change on diagram editor. All functions are self descriptive as per their name. The initial function will 
+ *  be constructor of Editor.js and rest functions are binded together by mxClient.js, EditorUI.js, Graph.js
+ *  
+ *  
+ *  The functions in Editor.js:
+ *  createGraph
+ *  resetGraph
+ *  getGraphXml
+ *  are linked with Polymer Model and updates the kefeD system on every change in these functions. The main code is linked up in EditorUI.js and 
+ *  index.html
+ *  */
 Editor = function(chromeless, themes, model, graph)
 {
 	mxEventSource.call(this);

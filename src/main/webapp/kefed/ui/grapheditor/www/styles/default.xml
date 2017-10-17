@@ -102,6 +102,9 @@
 		<add as="edgeStyle" value="none"/>
 		<add as="fillColor" value="#ffffff"/>
 	</add>
+	
+	<!-- This include all custom components required in Kefed actual model 
+	This values in add tag are used to upload in Basic Panel. They can be customized as per requirement-->
 	<add as="branch">
 	    <add as="shape" value="image"/>
 	    <add as="perimeter" value="rectanglePerimeter"/>
@@ -164,4 +167,6 @@
 	    <add as="verticalAlign" value="middle"/>
 	    <add as="image" value="ui/grapheditor/www/images/process.gif"/>
 	</add>
+	
+	<!-- Till Here are all customized values -->
 </mxStylesheet>

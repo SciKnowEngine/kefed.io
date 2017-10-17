@@ -906,6 +906,12 @@ Sidebar.prototype.insertSearchHint = function(div, searchTerm, count, page, resu
 Sidebar.prototype.addGeneralPalette = function(expand)
 {
 	var fns = [
+		
+		/***
+		 * 
+		 * Added : selected from Template : default.xml and images are loaded from image path provided in xml.
+		 * the dimensions, height, width 
+		 */
 	 	//this.createVertexTemplateEntry('whiteSpace=wrap;html=1;', 120, 60, '', 'Rectangle', null, null, 'rect rectangle box'),
 	 	//this.createVertexTemplateEntry('rounded=1;whiteSpace=wrap;html=1;', 120, 60, '', 'Rounded Rectangle', null, null, 'rounded rect rectangle box'),
  		//this.createVertexTemplateEntry('ellipse;whiteSpace=wrap;html=1;', 120, 80, '', 'Ellipse', null, null, 'oval ellipse state'),
@@ -914,12 +920,21 @@ Sidebar.prototype.addGeneralPalette = function(expand)
  			//40, 20, 'Text', 'Text', null, null, 'text textbox textarea label'),
  		//this.createVertexTemplateEntry('ellipse;shape=doubleEllipse;whiteSpace=wrap;html=1;', 120, 80, '', 'Double Ellipse', null, null, 'oval ellipse start end state double'),
 	 	//this.createVertexTemplateEntry('rhombus;whiteSpace=wrap;html=1;', 80, 80, '', 'Diamond', null, null, 'diamond rhombus if condition decision conditional question test'),
-	 	this.createEdgeTemplateEntry('endArrow=classic;html=1;', 40, 50, '', 'Connection'),
+	 	
+		/***
+		 * 
+		 * For Each Entry in default.xml we are creating new createEdgeTemplateEntry. The values are matched and corresponding dimensions are set.
+		 * The part of dimensions is set as borders of components and other part of dimensions is set to determine its area in Diagram Editor.
+		 * Other Parameters are used as init state. They can be used to set default values of components during initialization.
+		 * 
+		 */
+		this.createEdgeTemplateEntry('endArrow=classic;html=1;', 40, 50, '', 'Connection'),
 	 	this.createVertexTemplateEntry('process;whiteSpace=wrap;html=1;', 110, 60, '', 'Process', null, null, 'oval ellipse state'),
 	 	this.createVertexTemplateEntry('parameter;whiteSpace=nowrap;', 20, 60, '', 'Parameter', null, null, 'oval ellipse state'),
 	 	this.createVertexTemplateEntry('measurement;whiteSpace=wrap;html=1;', 70, 60, '', 'Measurement', null, null, 'oval ellipse state'),
 	 	this.createVertexTemplateEntry('entity;whiteSpace=wrap;html=1;', 120, 80, '', 'Entity', null, null, 'oval ellipse state'),
 	 	this.createVertexTemplateEntry('constant;whiteSpace=wrap;html=1;', 50, 60, '', 'Constant', null, null, 'oval ellipse state'),
+	 	this.createVertexTemplateEntry('fork;whiteSpace=wrap;html=1;', 50, 60, '', 'Fork', null, null, 'oval ellipse state'),
 	 	
 	 ];
 	

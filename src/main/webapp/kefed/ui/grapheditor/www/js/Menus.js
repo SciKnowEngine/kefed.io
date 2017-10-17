@@ -3,6 +3,7 @@
  */
 /**
  * Constructs a new graph editor
+ * Menu.js file is not replaced for any function. The functions align with requirement of kefeD system.
  */
 Menus = function(editorUi)
 {

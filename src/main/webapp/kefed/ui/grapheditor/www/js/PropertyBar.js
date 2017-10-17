@@ -1,3 +1,13 @@
+/***
+ * 
+ * 
+ * Property Bar initializes the kefeD module properties of each component. The file is integrated with kefeD.js.
+ * Updates are made into MetaData of kefed components : Process, Material Entity.
+ * 
+ * @param editorUi
+ * @param container
+ * @returns
+ */
 function PropertyBar(editorUi, container)
 {
 
