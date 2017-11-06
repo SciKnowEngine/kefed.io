@@ -1,0 +1,35 @@
+<svg  version="1.1" id="sgvlib" xmlns:svg="http://www.w3.org/2000/svg" xmlns:k="http://schemas.kapit.fr/svg/2007/"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="612" height="792" viewBox="0 0 612 792"
+	 overflow="visible" enable-background="new 0 0 612 792" xml:space="preserve">
+
+<defs id="defs1">
+<style type="text/css">
+<![CDATA[
+.basic {
+action-accept:annotation;
+}
+.outonly {
+action-click:link;
+}
+.bg{
+action-click:link;
+action-accept:link;
+}
+.annotation {
+font-style:italic;
+}
+.link-annotation
+{
+font-size:12px;
+fill:#666;
+}
+]]>
+</style>
+</defs>
+<!-- Graphic Objects need an empty path around them to house the class="bg" target and that object must have a thick border upon which you can link edges-->
+<g id="kefed_expobject" k:groupid="Basic" class="basic" k:spriteid="Entity">
+	<rect id="expobject_rect" x="60" y="22" fill="#FFFFFF" stroke="#6996CF" stroke-width="3" stroke-linecap="round" width="112" height="55"/>
+	<polygon class="bg" id="expobj_path" fill="none" stroke="#E6F2FF" stroke-width="5" points="56.032,18.083 175.917,18.083 175.917,81.083 
+			56.032,81.083 "/>
+</g>
+</svg>

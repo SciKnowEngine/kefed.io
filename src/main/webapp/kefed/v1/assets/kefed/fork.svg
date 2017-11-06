@@ -1,0 +1,33 @@
+<svg  version="1.1" id="sgvlib" xmlns:svg="http://www.w3.org/2000/svg" xmlns:k="http://schemas.kapit.fr/svg/2007/"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="612" height="792" viewBox="0 0 612 792"
+	 overflow="visible" enable-background="new 0 0 612 792" xml:space="preserve">
+
+<defs id="defs1">
+<style type="text/css">
+<![CDATA[
+.basic {
+action-accept:annotation;
+}
+.outonly {
+action-click:link;
+}
+.bg{
+action-click:link;
+action-accept:link;
+}
+.annotation {
+font-style:italic;
+}
+.link-annotation
+{
+font-size:12px;
+fill:#666;
+}
+]]>
+</style>
+</defs>
+<g id="kefed_fork" k:groupid="Basic" class="basic" k:spriteid="Fork">
+	<rect id="forkrect1_4_" x="71.354" y="383.104" fill="#6A99CE" stroke="#6996CF" stroke-width="3" stroke-linecap="round" width="291.146" height="8.812"/>
+	<rect class="bg" id="fork_path" x="68.5" y="380.777" fill="none" stroke="#E6F4FF" stroke-width="5" width="297.111" height="14.139"/>
+</g>
+</svg>

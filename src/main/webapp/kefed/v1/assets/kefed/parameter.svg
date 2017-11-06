@@ -1,0 +1,35 @@
+<svg  version="1.1" id="sgvlib" xmlns:svg="http://www.w3.org/2000/svg" xmlns:k="http://schemas.kapit.fr/svg/2007/"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="612" height="792" viewBox="0 0 612 792"
+	 overflow="visible" enable-background="new 0 0 612 792" xml:space="preserve">
+
+<defs id="defs1">
+<style type="text/css">
+<![CDATA[
+.basic {
+action-accept:annotation;
+}
+.outonly {
+action-click:link;
+}
+.bg{
+action-click:link;
+action-accept:link;
+}
+.annotation {
+font-style:italic;
+}
+.link-annotation
+{
+font-size:12px;
+fill:#666;
+}
+]]>
+</style>
+</defs>
+<g id="kefed_parameterspec" k:groupid="Basic" class="basic" k:spriteid="Parameter">
+		<rect id="indepdrect1" x="104.352" y="263.371" fill="#6A99CE" stroke="#6996CF" stroke-width="3" stroke-linecap="round" width="25.024" height="76.299"/>	
+		<line id="indepdline1" fill="none" stroke="#FFFFFF" stroke-linecap="round" x1="129.253" y1="314.329" x2="104.311" y2="314.329"/>
+		<line id="indepdline2" fill="none" stroke="#FFFFFF" stroke-linecap="round" x1="129.252" y1="288.849" x2="104.268" y2="288.849"/>
+		<rect class="bg" id="indepd_path" x="104.352" y="263.371" fill="none" stroke="#E6F2FF" stroke-width="5" stroke-linecap="round" width="25.024" height="76.299"/>
+</g>
+</svg>
