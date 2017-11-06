@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id$
+     $Date$
+     $Revision$  xmlns="http://www.isi.edu/bmkeg/"-->
+<configuration>
+  <modelStoreType>elasticSearch</modelStoreType>
+  <modelStoreUrl>http://localhost:8080/</modelStoreUrl>
+
+  <dataStoreType>elasticSearch</dataStoreType>
+  <dataStoreUrl>http://localhost:8080/</dataStoreUrl>
+
+  <!--
+  <schemaStoreType>persevere</schemaStoreType>
+  <schemaStoreUrl>persevere/</schemaStoreUrl>
+  -->
+
+  <!--
+   <callbackUrl>http://cowabunga.isi.edu:9000/echo/done</callbackUrl>
+   -->
+   <callbackFunction>alert</callbackFunction>
+
+    <ontologyLookupType>ncbo</ontologyLookupType>
+
+    <!--
+    <action>editModel</action>
+    <uid>8AC46693-1A6B-C219-A03F-8027A6A2A615</uid>
+    -->
+  
+  <!--
+  <action>createModel</action>
+  <uid>8AC46693-EEFF-C219-A03F-8027A6A2A615</uid>
+  -->
+  
+  <!--
+  <action>deleteModel</action>
+  <uid>8AC46693-EEFF-C219-A03F-8027A6A2A615</uid>
+  -->
+  
+  <!--
+  <action>createModel</action>
+  <uid>TEST-UID-5</uid>
+  -->
+  
+  <!--
+  <action>deleteModel</action>
+  <uid>TEST-UID-5</uid>
+  -->
+  
+ <!-- 
+  <action>loadModel</action>
+  <uid>28E9B7E0-C52C-3D14-0ECB-BBDDA991F23C</uid>
+  -->
+  
+  <action>copyModel</action>
+  <uid>28E9B7E0-C52C-3D14-0ECB-BBDDA991F23C</uid>
+   
+ </configuration>

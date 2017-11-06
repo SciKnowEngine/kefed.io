@@ -1,26 +1,28 @@
 
-function DataItem(id,label,variableType,ontologyId,material,process) {
+function DataItem(id,label,variableType,ontologyId) {
 	Continuant.apply(this,[id,label,ontologyId]);
+	this.type = 'DataItem'
 	this.variable_type = variableType==undefined?"":variableType;
 	this.metaData=null;
-	this.parameterizes_entity = material;
 	this.has_value_specification = []
-	
 }
 
 function NaturalLanguage_VS () {
-	ValueSpecification.apply(this,arguments);
-	this.language = ''
+    ValueSpecification.apply(this,arguments);
+    this.type = 'NaturalLanguage_VS'
+    this.language = ''
 }
 
 function StructuredObject_VS () {
 	ValueSpecification.apply(this,arguments);
-	this.type_label = ''
+    this.type = 'NaturalLanguage_VS'
+    this.type_label = ''
 	this.has_part = []
 }
 
 function Continuant(id,label,ontologyId) {
-	this.id=parseInt(id);
+    this.type = 'Continuant'
+    this.id=parseInt(id);
 	this.label = label;
 	this.metaData=null;
 	this.ontologyId = ontologyId;
@@ -31,11 +33,13 @@ function Continuant(id,label,ontologyId) {
 
 function MaterialEntity(id,label,ontologyId) {
 	Continuant.apply(this,[id,label,ontologyId]);
-	this.is_parameterized_by = [];
+    this.type = 'MaterialEntity'
+    this.is_parameterized_by = [];
 }
 
 function Investigation() {
-	this.label = label;
+    this.type = 'Investigation'
+    this.label = label;
 	this.ontologyId = "";;
 	this.realized_by = [];
 	this.has_design = "";
@@ -43,31 +47,37 @@ function Investigation() {
 
 function OntologicalTerm_VS () {
 	ValueSpecification.apply(this,arguments);
-	this.is_about = "";
+    this.type = 'OntologicalTerm_VS'
+    this.is_about = "";
 }
 
 function URI() {
-	this.url = new URL()
+    this.type = 'URI'
+    this.url = new URL()
 }
 
 function Experiment() {
-	PlannedProcess.apply(this,arguments);
+	PlannedProcess.apply(this,["",0,"E",""]);
+    this.type = 'Experiment'
 }
 
 function Scalar_VS() {
 	ValueSpecification.apply(this,arguments);
-	this.precision_code = ''
+    this.type = 'Scalar_VS'
+    this.precision_code = ''
 	this.max = 0.0
 	this.min = 0.0
 }
 
 function ProvenanceContext() {
-	this.is_parameterized_by = []
+    this.type = 'ProvenanceContext'
+    this.is_parameterized_by = []
 	this.is_provenance_context_for = new ValueSpecification()
 }
 
 function PlannedProcess(label,id,processtype,ontologyId) {
-	this.id = id!=undefined?parseInt(id):0;
+    this.type = 'PlannedProcess'
+    this.id = id!=undefined?parseInt(id):0;
 	this.label = label;
 	this.metaData=null;
 	this.process_type = processtype;
@@ -85,22 +95,26 @@ function PlannedProcess(label,id,processtype,ontologyId) {
 
 function Nominal_VS() {
 	ValueSpecification.apply(this,arguments);
+    this.type = 'Nominal_VS'
 }
 
 function Ordinal_VS(){
 	ValueSpecification.apply(this,arguments);
-	this.max_rank = 0
+    this.type = 'Ordinal_VS'
+    this.max_rank = 0
 	this.rank_labels = []
 }
 
 function Study_Design_Execution(label,ontologyId) {
-	this.label=label;
+    this.type = 'Study_Design_Execution'
+    this.label=label;
 	this.ontologyId=ontologyId;
 	this.has_part = new Experiment();
 }
 
 function ValueSpecification() {
-	this.label = '';
+    this.type = 'ValueSpecification'
+    this.label = '';
 	this.ontologyId = "";
 	this.unit_label = ''
 	this.units = "";
@@ -113,15 +127,17 @@ function ValueSpecification() {
 
 function Categorical_VS() {
 	Nominal_VS.apply(this,arguments);
-	this.category_labels = []
+    this.type = 'Categorical_VS'
+    this.category_labels = []
 }
 
 function parseXML(xmlDoc,experiment) {
-	
-	this.dataObjects=[];
-	this.materialEntities=[];
-	this.plannedPocesses=[];
-	this.connections=[];
+
+    var dataObjects=[];
+	var materialEntities=[];
+	var plannedPocesses=[];
+	var connections=[];
+	var hashTable = {};
 	
 	var x = xmlDoc.getElementsByTagName('mxCell');
 	for (i = 0; i < x.length ;i++) {
@@ -134,7 +150,7 @@ function parseXML(xmlDoc,experiment) {
 							  			value:xmlDoc.getElementsByTagName('mxCell')[i].getAttribute("value"),
 							  			variableType:"I"
 							  	   };
-							  	   this.dataObjects.push(parameter);
+							  	   dataObjects.push(parameter);
 							       break;	  
 							       
 				case "measurement":console.log("measurement");
@@ -143,16 +159,15 @@ function parseXML(xmlDoc,experiment) {
 								  			value:xmlDoc.getElementsByTagName('mxCell')[i].getAttribute("value"),
 								  			variableType:"D"
 							  	   };
-								   this.dataObjects.push(parameter);
+								   dataObjects.push(parameter);
 								   break;
-				 
 							       
 				case "process":    console.log("process");
 					  			   var process= {
 					  					 id:xmlDoc.getElementsByTagName('mxCell')[i].getAttribute("id"),
 					  					 value:xmlDoc.getElementsByTagName('mxCell')[i].getAttribute("value"),
 					  			   };
-					  			   this.plannedPocesses.push(process);
+					  			   plannedPocesses.push(process);
 					  			   break;
 				  			   
 				case "entity":     console.log("entity");
@@ -160,7 +175,7 @@ function parseXML(xmlDoc,experiment) {
 						  			 id:xmlDoc.getElementsByTagName('mxCell')[i].getAttribute("id"),
 						  			 value:xmlDoc.getElementsByTagName('mxCell')[i].getAttribute("value")
 								   };
-						  		   this.materialEntities.push(materialEntity);
+						  		   materialEntities.push(materialEntity);
 						  		   break;
 				  				
 				case "constant":   console.log("constant");
@@ -169,7 +184,7 @@ function parseXML(xmlDoc,experiment) {
 								  			value:xmlDoc.getElementsByTagName('mxCell')[i].getAttribute("value"),
 								  			variableType:'C'
 								   };
-								   this.dataObjects.push(parameter);
+								   dataObjects.push(parameter);
 								   break;
 								   
 				default:           console.log("connection");
@@ -177,160 +192,240 @@ function parseXML(xmlDoc,experiment) {
 										source:xmlDoc.getElementsByTagName('mxCell')[i].getAttribute("source"),
 								  		target:xmlDoc.getElementsByTagName('mxCell')[i].getAttribute("target")
 								   };	
-								   this.connections.push(connnection);
+								   connections.push(connnection);
 						           break;
+
 			}
+
 		}
 	
 	}
-	
-	for (var k=0; k<this.plannedPocesses.length;k++) {
-		var processId=this.plannedPocesses[k].id;
-		var processValue=this.plannedPocesses[k].value;
-		var process= new (Function.prototype.bind.call(PlannedProcess,0,processValue,processId,"M",""));
-		var parent = experiment.has_part.filter((function(o){if(o.id == processId)return o;}));
-		if(parent.length==0) {
-			experiment.has_part.push(process);
-		} else parent[0].label=processValue;
-		
-		
-		var connectionTarget = this.connections.filter(function(o){if((o.target == processId))return o;} );
-		if(connectionTarget.length>0) {
-			for(var i=0;i<connectionTarget.length;i++) {
-					var connectionSourceId=connectionTarget[i].source;
-					var connectionTargetId=connectionTarget[i].target;
-					var materialEntity=this.materialEntities.filter(function(o){if(o.id == connectionSourceId)return o;})
-					if(materialEntity.length>0) {
-						var id=materialEntity[0].id;
-						var value=materialEntity[0].value;
-						var material= new (Function.prototype.bind.call(MaterialEntity,0,id,value,""));
-						var parent = experiment.has_participant.filter((function(o){if(o.id == id)return o;}));
-						if(parent.length==0) {
-							experiment.has_participant.push(material);
-							process.has_specified_input.push(material);
-							experiment.has_first_part=process;
-						} else parent[0].label=value;
-					}
-					var processEntity=this.plannedPocesses.filter(function(o){if(o.id == connectionSourceId)return o;});
-					if(processEntity.length>0) {
-						var id=processEntity[0].id;
-						var parent = experiment.has_part.filter((function(o){if(o.id == id)return o;}));
-						if(parent.length>0) {
-							parent[0].provides_input_to.push(process);
-							process.receives_input_from.push(parent[0]);
-						}
-					}
-					var dataEntity=this.dataObjects.filter(function(o){if(o.id == connectionSourceId)return o;})
-					if(dataEntity.length>0) {
-						for(var y=0;y<dataEntity.length;y++) {
-							var id=dataEntity[y].id;
-							var value=dataEntity[y].value;
-							var variableType=dataEntity[y].variableType;
-							var dataObj= new (Function.prototype.bind.call(DataItem,0,id,value,variableType));
-							if(variableType=="C" || variableType=="I") {
-								process.is_parameterized_by.push(dataObj);
-							} else if(variableType=="D"){
-								process.has_specified_output.push(dataObj);
-								experiment.has_participant.push(dataObj);
-							}
-						}
-						
-					}
-			
-					var dataEntity=this.dataObjects.filter(function(o){if(o.id == connectionTargetId)return o;})
-					if(dataEntity.length>0) {
-						for(var y=0;y<dataEntity.length;y++) {
-							var id=dataEntity[y].id;
-							var value=dataEntity[y].value;
-							var variableType=dataEntity[y].variableType;
-							var dataObj= new (Function.prototype.bind.call(DataItem,0,id,value,variableType));
-							if(variableType=="C" || variableType=="I") {
-								process.is_parameterized_by.push(dataObj);
-							} else if(variableType=="D"){
-								process.has_specified_output.push(dataObj);
-								experiment.has_participant.push(dataObj);
-							}
-						}
-						
-					}
-					
-			}
+
+    plannedPocesses.forEach(function(pp) {
+        var p = new PlannedProcess(pp.value, pp.id, "M", "");
+        hashTable[p.id] = p;
+        experiment.has_part.push(p);
+    });
+
+    materialEntities.forEach(function(mm) {
+        var m = new MaterialEntity(mm.id, mm.value, "");
+        hashTable[m.id] = m;
+        experiment.has_participant.push(m);
+    });
+
+    dataObjects.forEach(function(dd) {
+        var d = new DataItem(dd.id, dd.value, dd.variableType );
+        hashTable[d.id] = d;
+        experiment.has_participant.push(d);
+    });
+
+	connections.forEach(function(c) {
+
+        var s = hashTable[c.source];
+        var t = hashTable[c.target];
+
+        if( s instanceof PlannedProcess && t instanceof PlannedProcess ) {
+			s.provides_input_to.push(t);
+        } else if(s instanceof PlannedProcess && t instanceof MaterialEntity ) {
+            s.has_specified_output.push(t);
+            s.process_type = "M";
+    	} else if(s instanceof MaterialEntity && t instanceof PlannedProcess ) {
+        	t.has_specified_input.push(s);
+    	} else if(s instanceof DataItem && t instanceof PlannedProcess
+				&& (s.variable_type == "I" || s.variable_type == "C") ) {
+            t.is_parameterized_by.push(s);
+        } else if(s instanceof DataItem && t instanceof MaterialEntity
+            	&& (s.variable_type == "I" || s.variable_type == "C") ) {
+            t.is_parameterized_by.push(s);
+        } else if(s instanceof PlannedProcess && t instanceof DataItem
+            	&& (t.variable_type == "D") ) {
+            s.has_specified_output.push(t);
+        } else if(s instanceof DataItem && t instanceof PlannedProcess
+            && (s.variable_type == "D") ) {
+            s.has_specified_input.push(t);
+            t.process_type = "D";
+        } else {
+        	// COULD PUT ERROR CHECKING HERE.
+            var pause = 0;
 		}
-	}
-	
-	for (var k=0; k<this.materialEntities.length;k++) {
-		var materialId=materialEntities[k].id;
-		var parent = experiment.has_participant.filter((function(o){if(o.id == materialId)return o;}));
-		if(parent.length==0) {
-			var materialValue=this.materialEntities[k].value;
-			var material= new (Function.prototype.bind.call(MaterialEntity,0,materialId,materialValue,""));
-			var parent = experiment.has_participant.filter((function(o){if(o.id == materialId)return o;}));
-			if(parent.length==0) 
-				experiment.has_participant.push(material);
-		}
-	}
-	
-	for (var k=0; k<this.dataObjects.length;k++) {
-		var materialId=dataObjects[k].id;
-		var parent = experiment.has_participant.filter((function(o){if(o.id == materialId)return o;}));
-		if(parent.length==0) {
-			var materialValue=this.dataObjects[k].value;
-			var material= new (Function.prototype.bind.call(DataItem,0,materialId,materialValue,""));
-			var parent = experiment.has_participant.filter((function(o){if(o.id == materialId)return o;}));
-			if(parent.length==0) 
-				experiment.has_participant.push(material);
-		}
-	}
-	for(var k=0;k<experiment.has_participant.length;k++) {
-		var material = experiment.has_participant[k];
-		var materialId=material.id;
-		var connectionTarget = this.connections.filter(function(o){if((o.target == materialId))return o;} );
-		if(connectionTarget.length>0){
-			for(var i=0;i<connectionTarget.length;i++){
-				var connection=connectionTarget[i];
-				var dataEntity=this.dataObjects.filter(function(o){if(o.id == connection.source)return o;})
-				if(dataEntity.length>0) {
-					for(var y=0;y<dataEntity.length;y++) {
-						var id=dataEntity[y].id;
-						var value=dataEntity[y].value;
-						var variableType=dataEntity[y].variableType;
-						var dataObj= new (Function.prototype.bind.call(DataItem,0,id,value,variableType));
-						if(variableType=="C" || variableType=="I") {
-							//material.is_specified_input_of.push(dataObj);
-						}
-					}
+    });
+
+    /**
+	 * Cycle through all planned processes and fill in process types.
+     */
+    for( var i in experiment.has_part ) {
+    	var p = experiment.has_part[i];
+    	if( p.process_type.length > 0 )
+    		continue;
+    	var ptype = "";
+        p.has_specified_input.forEach(function(inObj) {
+            p.has_specified_output.forEach(function(outObj) {
+	            if( inObj instanceof MaterialEntity && outObj instanceof MaterialEntity
+						&& (ptype == "M" || ptype.length == 0) ) {
+                    ptype = "M"
+                } else if( inObj instanceof MaterialEntity && outObj instanceof DataItem
+	                    && (ptype == "A" || ptype.length == 0) ) {
+	            	ptype = "A"
+                } else if( inObj instanceof DataItem && outObj instanceof DataItem
+                    && (ptype == "D" || ptype.length == 0) ) {
+                    ptype = "A"
+	            } else {
+                    // COULD PUT ERROR CHECKING HERE.
+                    var pause = 0;
 				}
-			}
-		}
-	}
-	
-	for (var k=0; k<this.connections.length;k++) {
-		var connection=connections[k];
-		var dataEntity=this.dataObjects.filter(function(o){if(o.id == connection.target)return o;})
-		var parent = experiment.has_part.filter((function(o){if(o.id == connection.source)return o;}));
-		var material=experiment.has_participant.filter((function(o){if(o.id == connection.source)return o;}));
-		var dataObj=experiment.has_participant.filter((function(o){if(o.id == connection.target)return o;}));
-		
-		if(dataEntity.length>0) {
-			for(var y=0;y<dataEntity.length;y++) {
-				var id=dataEntity[y].id;
-				var value=dataEntity[y].value;
-				var variableType=dataEntity[y].variableType;
-				if(variableType=="D") {
-				    if(parent.length>0){
-				    	if(dataObj.length>0)
-				    	dataObj[0].is_specified_output_of.push(parent[0]);
-				    } 
-				    if(material.length>0){
-				    	if(dataObj.length>0)
-				    	dataObj[0].is_specified_output_of.push(material[0]);
-				    }
-				}
-			}
-		}
-		
-	}	
-		
+        	})
+        });
+        p.process_type = ptype;
+    }
+
+    pause = 0;
+
+    /*for (var k=0; k<this.plannedPocesses.length;k++) {
+       var processId=this.plannedPocesses[k].id;
+       var processValue=this.plannedPocesses[k].value;
+       var process= new (Function.prototype.bind.call(PlannedProcess,0,processValue,processId,"M",""));
+       var parent = experiment.has_part.filter((function(o){if(o.id == processId)return o;}));
+       if(parent.length==0) {
+           experiment.has_part.push(process);
+       } else parent[0].label=processValue;
+
+       var connectionTarget = this.connections.filter(function(o){if((o.target == processId))return o;} );
+       if(connectionTarget.length>0) {
+           for(var i=0;i<connectionTarget.length;i++) {
+               var connectionSourceId=connectionTarget[i].source;
+               var connectionTargetId=connectionTarget[i].target;
+               var materialEntity=this.materialEntities.filter(function(o){if(o.id == connectionSourceId)return o;})
+               if(materialEntity.length>0) {
+                   var id=materialEntity[0].id;
+                   var value=materialEntity[0].value;
+                   var material= new (Function.prototype.bind.call(MaterialEntity,0,id,value,""));
+                   var parent = experiment.has_participant.filter((function(o){if(o.id == id)return o;}));
+                   if(parent.length==0) {
+                       experiment.has_participant.push(material);
+                       process.has_specified_input.push(material);
+                       experiment.has_first_part=process;
+                   } else parent[0].label=value;
+               }
+               var processEntity=this.plannedPocesses.filter(function(o){if(o.id == connectionSourceId)return o;});
+               if(processEntity.length>0) {
+                   var id=processEntity[0].id;
+                   var parent = experiment.has_part.filter((function(o){if(o.id == id)return o;}));
+                   if(parent.length>0) {
+                       parent[0].provides_input_to.push(process);
+                       process.receives_input_from.push(parent[0]);
+                   }
+               }
+               var dataEntity=this.dataObjects.filter(function(o){if(o.id == connectionSourceId)return o;})
+               if(dataEntity.length>0) {
+                   for(var y=0;y<dataEntity.length;y++) {
+                       var id=dataEntity[y].id;
+                       var value=dataEntity[y].value;
+                       var variableType=dataEntity[y].variableType;
+                       var dataObj= new (Function.prototype.bind.call(DataItem,0,id,value,variableType));
+                       if(variableType=="C" || variableType=="I") {
+                           process.is_parameterized_by.push(dataObj);
+                       } else if(variableType=="D"){
+                           process.has_specified_output.push(dataObj);
+                           experiment.has_participant.push(dataObj);
+                       }
+                   }
+
+               }
+
+               var dataEntity=this.dataObjects.filter(function(o){if(o.id == connectionTargetId)return o;})
+               if(dataEntity.length>0) {
+                   for(var y=0;y<dataEntity.length;y++) {
+                       var id=dataEntity[y].id;
+                       var value=dataEntity[y].value;
+                       var variableType=dataEntity[y].variableType;
+                       var dataObj= new (Function.prototype.bind.call(DataItem,0,id,value,variableType));
+                       if(variableType=="C" || variableType=="I") {
+                           process.is_parameterized_by.push(dataObj);
+                       } else if(variableType=="D"){
+                           process.has_specified_output.push(dataObj);
+                           experiment.has_participant.push(dataObj);
+                       }
+                   }
+
+               }
+
+           }
+       }
+   }
+
+   for (var k=0; k<this.materialEntities.length;k++) {
+       var materialId=materialEntities[k].id;
+       var parent = experiment.has_participant.filter((function(o){if(o.id == materialId)return o;}));
+       if(parent.length==0) {
+           var materialValue=this.materialEntities[k].value;
+           var material= new (Function.prototype.bind.call(MaterialEntity,0,materialId,materialValue,""));
+           var parent = experiment.has_participant.filter((function(o){if(o.id == materialId)return o;}));
+           if(parent.length==0)
+               experiment.has_participant.push(material);
+       }
+   }
+
+   for (var k=0; k<this.dataObjects.length;k++) {
+       var materialId=dataObjects[k].id;
+       var parent = experiment.has_participant.filter((function(o){if(o.id == materialId)return o;}));
+       if(parent.length==0) {
+           var materialValue=this.dataObjects[k].value;
+           var material= new (Function.prototype.bind.call(DataItem,0,materialId,materialValue,""));
+           var parent = experiment.has_participant.filter((function(o){if(o.id == materialId)return o;}));
+           if(parent.length==0)
+               experiment.has_participant.push(material);
+       }
+   }
+   for(var k=0;k<experiment.has_participant.length;k++) {
+       var material = experiment.has_participant[k];
+       var materialId=material.id;
+       var connectionTarget = this.connections.filter(function(o){if((o.target == materialId))return o;} );
+       if(connectionTarget.length>0){
+           for(var i=0;i<connectionTarget.length;i++){
+               var connection=connectionTarget[i];
+               var dataEntity=this.dataObjects.filter(function(o){if(o.id == connection.source)return o;})
+               if(dataEntity.length>0) {
+                   for(var y=0;y<dataEntity.length;y++) {
+                       var id=dataEntity[y].id;
+                       var value=dataEntity[y].value;
+                       var variableType=dataEntity[y].variableType;
+                       var dataObj= new (Function.prototype.bind.call(DataItem,0,id,value,variableType));
+                       if(variableType=="C" || variableType=="I") {
+                           //material.is_specified_input_of.push(dataObj);
+                       }
+                   }
+               }
+           }
+       }
+   }
+
+   for (var k=0; k<this.connections.length;k++) {
+       var connection=connections[k];
+       var dataEntity=this.dataObjects.filter(function(o){if(o.id == connection.target)return o;})
+       var parent = experiment.has_part.filter((function(o){if(o.id == connection.source)return o;}));
+       var material=experiment.has_participant.filter((function(o){if(o.id == connection.source)return o;}));
+       var dataObj=experiment.has_participant.filter((function(o){if(o.id == connection.target)return o;}));
+
+       if(dataEntity.length>0) {
+           for(var y=0;y<dataEntity.length;y++) {
+               var id=dataEntity[y].id;
+               var value=dataEntity[y].value;
+               var variableType=dataEntity[y].variableType;
+               if(variableType=="D") {
+                   if(parent.length>0){
+                       if(dataObj.length>0)
+                       dataObj[0].is_specified_output_of.push(parent[0]);
+                   }
+                   if(material.length>0){
+                       if(dataObj.length>0)
+                       dataObj[0].is_specified_output_of.push(material[0]);
+                   }
+               }
+           }
+       }
+
+   }*/
+
 	
 }
 
@@ -366,10 +461,11 @@ Study_Design.prototype.correctTemplateObject=function() {
 }
 
 function Study_Design() {
-	this.ontologyId="";
-	this.process_type="E";
+    this.type = 'Study_Design'
+    this.ontologyId="";
 	this.has_part = new Experiment();
-	return this;
+    this.has_part.process_type="E";
+    return this;
 }
 
 Study_Design.prototype.getPropertyObject=function(studyDesign,id) {
@@ -422,7 +518,8 @@ Study_Design.prototype.storePropertyObject=function(id,label,propertyObject) {
 }
 
 function MetaData(id,label,alternateTerm,definition,definitionSource,exampleUsage,parentclass,notes) {
-	this.id=parseInt(id);
+    this.type = 'MetaData'
+    this.id=parseInt(id);
 	this.label=label;
 	this.alternateTerm=alternateTerm;
 	this.definition=definition;
@@ -433,7 +530,8 @@ function MetaData(id,label,alternateTerm,definition,definitionSource,exampleUsag
 }
 
 function MetaData(id,label) {
-	this.id=parseInt(id);
+    this.type = 'MetaData'
+    this.id=parseInt(id);
 	this.label=label;
 	this.alternateTerm="";
 	this.definition="";

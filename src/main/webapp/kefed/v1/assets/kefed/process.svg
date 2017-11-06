@@ -1,0 +1,37 @@
+<svg  version="1.1" id="sgvlib" xmlns:svg="http://www.w3.org/2000/svg" xmlns:k="http://schemas.kapit.fr/svg/2007/"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="612" height="792" viewBox="0 0 612 792"
+	 overflow="visible" enable-background="new 0 0 612 792" xml:space="preserve">
+
+<defs id="defs1">
+<style type="text/css">
+<![CDATA[
+.basic {
+action-accept:annotation;
+}
+.outonly {
+action-click:link;
+}
+.bg{
+action-click:link;
+action-accept:link;
+}
+.annotation {
+font-style:italic;
+}
+.link-annotation
+{
+font-size:12px;
+fill:#666;
+}
+]]>
+</style>
+</defs>
+<!-- Graphic Objects need an empty path around them to house the class="bg" target and that object must have a thick border upon which you can link edges-->
+<g id="kefed_activity" k:groupid="Basic" class="basic" k:spriteid="Process">
+	<path id="activity_ellipse" fill="#FFFFFF" stroke="#6996CF" stroke-width="3" d="M118.067,185.969
+		c15.281,0,55.975,5.846,55.975,27.581c0,18.437-32.58,27.581-55.975,27.581c-49.842,0-55.975-23.397-55.975-27.581
+		C62.092,193.249,102.174,185.969,118.067,185.969z"/>
+	<path class="bg" id="activity_path" fill="none" stroke="#E6F2FF" stroke-width="5" d="M117.75,182.264c16.312,0,59.75,6.649,59.75,31.368
+		c0,20.969-34.777,31.368-59.75,31.368C64.547,245,58,218.391,58,213.632C58,190.543,100.785,182.264,117.75,182.264z"/>
+</g>
+</svg>

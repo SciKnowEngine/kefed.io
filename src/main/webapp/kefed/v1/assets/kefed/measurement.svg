@@ -1,0 +1,44 @@
+<svg  version="1.1" id="sgvlib" xmlns:svg="http://www.w3.org/2000/svg" xmlns:k="http://schemas.kapit.fr/svg/2007/"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="612" height="792" viewBox="0 0 612 792"
+	 overflow="visible" enable-background="new 0 0 612 792" xml:space="preserve">
+
+<defs id="defs1">
+<style type="text/css">
+<![CDATA[
+.basic {
+action-accept:annotation;
+}
+.outonly {
+action-click:link;
+}
+.bg{
+action-click:link;
+action-accept:link;
+}
+.annotation {
+font-style:italic;
+}
+.link-annotation
+{
+font-size:12px;
+fill:#666;
+}
+]]>
+</style>
+</defs>
+<g id="kefed_measurementspec" k:groupid="Basic" class="basic" k:spriteid="Measurement">
+	<rect x="88.563" y="107.642" fill="#FFFFFF" stroke="#6996CF" stroke-width="3" stroke-linecap="round" width="55.866" height="55"/>
+	<rect x="88.532" y="107.733" fill="#6A99CE" stroke="#6996CF" stroke-linecap="round" width="55.897" height="18.333"/>
+	<line fill="none" stroke="#6996CF" stroke-linecap="round" x1="125.763" y1="107.642" x2="125.763" y2="162.642"/>
+	<line fill="none" stroke="#6996CF" stroke-linecap="round" x1="107.096" y1="107.642" x2="107.096" y2="162.642"/>
+	<line fill="none" stroke="#6996CF" stroke-linecap="round" x1="88.563" y1="125.975" x2="144.429" y2="125.975"/>
+	<line fill="none" stroke="#6996CF" stroke-linecap="round" x1="88.563" y1="144.309" x2="144.429" y2="144.309"/>
+	<rect x="88.549" y="125.975" fill="#6A99CE" stroke="#6996CF" stroke-linecap="round" width="18.547" height="36.667"/>
+	<line fill="none" stroke="#FFFFFF" stroke-linecap="round" x1="88.549" y1="144.309" x2="107.096" y2="144.309"/>
+	<line fill="none" stroke="#FFFFFF" stroke-linecap="round" x1="88.532" y1="125.975" x2="107.096" y2="125.975"/>
+	<line fill="none" stroke="#FFFFFF" stroke-linecap="round" x1="107.096" y1="125.976" x2="107.096" y2="107.703"/>
+	<line fill="none" stroke="#FFFFFF" stroke-linecap="round" x1="125.763" y1="125.975" x2="125.763" y2="107.672"/>
+	<polygon class="bg" id="depv_path" fill="none" stroke="#E6F2FF" stroke-width="5" points="84.5,103.499 148.5,103.396 148.5,166.5 
+		84.519,166.5 	"/>
+</g>
+</svg>

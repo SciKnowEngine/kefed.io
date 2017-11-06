@@ -1,0 +1,33 @@
+<svg  version="1.1" id="sgvlib" xmlns:svg="http://www.w3.org/2000/svg" xmlns:k="http://schemas.kapit.fr/svg/2007/"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="612" height="792" viewBox="0 0 612 792"
+	 overflow="visible" enable-background="new 0 0 612 792" xml:space="preserve">
+
+<defs id="defs1">
+<style type="text/css">
+<![CDATA[
+.basic {
+action-accept:annotation;
+}
+.outonly {
+action-click:link;
+}
+.bg{
+action-click:link;
+action-accept:link;
+}
+.annotation {
+font-style:italic;
+}
+.link-annotation
+{
+font-size:12px;
+fill:#666;
+}
+]]>
+</style>
+</defs>
+<g id="kefed_constantspec" k:groupid="Basic" class="basic" k:spriteid="Constant">
+	<rect id="cntrldrect1_1_" x="102.352" y="504.371" fill="#6A99CE" stroke="#6996CF" stroke-width="3" stroke-linecap="round" width="25.024" height="25.299"/>
+	<rect class="bg" id="cntrld_path_1_" x="102.352" y="504.371" fill="none" stroke="#E6F2FF" stroke-width="5" stroke-linecap="round" width="25.024" height="28.299"/>
+</g>
+</svg>

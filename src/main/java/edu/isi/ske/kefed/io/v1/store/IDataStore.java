@@ -45,7 +45,7 @@ public interface IDataStore {
 	 * @param experiment The experiment to save to the store
 	 * 
 	 */
-	ResponseEntity<Boolean> insertData(KefedExperiment experiment);
+	ResponseEntity<KefedExperiment> insertData(KefedExperiment experiment);
 	
 	/** Save the experiment. Assumes that the experiment already
 	 *  exists in the store.  
@@ -53,7 +53,7 @@ public interface IDataStore {
 	 * @param experiment The experiment to save to the store
 	 * 
 	 */
-	ResponseEntity<Boolean> saveData(KefedExperiment experiment);
+	ResponseEntity<KefedExperiment> saveData(KefedExperiment experiment);
 	
 	/** Delete the experiment that matches the given UID.  
 	 * 

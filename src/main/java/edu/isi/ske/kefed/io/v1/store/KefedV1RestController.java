@@ -1,10 +1,12 @@
 package edu.isi.ske.kefed.io.v1.store;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,12 +17,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import edu.isi.ske.kefed.io.v1.model.KefedExperiment;
 import edu.isi.ske.kefed.io.v1.model.KefedModel;
 
 @Controller
 public class KefedV1RestController implements IModelStore, IDataStore {
 
+	private ElasticsearchTemplate elasticsearchTemplate;
+
+	
 	@Autowired 
 	private KefedModelRepository modelRepo;
 
@@ -39,10 +47,8 @@ public class KefedV1RestController implements IModelStore, IDataStore {
 			KefedExperiment expt = exptIt.next();
 			result.add(expt);
 		}
-		
-		ResponseEntity<List<KefedExperiment>> resp = ResponseEntity.ok(result);
-	
-		return resp;
+			
+		return ResponseEntity.ok(result);
 
 	}
 
@@ -58,41 +64,51 @@ public class KefedV1RestController implements IModelStore, IDataStore {
 		
 		KefedExperiment output = exptRepo.findByUid(uid);
 		
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode jsonObj;
+		try {
+			jsonObj = mapper.readTree(output.getExperimentDataInES());
+		} catch (IOException e) {
+			return ResponseEntity.ok(null);
+		}
+		output.setExperimentData(jsonObj);
+		output.setExperimentDataInES(null);
+		
 		return ResponseEntity.ok(output);
 		
 	}
 
 	@Override
 	@PostMapping(value="/insertData")
-	public ResponseEntity<Boolean>  insertData(@RequestBody KefedExperiment experiment) {
+	public ResponseEntity<KefedExperiment>  insertData(@RequestBody KefedExperiment experiment) {
 		
+		experiment.setExperimentDataInES(experiment.getExperimentData().toString());
+		experiment.setExperimentData(null);
 		KefedExperiment output = exptRepo.save(experiment);
 
-		if(output != null) 
-			return  ResponseEntity.ok(true);
-		else 
-			return ResponseEntity.ok(false); 
+		return  ResponseEntity.ok(output);
+		
 	}
 
 	@Override
 	@PostMapping(value="/saveData")
-	public ResponseEntity<Boolean>  saveData(@RequestBody KefedExperiment experiment) {
-		KefedExperiment output = exptRepo.save(experiment);
+	public ResponseEntity<KefedExperiment>  saveData(@RequestBody KefedExperiment experiment) {
 
-		if(output != null) 
-			return  ResponseEntity.ok(true);
-		else 
-			return ResponseEntity.ok(false); 
+		experiment.setExperimentDataInES(experiment.getExperimentData().toString());
+		experiment.setExperimentData(null);
+		KefedExperiment output = exptRepo.save(experiment);
+		return  ResponseEntity.ok(output);
+		
 	}
 
 	@Override
 	@GetMapping(value="/deleteData")
 	public ResponseEntity<Boolean> deleteData(@RequestParam("uid") String uid) {
 		
-		KefedModel model = modelRepo.findByUid(uid);
-		modelRepo.delete(model);
+		KefedExperiment expt = exptRepo.findByUid(uid);
+		exptRepo.delete(expt);
 
-		KefedModel check = modelRepo.findByUid(uid);
+		KefedExperiment check = exptRepo.findByUid(uid);
 		if(check == null) 
 			return ResponseEntity.ok(true);
 		else 
@@ -120,33 +136,55 @@ public class KefedV1RestController implements IModelStore, IDataStore {
 	@GetMapping(value="/retrieveModel")
 	public ResponseEntity<KefedModel> retrieveModel(@RequestParam("uid") String uid) {
 
-		KefedModel output = modelRepo.findByUid(uid);
+		List<KefedModel> models = modelRepo.findByUid(uid);
+		if( models.size() == 1 ) {
+			return ResponseEntity.ok(models.get(0));			
+		}
+		else if( models.size() > 1 ) {
+			return ResponseEntity.ok(models.get(0));			
+		}
+		return null;
 		
-		return ResponseEntity.ok(output);
 	}
 
 	@Override
 	@PostMapping(value="/insertModel")
-	public ResponseEntity<Boolean> insertModel(@RequestBody KefedModel model) {
+	public ResponseEntity<KefedModel> insertModel(@RequestBody KefedModel model) {
 		
 		KefedModel output = modelRepo.save(model);
 
-		if(output != null) 
-			return  ResponseEntity.ok(true);
-		else 
-			return ResponseEntity.ok(false); 
+		return  ResponseEntity.ok(output);
 
 	}
 
 	@Override
+	@PostMapping(value="/insertModelList")
+	public ResponseEntity<KefedModel> insertModelList(@RequestBody List<KefedModel> models) {
+		
+		KefedModel output = null;
+		for (KefedModel model : models) {	
+			output = modelRepo.save(model);
+			if(output == null) 
+				return ResponseEntity.ok(null); 		
+		}
+
+		return  ResponseEntity.ok(output);
+		
+	}
+	
+	
+	@Override
 	@PostMapping(value="/saveModel")
-	public ResponseEntity<Boolean> saveModel(@RequestBody KefedModel model) {
+	public ResponseEntity<KefedModel> saveModel(@RequestBody KefedModel model) {
+		
+		String uid = model.getUid();
+		List<KefedModel> previousModels = modelRepo.findByUid(uid);
+		for( KefedModel prev : previousModels)
+			modelRepo.delete(prev);
+		
 		KefedModel output = modelRepo.save(model);
 
-		if(output != null) 
-			return  ResponseEntity.ok(true);
-		else 
-			return ResponseEntity.ok(false); 
+		return  ResponseEntity.ok(output);
 		
 	}
 
@@ -154,15 +192,35 @@ public class KefedV1RestController implements IModelStore, IDataStore {
 	@GetMapping(value="/deleteModel")
 	public ResponseEntity<Boolean> deleteModel(@RequestParam("uid") String uid) {
 		
-		KefedModel model = modelRepo.findByUid(uid);
-		modelRepo.delete(model);
+		List<KefedModel> models = modelRepo.findByUid(uid);
+		for( KefedModel model : models)
+			modelRepo.delete(model);
 
-		KefedModel check = modelRepo.findByUid(uid);
+		List<KefedModel> check = modelRepo.findByUid(uid);
 		if(check == null) 
 			return ResponseEntity.ok(true);
 		else 
 			return ResponseEntity.ok(false); 
 		
 	}
-	
+
+	@GetMapping(value="/deleteAllModels")
+	public ResponseEntity<Boolean> deleteAllModels() {
+		modelRepo.deleteAll();;
+		return ResponseEntity.ok(true);
+	}
+
+	@GetMapping(value="/deleteAllData")
+	public ResponseEntity<Boolean> deleteAllData() {
+		exptRepo.deleteAll();;
+		return ResponseEntity.ok(true);
+	}
+
+	@GetMapping(value="/listAll")
+	public ResponseEntity<Boolean> listAllElasticSearchRepo() {
+		exptRepo.deleteAll();;
+		return ResponseEntity.ok(true);
+	}
+
+		
 }

@@ -42,7 +42,8 @@ public interface IModelStore {
 	 * @return 
 	 * 
 	 */
-	ResponseEntity<Boolean> insertModel(KefedModel model);
+	ResponseEntity<KefedModel> insertModel(KefedModel model);
+	ResponseEntity<KefedModel> insertModelList(List<KefedModel> models);
 
 	/**
 	 * Save the model. Assumes that there is already a model present that will
@@ -53,7 +54,7 @@ public interface IModelStore {
 	 * @return 
 	 * 
 	 */
-	ResponseEntity<Boolean> saveModel(KefedModel model);
+	ResponseEntity<KefedModel> saveModel(KefedModel model);
 
 	/**
 	 * Delete the model that matches the given UID. 

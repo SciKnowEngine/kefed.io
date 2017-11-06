@@ -1,0 +1,35 @@
+<svg  version="1.1" id="sgvlib" xmlns:svg="http://www.w3.org/2000/svg" xmlns:k="http://schemas.kapit.fr/svg/2007/"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="612" height="792" viewBox="0 0 612 792"
+	 overflow="visible" enable-background="new 0 0 612 792" xml:space="preserve">
+
+<defs id="defs1">
+<style type="text/css">
+<![CDATA[
+.basic {
+action-accept:annotation;
+}
+.outonly {
+action-click:link;
+}
+.bg{
+action-click:link;
+action-accept:link;
+}
+.annotation {
+font-style:italic;
+}
+.link-annotation
+{
+font-size:12px;
+fill:#666;
+}
+]]>
+</style>
+</defs>
+<g id="kefed_branch" k:groupid="Basic" class="basic" k:spriteid="Branch">
+	<polygon id="branchshape1" fill="#FFFFFF" stroke="#6A99CE" stroke-width="3" points="113.315,436.662 127.428,452.465 
+		113.316,468.266 99.204,452.462 	"/>
+	<polygon class="bg" id="branchpath1" fill="none" stroke="#E6F3FF" stroke-width="5" points="113.458,430.922 133.083,452.545 
+		113.458,474.166 93.833,452.541 	"/>
+</g>
+</svg>

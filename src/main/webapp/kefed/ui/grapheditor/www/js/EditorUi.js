@@ -3385,8 +3385,9 @@ EditorUi.prototype.save = function(name)
 						var xhttp = new XMLHttpRequest();
 						xhttp.open("POST", SAVE_URL, true);
 						xhttp.setRequestHeader("Content-type", "application/json");
-				   		
-						xhttp.send(JSON.stringify(templateObject));
+
+						var jsonData = JSON.stringify(templateObject, jsonReplacer)
+						xhttp.send(jsonData);
 						xhttp.onreadystatechange = function () {
 						    if (xhttp.readyState === 4 && xhttp.status === 200) {
 						        console.log("Success");
@@ -3412,6 +3413,19 @@ EditorUi.prototype.save = function(name)
 		}
 	}
 };
+
+function jsonReplacer(key,value)
+{
+    if(value === null)
+    	return undefined;
+    if(value instanceof Array && value.length == 0)
+    	return undefined;
+    if(value instanceof Object && Object.keys(value).length == 0)
+    	return undefined;
+    if(value == "")
+        return undefined;
+    return value
+}
 
 /**
  * Executes the given layout.
@@ -4086,3 +4100,4 @@ EditorUi.prototype.createContainer = function()
 	document.body.appendChild(elt);
 	return elt;
 }
+
