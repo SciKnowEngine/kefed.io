@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Reading List</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="js/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="js/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="js/angular-tree-control/css/tree-control.css">
+    <link rel="stylesheet" type="text/css" href="js/angular-tree-control/css/tree-control-attribute.css">
+    <link rel="stylesheet" type="text/css" href="js/materialize/dist/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="js/angucomplete-alt/angucomplete-alt.css">
+    <link rel="stylesheet" type="text/css" href="js/vis/dist/vis.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/app.css">
+    <script src="js/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<base href="/">
+<body>
+<nav>
+    <div class="nav-wrapper teal">
+        <div class="col s12"><a href="/" class="brand-logo center">ISI TechKnAcq</a>
+            <ul id="nav-mobile" class="left">
+                <li><a href="/">Reading List</a></li>
+                <li><a href="all-documents.html">Document search</a></li>
+                <li class="active"><a href="list.html">Saved List</a></li>
+                <li><a href="logout">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div ng-controller="SavedListCtrl" class="container-fluid" ng-cloak>
+    <div ng-show="result.length > 0 ">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card-title">
+                    Query history
+                </div>
+                <table class="table table-bordered">
+                    <tr ng-repeat="item in result">
+                        <td ng-class="{'selected': item.id === currentQueryId}">
+                            <query item="item" ng-click="showDocuments(item)"></query>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+            <div class="col-md-9" ng-if="documents">
+
+                <ol class="custom-counter card">
+                    <div class="card-title">Selected Topics:</div>
+                <span ng-repeat="topic in topics" class="chip selected-topics">
+                    {{topic}}
+                </span>
+                    <div class="card-content">
+                        <div class="card-title">Reading List</div>
+                        <li ng-repeat="document in documents" class="card less-shadow">
+                            <document info="{document:document}" moveable="false"></document>
+                        </li>
+                    </div>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div ng-show="result.length == 0 && ready" class="center">
+        <h5>There are no saved queries. Reorder documents from the search panel to save queries.</h5>
+    </div>
+    <div ng-show="!ready" class="row center loading">
+        <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="js/vis/dist/vis.js"></script>
+<script src="js/jquery/dist/jquery.min.js"></script>
+<script src="js/materialize/dist/js/materialize.min.js"></script>
+<script src="js/ramda/dist/ramda.js"></script>
+<script src="js/angular/angular.js"></script>
+<script src="js/angular-tree-control/angular-tree-control.js"></script>
+<script src="js/angular-bootstrap/ui-bootstrap.js"></script>
+<script src="js/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="js/angular-materialize/src/angular-materialize.js"></script>
+<script src="js/angucomplete-alt/angucomplete-alt.js"></script>
+<script src="js/angular-utils-pagination/dirPagination.js"></script>
+<script src="js/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js"></script>
+<script src="js/readinglist-controller.js"></script>
+<script src="js/topic-controller.js"></script>
+<script src="js/document-controller.js"></script>
+<script src="js/login-controller.js"></script>
+<script src="js/savedlist-controller.js"></script>
+<script src="js/document-list-controller.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

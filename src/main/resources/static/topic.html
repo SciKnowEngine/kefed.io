@@ -1,0 +1,6 @@
+<div><input type="checkbox" id="checkbox-{{getId(data)}}"
+            ng-click="onselection(data);$event.stopPropagation();"
+            ng-checked="isSelected()"/>
+    <label class="topic-container" ng-class="{'highlight':isSelected()}" for="checkbox-{{getId(data)}}">{{data.topicName}}</label>
+
+</div>

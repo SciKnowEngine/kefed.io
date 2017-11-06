@@ -1,0 +1,56 @@
+<div class=""><h5 class="modal-heading">Add documents to the reading list</h5>
+    <div class="">
+        <div class="row">
+            <form ng-submit="fetchDocuments()" class="search-term-container">
+                <div class="input-field col s12 m4 offset-l3">
+                    <input id="search" type="text" ng-model="documentQuery"
+                           class="form-control center-align" autofocus>
+                </div>
+                <div class="input-group col-md-5">
+                    <button class="btn btn-lg query-container-item" type="submit">
+                        <i class="material-icons">search</i>
+                    </button>
+                </div>
+            </form>
+
+        </div>
+        <div ng-show="loading" class="preloader-wrapper small active query-container-item">
+            <div class="spinner-layer spinner-green-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="!loading">
+            <div ng-if="documents.length>0"><h6>Total: {{documents.length}}</h6>
+                <div class="row add-doc-container card">
+                    <table class="table bordered">
+                        <tr ng-repeat="document in documents">
+                            <td>
+                                <searchdocument document="document" onadd="addDocument(document)"></searchdocument>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div ng-if="documents.length==0" class="alert alert-danger ng-scope center">
+                No new documents matched
+            </div>
+        </div>
+
+        <div class=modal-footer>
+            <button class="btn btn-lg query-container-item green lighten-1" type="button" ng-click="finishAdd()">
+                Done
+            </button>
+            <button class="btn btn-lg query-container-item red lighten-1" type="button" ng-click="cancelAdd()">
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>

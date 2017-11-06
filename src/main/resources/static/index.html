@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Reading List</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="js/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="js/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="js/angular-tree-control/css/tree-control.css">
+    <link rel="stylesheet" type="text/css" href="js/angular-tree-control/css/tree-control-attribute.css">
+    <link rel="stylesheet" type="text/css" href="js/materialize/dist/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="js/angucomplete-alt/angucomplete-alt.css">
+    <link rel="stylesheet" type="text/css" href="js/vis/dist/vis.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/app.css">
+    <script src="js/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body>
+<nav>
+    <div class="nav-wrapper teal">
+        <div class="col s12"><a href="/" class="brand-logo center">ISI TechKnAcq</a>
+            <ul id="nav-mobile" class="left">
+                <li class="active"><a href="/">Reading List</a></li>
+                <li><a href="all-documents.html">Document search</a></li>
+                <li><a href="list.html">Saved List</a></li>
+                <li><a href="logout">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div ng-controller="ReadingListCtrl" class="container-fluid" ng-cloak>
+    <div class="row query-container">
+        <div id="custom-search-input">
+            <form ng-submit="fetchResult()">
+                <div class="input-field col s12 m4 offset-l3">
+                    <angucomplete-alt id="query"
+                                      pause="100"
+                                      selected-object="selectedTerm"
+                                      local-data="topicTerms"
+                                      search-fields="term"
+                                      title-field="term"
+                                      minlength="3"
+                                      match-class="highlight"
+                                      clear-selected="true"
+                                      input-class="form-control input-lg center-align"></angucomplete-alt>
+                    <label for="query">Query</label>
+                    <div>
+                        <input type="radio" ng-model="complexity" value="beginner"
+                               id="beginner">
+                        <label for="beginner">Beginner</label>
+                        <input type="radio" ng-model="complexity" value="intermediate" id="intermediate">
+                        <label for="intermediate">Intermediate</label>
+                        <input type="radio" ng-model="complexity" value="advanced" id="advanced">
+                        <label for="advanced">Advanced</label>
+                    </div>
+                    <br/>
+                    <div class="search-term-container container-fluid">
+                        <span ng-repeat="term in selectedTerms" ng-click="removeTerm(term)" class="chip search-term">
+                                {{term}}
+                                <i class="material-icons">close</i>
+                        </span>
+                    </div>
+                </div>
+                <div class="input-group col-md-5">
+                    <button class="btn btn-info btn-lg offset-l1 query-container-item" type="submit">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                </div>
+                <div ng-show="loading" class="preloader-wrapper small active query-container-item">
+                    <div class="spinner-layer spinner-green-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="center-align" ng-if="!matchedTopics.length && keyword">
+        <h4>No topics matched</h4>
+    </div>
+    <div class="row" ng-show="matchedTopics.length">
+        <div ng-show="hideGraph" class="btn white-text pull-right" ng-click="showGraph()"
+             ng-disabled="disableButtons">
+            <i>Graph</i>
+            <i class="material-icons">swap_horiz</i>
+        </div>
+        <div ng-show="hideTopics" class="btn white-text pull-left"
+             ng-click="showTopics()" ng-disabled="disableButtons">
+            <i>Topics</i>
+            <i class="material-icons">swap_horiz</i>
+        </div>
+    </div>
+    <div class="row" ng-show="matchedTopics.length">
+        <div ng-class="{'col-md-4':!hideTopics}" ng-hide="hideTopics" class="topic-pane">
+            <div class="row">
+                <h5>Topics</h5>
+                <div class="switch">
+                    <label>
+                        De-select All
+                        <input type="checkbox" ng-model="isSelectAll">
+                        <span class="lever"></span>
+                        Select All
+                    </label>
+                </div>
+                <div class="card">
+                    <a class="btn-floating pull-right hide-button" ng-click="hideTopics=true"><i
+                            class="material-icons">swap_horiz
+                    </i></a>
+
+                    <treecontrol class="tree-light"
+                                 tree-model="matchedTopics"
+                                 options="treeOptions"
+                                 expanded-nodes="expandedNodes">
+                        <topic data="node" selected="selectedTopics" onselection="topicSelected"
+                               nodecounter="countNodes"></topic>
+
+                    </treecontrol>
+                </div>
+            </div>
+
+        </div>
+        <div ng-class="hideTopics?'col-md-12':'col-md-8'">
+            <div class="card row" ng-hide="hideGraph">
+                <div class="card-content">
+                <span class="card-title">Concept Graph Excerpt <a class="btn-floating pull-right hide-button"
+                                                        ng-click="hideGraph=true"><i
+                        class="material-icons">swap_horiz
+                </i></a></span>
+                    <p id="mynetwork">
+
+                    </p>
+                    <div class="row">
+
+                        <div class="pull-left node-legend matched-topic">
+                        </div>
+                        <div>&nbsp; Matched Topic</div>
+                        <br/>
+                        <div class="pull-left node-legend dependent-topic">
+                        </div>
+                        <div>&nbsp; Dependent Topic</div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row card">
+                <div class="card-content">
+                    <h5 class="card-title">Reading List <span class="chip"> {{filteredDocuments.length}}</span></h5>
+                    <div class="row">
+                        <div class="input-field col s12 m4">
+                            <select id="documentOrder" name="documentOrder" material-select ng-model="selectedOrder">
+                                <option ng-repeat="option in documentOrderOptions" value="{{option.field}}">{{option.name}}</option>
+                            </select>
+
+                            <label>Sort documents by </label>
+                        </div>
+                        <div class="pull-right">
+                            <a ng-if="!reordering" class="yellow darken-4 btn" ng-click="toggleReordering()"><i
+                                    class="material-icons left">clear_all</i>
+                                <span>Reorder</span></a>
+                            <a ng-if="reordering" class="green lighten-1 btn" ng-click="toggleReordering()"><i
+                                    class="material-icons left">reorder</i>
+                                <span>Done</span>
+                            </a>
+                            <a ng-if="reordering" class="yellow darken-4 btn" ng-click="addDocs()"><i
+                                    class="material-icons left">add</i>
+                                <span>Add more</span></a>
+                        </div>
+                    </div>
+                    <div ng-if="filteredDocuments.length == 0" class="text-info">
+                        Try selecting some topics to display documents
+                    </div>
+
+                    <div ng-show="filteredDocuments.length">
+                        <ol class="custom-counter non-reorderable"
+                            ng-if="!reordering">
+                            <li ng-repeat="document in filteredDocuments" class="card less-shadow">
+                                <document info="document" order="selectedOrderOption"
+                                          stats="stats" moveable="false"></document>
+                            </li>
+                        </ol>
+                        <div ng-if="reordering">
+                            <ol dnd-list="moveableDocuments" class="custom-counter"
+                                dnd-drop="documentInserted(item,index)"
+                                dnd-disable-if="!reordering">
+                                <li ng-repeat="document in moveableDocuments" class="card less-shadow"
+                                    dnd-draggable="document"
+                                    dnd-effect-allowed="move">
+                                    <document info="document" order="selectedOrderOption"
+                                              stats="stats" moveable="true"
+                                              on-delete="moveableDocuments.splice($index,1)"></document>
+                                </li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="js/vis/dist/vis.js"></script>
+<script src="js/jquery/dist/jquery.min.js"></script>
+<script src="js/materialize/dist/js/materialize.min.js"></script>
+<script src="js/ramda/dist/ramda.js"></script>
+<script src="js/angular/angular.js"></script>
+<script src="js/angular-tree-control/angular-tree-control.js"></script>
+<script src="js/angular-bootstrap/ui-bootstrap.js"></script>
+<script src="js/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="js/angular-materialize/src/angular-materialize.js"></script>
+<script src="js/angucomplete-alt/angucomplete-alt.js"></script>
+<script src="js/angular-utils-pagination/dirPagination.js"></script>
+<script src="js/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js"></script>
+<script src="js/search-document-controller.js"></script>
+<script src="js/add-docs-controller.js"></script>
+<script src="js/readinglist-controller.js"></script>
+<script src="js/topic-controller.js"></script>
+<script src="js/document-controller.js"></script>
+<script src="js/login-controller.js"></script>
+<script src="js/savedlist-controller.js"></script>
+<script src="js/document-list-controller.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
