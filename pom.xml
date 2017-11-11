@@ -4,9 +4,9 @@
 
 	<artifactId>spring-boot-web-app</artifactId>
 	<packaging>war</packaging>
-	<name>Spring Boot Web App</name>
-	<description>Spring Boot Web App</description>
-	<version>1.0</version>
+	<name>kefed.io</name>
+	<description>Knoweldge Engineering from Experimental Design Editor</description>
+	<version>1.1</version>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -173,13 +173,13 @@
 				<executions>
 					<execution>
 						<id>exec-bower-install</id>
-						<phase>build</phase>
+						<phase>generate-sources</phase>
 						<configuration>
 							<executable>bower</executable>
 							<arguments>
 								<argument>install</argument>
 							</arguments>
-							<workingDirectory>${basedir}/src/main/webapp/kefed/dashboard/app</workingDirectory>
+							<workingDirectory>src/main/webapp/static/dashboard</workingDirectory>
 						</configuration>
 						<goals>
 							<goal>exec</goal>

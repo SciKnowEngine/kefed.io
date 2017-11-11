@@ -14,20 +14,20 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("dashboard/app/index");
+        registry.addViewController("/").setViewName("dashboard/index");
     }
     
     @Bean
     public SpringResourceTemplateResolver getViewResolver() {
     	SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
-        resolver.setPrefix("kefed/");
+        resolver.setPrefix("static/");
         resolver.setSuffix(".html");
         return resolver;
     }
    
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**").addResourceLocations("kefed/");
+        registry.addResourceHandler("/**").addResourceLocations("static/");
     }
 
 }

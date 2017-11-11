@@ -1,0 +1,90 @@
+<link rel="import" href="elements.html"></link>
+ <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+ <link rel="import" href="elements.html"></link>
+
+
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html"></link>
+<link rel="import" href="/bower_components/paper-dialog/paper-dialog.html"></link>
+<link rel="import" href="/bower_components/paper-button/paper-button.html"></link>
+<link rel="import" href="/bower_components/paper-material/paper-material.html"></link>
+
+<link rel="import" href="/bower_components/paper-input/paper-textarea.html"></link>
+<link rel="import" href="/bower_components/iron-collapse/iron-collapse.html"></link>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
+<link rel="import" href="/bower_components/polymer/polymer.html"></link>
+<style is="custom-style" include="shared-styles"></style>
+
+
+<dom-module id="study-templates">
+<template>
+
+	<iron-ajax id="loadEditor" method="POST" handle-as="json"></iron-ajax>
+    <iron-ajax id="getAllTemplates" url="/getAll" method="POST" handle-as="json" on-response="getTemplates" ></iron-ajax>
+    <iron-ajax id="deleteTemplate" method="POST" handle-as="json" on-response="updatePage"></iron-ajax>
+
+
+    <br>
+    <paper-button on-tap="openStudyEditor" raised="true" style="float:right;text-transform:none"> <strong>Create New</strong></paper-button>
+	<br><br><br>
+	 <template is="dom-repeat" items="{{templates}}">
+	 <paper-material style="border-radius: 25px;width:94%;margin-left:auto;margin-right:auto;height:12%">
+            <section id = "projectSection" style="width:96%;margin-left:auto;margin-right:auto;" class="main-search-results">
+               <br>
+               <div class="primary">
+               	  <span>Template : {{item}}</span>
+	              <paper-button on-tap="loadEditor" raised="true" style="float:right;text-transform:none"> <strong>Edit</strong></paper-button>
+				  <paper-button on-tap="deleteTemplate" raised="true" style="float:right;text-transform:none"> <strong>Delete</strong></paper-button>
+			   </div>
+			   <br>
+	        </section>
+	  </paper-material>
+	  <br><br>
+	  </template>
+
+</template>
+
+<script>
+(function() {
+    'use strict';
+
+	Polymer({
+    	is: 'study-templates',
+	    properties: {
+
+	    },
+	    ready:function(){
+	    	this.templates=[];
+	    	this.$.getAllTemplates.generateRequest();
+
+	    },
+	    getTemplates:function(data){
+
+	   	    if(Object.keys(data.detail.response).length != 0 ) {
+		    	 this.templates = Object.keys(data.detail.response).map(function(e) {
+		     		  return [data.detail.response[e]];
+		     		});
+
+		     	this.push('templates',this.templates.pop());
+	   	    }
+	   	 },
+	   	openStudyEditor:function(){
+	   		location.href="/load?id=0";
+	   	 },
+	   	loadEditor:function(e) {
+	   		location.href="/load?id="+e.model.item[0];
+	   	},
+	   	deleteTemplate:function(e) {
+	   		this.$.deleteTemplate.url="/delete?id="+e.model.item[0];
+	   		this.$.deleteTemplate.generateRequest();
+	   	},
+	   	updatePage:function(){
+	   		this.templates=[];
+	    	this.$.getAllTemplates.generateRequest();
+	   	}
+
+	});
+})();
+</script>
+</dom-module>
+<study-templates></study-templates>

@@ -41,12 +41,12 @@ public class RestController implements UserDetailsService {
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public String register(@RequestBody RegisterUser user, HttpServletRequest request) {
 		userService.saveNewUser(user);
-		return "dashboard/app/index";
+		return "dashboard/index";
 	}
 	
 	@RequestMapping("/kefedAdmin")
 	public String welcome(Map<String, Object> model, HttpServletRequest request) {
-		return "dashboard/app/index";
+		return "dashboard/index";
 	}
 	
 	//Old Save with JUST XML
@@ -66,11 +66,11 @@ public class RestController implements UserDetailsService {
 	public String load(@RequestParam("id")String ontologyId,HttpServletRequest request) throws Exception {
 		String xml = graphXMLService.findXMLById(ontologyId);
 		String path = request.getServletContext().getRealPath("/");
-	    File file = new File (path +"/kefed/xmlFile.xml");
+	    File file = new File (path +"/static/xmlFile.xml");
 		PrintWriter writer = new PrintWriter(file, "UTF-8");
 		writer.print(xml);
 		writer.close();
-		return "ui/grapheditor/www/index";
+		return "kefededitor/index";
 	}
 	
 	@Override
@@ -89,7 +89,7 @@ public class RestController implements UserDetailsService {
 	@PostMapping(value="/delete")
 	public String delete(@RequestParam("id")String ontologyId,HttpServletRequest request) {
 		graphXMLService.deleteTemplate(ontologyId);
-		return "dashboard/app/index";
+		return "dashboard/index";
 	}
 	
 	@RequestMapping(value="/getStudyDesign",method=RequestMethod.GET)
