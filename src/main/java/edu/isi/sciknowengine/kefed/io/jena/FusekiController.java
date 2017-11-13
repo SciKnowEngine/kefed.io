@@ -41,9 +41,8 @@ public class FusekiController {
 		server.start();
 		
 		OntModel ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-		String file = ClassLoader.class.getResource("/ontologies/obi.ttl").getFile();
+		String file = this.getClass().getClassLoader().getResource("ontologies/obi.ttl").getFile();
 		ontModel.read(file);
-
 		//		http://pinesong.ghost.io/how-to-upload-rdf-file-to-jena-fuseki-server-using-java-code/
 		String FUSEKI_SERVICE_DATASETS_URI = "http://localhost:3332/ds/data";
 		DatasetAccessor accessor = DatasetAccessorFactory.createHTTP(FUSEKI_SERVICE_DATASETS_URI);

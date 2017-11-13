@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 167 188" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <g id="branchshape1" transform="matrix(3.65933,0,0,3.65933,-332.128,-1561.76)">
+        <path d="M113.315,436.662L127.428,452.465L113.316,468.266L99.204,452.462L113.315,436.662Z" style="fill:white;fill-rule:nonzero;"/>
+        <path d="M129.439,452.465L113.316,470.518L97.193,452.462L113.315,434.41L129.439,452.465ZM101.215,452.462L113.316,466.014L125.417,452.465L113.315,438.914L101.215,452.462Z" style="fill:rgb(106,153,206);"/>
+    </g>
+    <g id="branchpath1" transform="matrix(3.65933,0,0,3.65933,-332.128,-1561.76)">
+        <path d="M136.459,452.545L113.458,477.886L90.457,452.541L113.458,427.202L136.459,452.545ZM97.209,452.541L113.458,470.446L129.707,452.545L113.458,434.642L97.209,452.541Z" style="fill:rgb(230,243,255);"/>
+    </g>
+</svg>

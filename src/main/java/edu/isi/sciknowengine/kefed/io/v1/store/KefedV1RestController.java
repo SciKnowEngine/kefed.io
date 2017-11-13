@@ -28,7 +28,6 @@ public class KefedV1RestController implements IModelStore, IDataStore {
 
 	private ElasticsearchTemplate elasticsearchTemplate;
 
-	
 	@Autowired 
 	private KefedModelRepository modelRepo;
 

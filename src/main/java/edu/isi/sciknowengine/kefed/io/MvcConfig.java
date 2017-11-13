@@ -12,22 +12,17 @@ import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 @EnableWebMvc
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("dashboard/index");
-    }
-    
     @Bean
     public SpringResourceTemplateResolver getViewResolver() {
     	SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
-        resolver.setPrefix("static/");
+        resolver.setPrefix("build/");
         resolver.setSuffix(".html");
         return resolver;
     }
    
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**").addResourceLocations("static/");
+        registry.addResourceHandler("/**").addResourceLocations("build/");
     }
 
 }

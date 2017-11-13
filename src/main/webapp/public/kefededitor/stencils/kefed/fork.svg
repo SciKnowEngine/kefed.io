@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1250 63" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <g id="forkrect1_4_" transform="matrix(4.17184,0,0,3.40269,-286.271,-1287.84)">
+        <rect x="71.354" y="383.104" width="291.146" height="8.812" style="fill:rgb(106,153,206);"/>
+        <path d="M363.869,381.426L363.869,393.594L69.985,393.594L69.985,381.426L363.869,381.426ZM72.723,384.782L72.723,390.238L361.131,390.238L361.131,384.782L72.723,384.782Z" style="fill:rgb(105,150,207);"/>
+    </g>
+    <g id="fork_path" transform="matrix(4.17184,0,0,3.40269,-286.271,-1287.84)">
+        <path d="M367.892,377.98L367.892,397.713L66.219,397.713L66.219,377.98L367.892,377.98ZM70.781,392.119L363.33,392.119L363.33,383.574L70.781,383.574L70.781,392.119Z" style="fill:rgb(230,244,255);"/>
+    </g>
+</svg>

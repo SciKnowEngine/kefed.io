@@ -28,3 +28,4 @@ nbdist/
 data
 .DS_Store
 /bin/
+.mvn

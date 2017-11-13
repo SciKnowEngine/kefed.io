@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 105 292" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;">
+    <g id="indepdrect1" transform="matrix(3.45088,0,0,3.58195,-350.817,-934.381)">
+        <rect x="104.352" y="263.371" width="25.024" height="76.299" style="fill:rgb(106,153,206);"/>
+        <path d="M130.905,341.143L102.823,341.143L102.823,261.898L130.905,261.898L130.905,341.143ZM105.881,264.844L105.881,338.197L127.847,338.197L127.847,264.844L105.881,264.844Z" style="fill:rgb(105,150,207);"/>
+    </g>
+    <g id="indepdline1" transform="matrix(3.45088,0,0,3.58195,-350.817,-934.381)">
+        <path d="M129.253,314.329L104.311,314.329" style="fill:none;stroke:white;stroke-width:1px;"/>
+    </g>
+    <g id="indepdline2" transform="matrix(3.45088,0,0,3.58195,-350.817,-934.381)">
+        <path d="M129.252,288.849L104.268,288.849" style="fill:none;stroke:white;stroke-width:1px;"/>
+    </g>
+    <g id="indepd_path" transform="matrix(3.45088,0,0,3.58195,-350.817,-934.381)">
+        <path d="M131.924,342.125L101.804,342.125L101.804,260.916L131.924,260.916L131.924,342.125ZM106.9,265.826L106.9,337.215L126.828,337.215L126.828,265.826L106.9,265.826Z" style="fill:rgb(230,242,255);"/>
+    </g>
+</svg>
