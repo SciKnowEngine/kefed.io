@@ -1,6 +1,6 @@
 package edu.isi.sciknowengine.kefed.io.controller;
 
-import com.mxgraph.examples.web.Constants;
+import edu.isi.sciknowengine.kefed.io.Constants;
 import edu.isi.sciknowengine.kefed.io.service.GraphXMLService;
 import edu.isi.sciknowengine.kefed.io.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

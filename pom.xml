@@ -159,22 +159,13 @@
 			<version>3.4.0</version>
 		</dependency>
 
-
-		<!-- REQUIRED FOR COMPATIBILITY WITH mxPDF -->
+		<!-- Makes the latest code for mxgraph available -->
 		<dependency>
-			<groupId>bouncycastle</groupId>
-			<artifactId>bcprov-jdk14</artifactId>
-			<version>138</version>
-		</dependency>
-		<dependency>
-			<groupId>bouncycastle</groupId>
-			<artifactId>bcmail-jdk14</artifactId>
-			<version>138</version>
-		</dependency>
-		<dependency>
-			<groupId>bouncycastle</groupId>
-			<artifactId>bctsp-jdk14</artifactId>
-			<version>138</version>
+			<groupId>com.mxgraph</groupId>
+			<artifactId>mxgraph-core</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/lib/mxgraph-core.jar</systemPath>
 		</dependency>
 
 	</dependencies>
