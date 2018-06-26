@@ -3,15 +3,14 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>kefed.io</artifactId>
-	<packaging>war</packaging>
 	<name>kefed.io</name>
-	<description>Knoweldge Engineering from Experimental Design Editor</description>
-	<version>1.1</version>
+	<description>Knowledge Engineering from Experimental Design Editor</description>
+	<version>1.2</version>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.4.2.RELEASE</version>
+		<version>2.0.2.RELEASE</version>
 	</parent>
 
 	<properties>
@@ -159,6 +158,12 @@
 			<version>3.4.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.jena</groupId>
+			<artifactId>jena-core</artifactId>
+			<version>3.4.0</version>
+		</dependency>
+
 		<!-- Makes the latest code for mxgraph available -->
 		<dependency>
 			<groupId>com.mxgraph</groupId>
@@ -166,6 +171,48 @@
 			<version>1.0</version>
 			<scope>system</scope>
 			<systemPath>${project.basedir}/src/main/resources/lib/mxgraph-core.jar</systemPath>
+		</dependency>
+
+		<!-- Load Digital Library Plugin -->
+		<dependency>
+			<groupId>com.mxgraph</groupId>
+			<artifactId>mxgraph-core</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/lib/mxgraph-core.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>edu.isi.bmkeg</groupId>
+			<artifactId>vpdmf-digitalLibrary</artifactId>
+			<version>1.1.5-SNAPSHOT</version>
+			<type>zip</type>
+			<classifier>mysql</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>edu.isi.bmkeg</groupId>
+			<artifactId>vpdmf-digitalLibrary-jpa</artifactId>
+			<version>1.1.5-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>edu.isi.bmkeg</groupId>
+			<artifactId>vpdmf-digitalLibrary-services</artifactId>
+			<version>1.1.5-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>edu.isi.bmkeg</groupId>
+			<artifactId>digitalLibraryDao</artifactId>
+			<version>1.1.5-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>edu.isi.bmkeg</groupId>
+			<artifactId>digitalLibraryClientApp</artifactId>
+			<version>1.1.5-SNAPSHOT</version>
+			<type>swf</type>
 		</dependency>
 
 	</dependencies>
@@ -244,7 +291,8 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
@@ -270,7 +318,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<execute/>
+										<execute />
 									</action>
 								</pluginExecution>
 								<pluginExecution>
@@ -289,7 +337,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<execute/>
+										<execute />
 									</action>
 								</pluginExecution>
 							</pluginExecutions>
@@ -299,10 +347,7 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-	<!--
-	Need this to grab com.github.eirslett/frontend-maven-plugin
-	https://www.blackpepper.co.uk/what-we-think/blog/using-create-react-app-with-spring
-	-->
+	<!-- Need this to grab com.github.eirslett/frontend-maven-plugin https://www.blackpepper.co.uk/what-we-think/blog/using-create-react-app-with-spring -->
 	<repositories>
 		<repository>
 			<id>repo1.maven2</id>
@@ -310,4 +355,5 @@
 			<url>https://repo1.maven.org/maven2/</url>
 		</repository>
 	</repositories>
+	<groupId>sciknowengine.isi.edu</groupId>
 </project>

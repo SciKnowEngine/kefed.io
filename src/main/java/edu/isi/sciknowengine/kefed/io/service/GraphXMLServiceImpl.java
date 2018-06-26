@@ -2,6 +2,7 @@ package edu.isi.sciknowengine.kefed.io.service;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,8 +32,8 @@ public class GraphXMLServiceImpl implements GraphXMLService{
 	@Override
 	@Transactional
 	public String findXMLById(String ontologyId) {
-		Study_Design graphXML = graphTemplateRepository.findOne(ontologyId);
-		if(null!=graphXML) return graphXML.getDiagramXML();
+		Optional<Study_Design> graphXML = graphTemplateRepository.findById(ontologyId);
+		if(null!=graphXML) return graphXML.get().getDiagramXML();
 		return "";
 	}
 
@@ -50,8 +51,8 @@ public class GraphXMLServiceImpl implements GraphXMLService{
 	@Override
 	@Transactional
 	public void deleteTemplate(String ontologyId) {
-		Study_Design graphXML = graphTemplateRepository.findOne(ontologyId);
-		if(null!=graphXML) graphTemplateRepository.delete(graphXML);
+		Optional<Study_Design> graphXML = graphTemplateRepository.findById(ontologyId);
+		if(null!=graphXML) graphTemplateRepository.delete(graphXML.get());
 	}
 
 	@Override
@@ -63,8 +64,8 @@ public class GraphXMLServiceImpl implements GraphXMLService{
 
 	@Override
 	public Study_Design getStudyDesign(String id) {
-		Study_Design graphXML = graphTemplateRepository.findOne(id);
-		if(null!=graphXML) return graphXML;
+		Optional<Study_Design> graphXML = graphTemplateRepository.findById(id);
+		if(null!=graphXML) return graphXML.get();
 		return null;
 	}
 	

@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	@Transactional
 	public void saveNewUser(RegisterUser user) {
-		if (!repositoryImpl.exists(user.getUsername())) {
+		if (!repositoryImpl.existsById(user.getUsername())) {
 			repositoryImpl.save(new User(user.getUsername(),user.getPassword(),Collections.emptyList()));
 		}
 		
